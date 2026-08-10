@@ -1,0 +1,704 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-08T00:00:00.000Z",
+  "title": "Design System: NeoCore for Enterprise",
+  "extensions": {
+    "colorMeta": {
+      "ground-abyss": {
+        "role": "neutral",
+        "displayName": "Abyss",
+        "canonical": "#060f0a",
+        "tonalRamp": [
+          "#050c08",
+          "#0a1811",
+          "#10281c",
+          "#173a29",
+          "#2a5f43",
+          "#4a8a68",
+          "#8cbfa4",
+          "#d5e8dd"
+        ]
+      },
+      "ground-deep": {
+        "role": "neutral",
+        "displayName": "Deep",
+        "canonical": "#0a1811",
+        "tonalRamp": [
+          "#050c08",
+          "#0a1811",
+          "#10281c",
+          "#173a29",
+          "#2a5f43",
+          "#4a8a68",
+          "#8cbfa4",
+          "#d5e8dd"
+        ]
+      },
+      "ground-panel": {
+        "role": "neutral",
+        "displayName": "Panel",
+        "canonical": "#0e2016",
+        "tonalRamp": [
+          "#050c08",
+          "#0a1811",
+          "#0e2016",
+          "#173a29",
+          "#2a5f43",
+          "#4a8a68",
+          "#8cbfa4",
+          "#d5e8dd"
+        ]
+      },
+      "ground-raised": {
+        "role": "neutral",
+        "displayName": "Raised",
+        "canonical": "#133023",
+        "tonalRamp": [
+          "#050c08",
+          "#0a1811",
+          "#10281c",
+          "#133023",
+          "#2a5f43",
+          "#4a8a68",
+          "#8cbfa4",
+          "#d5e8dd"
+        ]
+      },
+      "ground-act": {
+        "role": "neutral",
+        "displayName": "Act",
+        "canonical": "#18402d",
+        "tonalRamp": [
+          "#050c08",
+          "#0a1811",
+          "#10281c",
+          "#18402d",
+          "#2a5f43",
+          "#4a8a68",
+          "#8cbfa4",
+          "#d5e8dd"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#1e3d2c",
+        "tonalRamp": [
+          "#08170f",
+          "#0f2519",
+          "#163422",
+          "#1e3d2c",
+          "#2c5740",
+          "#43795c",
+          "#74ab8d",
+          "#c0dbcc"
+        ]
+      },
+      "line-strong": {
+        "role": "neutral",
+        "displayName": "Emphatic Hairline",
+        "canonical": "#2c5740",
+        "tonalRamp": [
+          "#08170f",
+          "#0f2519",
+          "#163422",
+          "#1e3d2c",
+          "#2c5740",
+          "#43795c",
+          "#74ab8d",
+          "#c0dbcc"
+        ]
+      },
+      "line-control": {
+        "role": "neutral",
+        "displayName": "Control Boundary",
+        "canonical": "#5c8a6d",
+        "tonalRamp": [
+          "#0c150f",
+          "#182619",
+          "#26402c",
+          "#375a40",
+          "#4a7357",
+          "#5c8a6d",
+          "#8fb69c",
+          "#cfe2d5"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Green-Cast White",
+        "canonical": "#f2f8f0",
+        "tonalRamp": [
+          "#0d130c",
+          "#1d271b",
+          "#33422f",
+          "#4d6047",
+          "#6f8368",
+          "#96a892",
+          "#c6d4c2",
+          "#f2f8f0"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Muted Sage Ink",
+        "canonical": "#a9c6b0",
+        "tonalRamp": [
+          "#0d1710",
+          "#1a2a1e",
+          "#2b4232",
+          "#405c48",
+          "#5c7a63",
+          "#7ea184",
+          "#a9c6b0",
+          "#dbeade"
+        ]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Metadata Sage",
+        "canonical": "#7fa38b",
+        "tonalRamp": [
+          "#0b140e",
+          "#17251b",
+          "#263c2c",
+          "#385441",
+          "#4f7059",
+          "#668a72",
+          "#7fa38b",
+          "#c4d9cb"
+        ]
+      },
+      "green": {
+        "role": "primary",
+        "displayName": "Signal Green",
+        "canonical": "#3fe07c",
+        "tonalRamp": [
+          "#04240f",
+          "#06421c",
+          "#0a6329",
+          "#0e8438",
+          "#1fa64f",
+          "#2fc767",
+          "#3fe07c",
+          "#b9f5d0"
+        ]
+      },
+      "green-soft": {
+        "role": "primary",
+        "displayName": "Touched Green",
+        "canonical": "#8ff0b4",
+        "tonalRamp": [
+          "#0a2a18",
+          "#0f4728",
+          "#16663a",
+          "#1e874d",
+          "#35a869",
+          "#5ec98c",
+          "#8ff0b4",
+          "#d9fbe8"
+        ]
+      },
+      "green-dim": {
+        "role": "primary",
+        "displayName": "Measured Green",
+        "canonical": "#2a9d58",
+        "tonalRamp": [
+          "#031d0f",
+          "#06361b",
+          "#095228",
+          "#0d6f36",
+          "#1a8845",
+          "#2a9d58",
+          "#63c489",
+          "#c2ecd3"
+        ]
+      },
+      "green-ink": {
+        "role": "primary",
+        "displayName": "Green Ink",
+        "canonical": "#05130b",
+        "tonalRamp": [
+          "#020806",
+          "#05130b",
+          "#0a2114",
+          "#10321f",
+          "#1c4a2f",
+          "#2d6a45",
+          "#5b9b74",
+          "#b3d8c3"
+        ]
+      },
+      "green-glow": {
+        "role": "primary",
+        "displayName": "Signal Glow",
+        "canonical": "rgba(63, 224, 124, 0.16)",
+        "tonalRamp": []
+      },
+      "signal-warn": {
+        "role": "secondary",
+        "displayName": "Signal Amber",
+        "canonical": "#e8ba5b",
+        "tonalRamp": [
+          "#241804",
+          "#3f2b09",
+          "#5c400f",
+          "#7d5817",
+          "#a3751f",
+          "#c8952e",
+          "#e8ba5b",
+          "#f7e2b4"
+        ]
+      },
+      "signal-alert": {
+        "role": "secondary",
+        "displayName": "Signal Coral",
+        "canonical": "#e76f5f",
+        "tonalRamp": [
+          "#2b0d08",
+          "#47170f",
+          "#652217",
+          "#85301f",
+          "#a5432e",
+          "#c55643",
+          "#e76f5f",
+          "#f8cdc4"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display XL",
+        "purpose": "The page's single largest voice. Hero H1 only; capped to clamp(2.5rem, 4vw, 3.25rem) at 24ch in the built hero so the long mandated headline stays above the fold."
+      },
+      "headline": {
+        "displayName": "Fold Heading",
+        "purpose": "Section headings. Deliberately capped below the hero so one focal scale sits at the top of the page."
+      },
+      "title": {
+        "displayName": "Sub-heading",
+        "purpose": "Headings inside a fold, the lead dialog title, the sample-analysis heading."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "The single paragraph under a fold heading. Ink-2, max 58ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Default prose. Measures cap between 46ch and 68ch by column."
+      },
+      "label": {
+        "displayName": "Mono Label",
+        "purpose": "System labels, section markers, chip text, legends, axis ticks, footer links. Never prose."
+      },
+      "value": {
+        "displayName": "Mono Value",
+        "purpose": "Every measured number, timestamp, score, step index, and ID. Tabular figures."
+      },
+      "hero": {
+        "fontFamily": "Schibsted Grotesk Variable, Schibsted Grotesk, system-ui, sans-serif",
+        "fontSize": "clamp(2.5rem, 4vw, 3.25rem)",
+        "fontWeight": 680,
+        "lineHeight": 1.02,
+        "letterSpacing": "-0.028em"
+      },
+      "hero-compact": {
+        "fontFamily": "Schibsted Grotesk Variable, Schibsted Grotesk, system-ui, sans-serif",
+        "fontSize": "clamp(2rem, 8.2vw, 2.5rem)",
+        "fontWeight": 680,
+        "lineHeight": 1.05
+      },
+      "panel-title": {
+        "fontFamily": "Schibsted Grotesk Variable, Schibsted Grotesk, system-ui, sans-serif",
+        "fontSize": "clamp(1.625rem, 2.4vw, 2.125rem)",
+        "fontWeight": 640,
+        "letterSpacing": "-0.018em"
+      },
+      "cta-promise": {
+        "fontFamily": "Schibsted Grotesk Variable, Schibsted Grotesk, system-ui, sans-serif",
+        "fontSize": "clamp(1.5rem, 2.9vw, 2.375rem)",
+        "fontWeight": 660,
+        "letterSpacing": "-0.025em"
+      },
+      "step-name": {
+        "fontFamily": "Schibsted Grotesk Variable, Schibsted Grotesk, system-ui, sans-serif",
+        "fontSize": "clamp(1.125rem, 1.3vw, 1.25rem)",
+        "fontWeight": 620,
+        "letterSpacing": "-0.015em"
+      },
+      "question": {
+        "fontFamily": "Schibsted Grotesk Variable, Schibsted Grotesk, system-ui, sans-serif",
+        "fontSize": "clamp(1.0625rem, 1.15vw, 1.1875rem)",
+        "fontWeight": 600
+      },
+      "node-name": {
+        "fontFamily": "Schibsted Grotesk Variable, Schibsted Grotesk, system-ui, sans-serif",
+        "fontSize": "1.125rem",
+        "fontWeight": 620,
+        "letterSpacing": "-0.015em"
+      },
+      "ui": {
+        "fontFamily": "Schibsted Grotesk Variable, Schibsted Grotesk, system-ui, sans-serif",
+        "fontSize": "1rem",
+        "fontWeight": 560
+      },
+      "support": {
+        "fontFamily": "Schibsted Grotesk Variable, Schibsted Grotesk, system-ui, sans-serif",
+        "fontSize": "0.9375rem",
+        "fontWeight": 560,
+        "lineHeight": 1.35
+      },
+      "caption": {
+        "fontFamily": "Schibsted Grotesk Variable, Schibsted Grotesk, system-ui, sans-serif",
+        "fontSize": "0.875rem",
+        "fontWeight": 520,
+        "lineHeight": 1.5
+      },
+      "micro-label": {
+        "fontFamily": "Spline Sans Mono Variable, Spline Sans Mono, ui-monospace, monospace",
+        "fontSize": "0.6875rem",
+        "fontWeight": 500,
+        "letterSpacing": "0.06em"
+      },
+      "micro": {
+        "fontFamily": "Spline Sans Mono Variable, Spline Sans Mono, ui-monospace, monospace",
+        "fontSize": "0.625rem",
+        "fontWeight": 500,
+        "letterSpacing": "0.06em"
+      },
+      "bridge": {
+        "fontFamily": "Schibsted Grotesk Variable, Schibsted Grotesk, system-ui, sans-serif",
+        "fontSize": "clamp(2.05rem, 3.7vw, 3.1rem)",
+        "fontWeight": 600,
+        "lineHeight": 1.04,
+        "letterSpacing": "-0.028em"
+      }
+    },
+    "shadows": [
+      {
+        "name": "panel",
+        "value": "0 12px 32px -12px rgba(2, 8, 5, 0.55)",
+        "purpose": "Default seat for every .panel. Cast in the world's own near-black."
+      },
+      {
+        "name": "raised",
+        "value": "0 24px 60px -20px rgba(2, 8, 5, 0.7)",
+        "purpose": "Reserved for the page's dominant objects: hero dashboard, intelligence layer, lead cards, dialog, terminal CTA field."
+      },
+      {
+        "name": "action-lift",
+        "value": "0 8px 24px -10px rgba(63, 224, 124, 0.45)",
+        "purpose": "The primary button only. The one place the accent is allowed to emit light."
+      },
+      {
+        "name": "focus-halo",
+        "value": "0 0 0 3px rgba(63, 224, 124, 0.16)",
+        "purpose": "Input and select focus, and the live-status dot's ring."
+      },
+      {
+        "name": "conduit-cutout",
+        "value": "0 0 0 7px #0a1811",
+        "purpose": "Solid ground-coloured ring that punches a gap in a hairline conduit where it meets a node. Depth as negative space."
+      },
+      {
+        "name": "scrim",
+        "value": "rgba(2, 8, 5, 0.74)",
+        "purpose": "Dialog backdrop fill (background, not box-shadow)."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The system's default easing for entrances, transforms, and disclosure."
+      },
+      {
+        "name": "ease-signal",
+        "value": "cubic-bezier(0.4, 0, 0.25, 1)",
+        "purpose": "Only the Fold 3 signal traversal \u2014 a mechanical in-out for the travelling dot and the rail it lights."
+      },
+      {
+        "name": "reveal",
+        "value": "opacity 0.7s ease-out, transform 0.7s ease-out from translateY(16px)",
+        "purpose": "The one entrance grammar. Applied to a fold head via .reveal, flipped by a shared IntersectionObserver at 12% visibility. One per fold."
+      },
+      {
+        "name": "reveal-delay",
+        "value": "var(--reveal-delay, 0s)",
+        "purpose": "Optional per-element offset within the reveal grammar. Not for staggering grids."
+      },
+      {
+        "name": "signal-stagger",
+        "value": "calc(var(--i) * 0.5s + 0.2s)",
+        "purpose": "Sequence offset for the five rail segments of the single authored moment. Runs once, on scroll into view."
+      },
+      {
+        "name": "feed-travel",
+        "value": "4.2s linear 2",
+        "purpose": "The hero capture line's signal: exactly two passes, then it settles to a plain hairline. Nothing loops."
+      },
+      {
+        "name": "disclosure",
+        "value": "0.34s ease-out",
+        "purpose": "Accordion grid-template-rows 0fr to 1fr and the plus-to-minus icon rotation."
+      },
+      {
+        "name": "dialog-rise",
+        "value": "0.24s ease-out from translateY(10px)",
+        "purpose": "Lead dialog entrance."
+      },
+      {
+        "name": "nav-drop",
+        "value": "0.18s ease-out from translateY(-6px)",
+        "purpose": "Mobile nav drawer entrance."
+      },
+      {
+        "name": "state",
+        "value": "0.15s ease (0.18s on tiles and icons, 0.2s on shadow and underline wipe)",
+        "purpose": "Hover, focus, and press transitions on colour, border, and transform."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce nulls every animation and transition above",
+        "purpose": "The page carries full meaning with all motion disabled; content is visible by default and only a JS-enabled, motion-allowed client gets an entrance."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "xxs",
+        "value": "420px"
+      },
+      {
+        "name": "xs",
+        "value": "460px"
+      },
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "720px"
+      },
+      {
+        "name": "lg",
+        "value": "900px"
+      },
+      {
+        "name": "xl",
+        "value": "1000px"
+      },
+      {
+        "name": "xxl",
+        "value": "1240px"
+      }
+    ],
+    "light": {
+      "rule": "one light source per fold, anchored to the fold's dominant object",
+      "primitives": {
+        "bloom": "radial green field behind a key object; --bloom-w/h/x/y/alpha/spread; z-index -1 + isolation:isolate on container; sections clip horizontal spill",
+        "fold-light": "faint directional ground wash; --light-* props; never combined prominently with bloom",
+        "catch-light": "panel--raised: 1px top inset highlight + green-soft top tint",
+        "recessed-well": "instrument readings in ground-abyss/ground-deep wells with inset shadows"
+      },
+      "assignments": {
+        "hero": "dashboard bloom",
+        "engagement": "outcome band lit ticks (raised, no bloom)",
+        "how-it-works": "intelligence-layer bloom toward Act band",
+        "outcomes": "sample-module bloom on core panel",
+        "security": "governed-node glow",
+        "pilot": "CTA-field bloom",
+        "faq": "unlit by design"
+      }
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The page's one dominant action. Signal green on green-ink, carrying the only accent glow in the system.",
+      "html": "<button class=\"ds-btn-primary\">Talk to our enterprise team</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--green, #3fe07c); color: var(--green-ink, #05130b); border: 1px solid transparent; border-radius: var(--r-s, 6px); padding: 14px 24px; font-family: var(--font-display, 'Schibsted Grotesk Variable', system-ui, sans-serif); font-size: 1rem; font-weight: 600; letter-spacing: -0.01em; cursor: pointer; box-shadow: 0 8px 24px -10px rgba(63, 224, 124, 0.45); transition: transform 0.15s cubic-bezier(0.16,1,0.3,1), background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.2s ease; } .ds-btn-primary:hover { background: var(--green-soft, #8ff0b4); } .ds-btn-primary:active { transform: translateY(1px); } .ds-btn-primary:focus-visible { outline: 2px solid var(--green, #3fe07c); outline-offset: 2px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "The single secondary action. Transparent with an emphatic hairline; hover pulls the border and label toward the accent.",
+      "html": "<button class=\"ds-btn-outline\">See a tailored demo</button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: transparent; color: var(--ink, #f2f8f0); border: 1px solid var(--line-strong, #2c5740); border-radius: var(--r-s, 6px); padding: 14px 24px; font-family: var(--font-display, 'Schibsted Grotesk Variable', system-ui, sans-serif); font-size: 1rem; font-weight: 600; letter-spacing: -0.01em; cursor: pointer; transition: transform 0.15s cubic-bezier(0.16,1,0.3,1), border-color 0.15s ease, color 0.15s ease; } .ds-btn-outline:hover { border-color: var(--green, #3fe07c); color: var(--green-soft, #8ff0b4); } .ds-btn-outline:active { transform: translateY(1px); } .ds-btn-outline:focus-visible { outline: 2px solid var(--green, #3fe07c); outline-offset: 2px; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Form control on the darkest ground. Its border uses the dedicated control token so non-text contrast holds (WCAG 1.4.11); focus adds the accent halo.",
+      "html": "<div class=\"ds-field\"><label class=\"ds-field__label\" for=\"ds-email\">Official work email<span class=\"ds-field__optional\">Optional</span></label><input class=\"ds-field__input\" id=\"ds-email\" type=\"email\" placeholder=\"name@company.com\"><p class=\"ds-field__help\">Please use your organization email.</p></div>",
+      "css": ".ds-field { display: grid; gap: 6px; max-width: 360px; } .ds-field__label { display: flex; align-items: center; gap: 10px; font-family: var(--font-display, 'Schibsted Grotesk Variable', system-ui, sans-serif); font-size: 0.875rem; font-weight: 560; color: var(--ink, #f2f8f0); } .ds-field__optional { font-family: var(--font-mono, 'Spline Sans Mono Variable', ui-monospace, monospace); font-size: 0.625rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3, #7fa38b); border: 1px solid var(--line, #1e3d2c); border-radius: 999px; padding: 2px 7px; } .ds-field__input { width: 100%; background: var(--g-950, #060f0a); border: 1px solid var(--line-control, #5c8a6d); border-radius: var(--r-s, 6px); color: var(--ink, #f2f8f0); font-family: inherit; font-size: 0.9375rem; padding: 11px 13px; transition: border-color 0.15s ease, box-shadow 0.15s ease; } .ds-field__input::placeholder { color: var(--ink-3, #7fa38b); } .ds-field__input:focus { outline: none; border-color: var(--green, #3fe07c); box-shadow: 0 0 0 3px rgba(63, 224, 124, 0.16); } .ds-field__input:focus-visible { outline: 2px solid var(--green, #3fe07c); outline-offset: 2px; } .ds-field__input[aria-invalid='true'] { border-color: var(--signal-alert, #e76f5f); } .ds-field__help { margin: 0; font-family: var(--font-display, 'Schibsted Grotesk Variable', system-ui, sans-serif); font-size: 0.8125rem; line-height: 1.45; color: var(--ink-3, #7fa38b); }"
+    },
+    {
+      "name": "Nav Link",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Sticky-header section link. Rest in muted sage; hover lifts to full ink and wipes a hairline underline in from the left.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-link\" href=\"#\">How it works</a><a class=\"ds-nav-link\" href=\"#\">Outcomes</a><a class=\"ds-nav-link\" href=\"#\">Security</a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 32px; background: var(--g-950, #060f0a); border-bottom: 1px solid var(--line, #1e3d2c); padding: 20px 24px; } .ds-nav-link { position: relative; display: inline-block; padding-block: 6px; color: var(--ink-2, #a9c6b0); text-decoration: none; font-family: var(--font-display, 'Schibsted Grotesk Variable', system-ui, sans-serif); font-size: 0.9375rem; font-weight: 520; letter-spacing: -0.005em; transition: color 0.15s ease; } .ds-nav-link::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--ink-3, #7fa38b); transform: scaleX(0); transform-origin: left; transition: transform 0.2s cubic-bezier(0.16,1,0.3,1); } .ds-nav-link:hover, .ds-nav-link:focus-visible { color: var(--ink, #f2f8f0); } .ds-nav-link:hover::after { transform: scaleX(1); } .ds-nav-link:focus-visible { outline: 2px solid var(--green, #3fe07c); outline-offset: 2px; border-radius: 2px; }"
+    },
+    {
+      "name": "Illustrative Tag",
+      "kind": "chip",
+      "refersTo": "illustrative-tag",
+      "description": "The mandated label on any representative product UI. A pill in mono on the darkest ground \u2014 a labelling device, never decoration.",
+      "html": "<span class=\"ds-tag\">Illustrative view</span>",
+      "css": ".ds-tag { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono, 'Spline Sans Mono Variable', ui-monospace, monospace); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2, #a9c6b0); background: var(--g-950, #060f0a); border: 1px solid var(--line, #1e3d2c); border-radius: 999px; padding: 4px 10px; }"
+    },
+    {
+      "name": "Data Chip",
+      "kind": "chip",
+      "refersTo": "data-chip",
+      "description": "Square-cornered readout chip: a label and a mono count divided by a hairline. Used for filters, themes, and masked-value fragments.",
+      "html": "<span class=\"ds-chip\"><span class=\"ds-chip__label\">Competitor margin pressure</span><span class=\"ds-chip__count\">218</span></span>",
+      "css": ".ds-chip { display: inline-flex; align-items: center; gap: 9px; padding: 6px 10px; border: 1px solid var(--line, #1e3d2c); border-radius: var(--r-s, 6px); background: var(--g-850, #0e2016); } .ds-chip__label { font-family: var(--font-display, 'Schibsted Grotesk Variable', system-ui, sans-serif); font-size: 0.75rem; color: var(--ink-2, #a9c6b0); } .ds-chip__count { font-family: var(--font-mono, 'Spline Sans Mono Variable', ui-monospace, monospace); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; font-size: 0.75rem; color: var(--ink, #f2f8f0); padding-left: 9px; border-left: 1px solid var(--line, #1e3d2c); }"
+    },
+    {
+      "name": "Raised Panel",
+      "kind": "card",
+      "refersTo": "panel-raised",
+      "description": "The dominant surface: a raised evergreen fill with an emphatic hairline, a mono chrome bar, and interior rows divided by lines rather than gaps.",
+      "html": "<div class=\"ds-panel\"><div class=\"ds-panel__bar\"><span class=\"ds-panel__title\">NeoCore intelligence layer</span><span class=\"ds-panel__live\"><i></i>Live</span></div><div class=\"ds-panel__block\"><p class=\"ds-panel__h\">Pitch adherence by region</p><p class=\"ds-panel__meta\">4,182 conversations &middot; target 80%</p></div><div class=\"ds-panel__block\"><p class=\"ds-panel__h\">Coaching priorities</p><p class=\"ds-panel__meta\">This week</p></div></div>",
+      "css": ".ds-panel { background: var(--g-800, #133023); border: 1px solid var(--line-strong, #2c5740); border-radius: var(--r-m, 10px); box-shadow: 0 24px 60px -20px rgba(2, 8, 5, 0.7); overflow: hidden; max-width: 420px; } .ds-panel__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 16px; background: var(--g-850, #0e2016); border-bottom: 1px solid var(--line-strong, #2c5740); } .ds-panel__title { font-family: var(--font-mono, 'Spline Sans Mono Variable', ui-monospace, monospace); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2, #a9c6b0); } .ds-panel__live { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono, 'Spline Sans Mono Variable', ui-monospace, monospace); font-size: 0.625rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-2, #a9c6b0); } .ds-panel__live i { width: 6px; height: 6px; border-radius: 50%; background: var(--green, #3fe07c); box-shadow: 0 0 0 3px rgba(63, 224, 124, 0.16); } .ds-panel__block { padding: 16px; } .ds-panel__block + .ds-panel__block { border-top: 1px solid var(--line, #1e3d2c); } .ds-panel__h { margin: 0; font-family: var(--font-display, 'Schibsted Grotesk Variable', system-ui, sans-serif); font-size: 0.8125rem; font-weight: 600; letter-spacing: -0.005em; color: var(--ink, #f2f8f0); } .ds-panel__meta { margin: 4px 0 0; font-family: var(--font-mono, 'Spline Sans Mono Variable', ui-monospace, monospace); font-variant-numeric: tabular-nums; font-size: 0.6875rem; color: var(--ink-3, #7fa38b); }"
+    },
+    {
+      "name": "Instrument Fragment",
+      "kind": "custom",
+      "refersTo": "fragment",
+      "description": "The signature component. A recessed representative-UI block standing in for a product screenshot: mono head rule, bar rows with tracks and measured values, a flagged row in signal amber, and its mandated illustrative tag.",
+      "html": "<div class=\"ds-frag\"><div class=\"ds-frag__head\"><span class=\"ds-frag__title\">Custom fields &middot; North region</span><span class=\"ds-frag__metric\">76% avg</span></div><ul class=\"ds-frag__rows\"><li class=\"ds-frag__row\"><span class=\"ds-frag__name\">Opening value proposition</span><span class=\"ds-frag__bar\"><span style=\"width:94%\"></span></span><span class=\"ds-frag__val\">94%</span></li><li class=\"ds-frag__row\"><span class=\"ds-frag__name\">Competitor handling</span><span class=\"ds-frag__bar\"><span style=\"width:71%\"></span></span><span class=\"ds-frag__val\">71%</span></li><li class=\"ds-frag__row ds-frag__row--flag\"><span class=\"ds-frag__name\">Current retailer scheme</span><span class=\"ds-frag__bar\"><span style=\"width:46%\"></span></span><span class=\"ds-frag__val\">46%</span></li></ul><div class=\"ds-frag__foot\"><span class=\"ds-tag\">Illustrative view</span></div></div>",
+      "css": ".ds-frag { background: var(--g-900, #0a1811); border: 1px solid var(--line, #1e3d2c); border-radius: var(--r-s, 6px); padding: 12px; max-width: 420px; } .ds-frag__head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding-bottom: 9px; border-bottom: 1px solid var(--line, #1e3d2c); } .ds-frag__title { font-family: var(--font-mono, 'Spline Sans Mono Variable', ui-monospace, monospace); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2, #a9c6b0); } .ds-frag__metric { font-family: var(--font-mono, 'Spline Sans Mono Variable', ui-monospace, monospace); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; font-size: 0.8125rem; color: var(--ink-2, #a9c6b0); } .ds-frag__rows { list-style: none; margin: 0; padding: 0; } .ds-frag__row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(56px, 110px) 42px; align-items: center; gap: 12px; padding-block: 9px; border-top: 1px solid var(--line, #1e3d2c); } .ds-frag__row:first-child { border-top: 0; } .ds-frag__name { font-family: var(--font-display, 'Schibsted Grotesk Variable', system-ui, sans-serif); font-size: 0.875rem; color: var(--ink-2, #a9c6b0); } .ds-frag__bar { display: block; height: 4px; border-radius: 999px; background: var(--g-950, #060f0a); border: 1px solid var(--line, #1e3d2c); overflow: hidden; } .ds-frag__bar > span { display: block; height: 100%; background: var(--green-dim, #2a9d58); } .ds-frag__val { font-family: var(--font-mono, 'Spline Sans Mono Variable', ui-monospace, monospace); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; font-size: 0.8125rem; color: var(--ink-2, #a9c6b0); text-align: right; } .ds-frag__row--flag .ds-frag__name { color: var(--ink, #f2f8f0); } .ds-frag__row--flag .ds-frag__bar > span { background: var(--signal-warn, #e8ba5b); } .ds-frag__row--flag .ds-frag__val { color: var(--signal-warn, #e8ba5b); } .ds-frag__foot { padding-top: 10px; margin-top: 2px; border-top: 1px solid var(--line, #1e3d2c); } .ds-frag__foot .ds-tag { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono, 'Spline Sans Mono Variable', ui-monospace, monospace); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2, #a9c6b0); background: var(--g-950, #060f0a); border: 1px solid var(--line, #1e3d2c); border-radius: 999px; padding: 4px 10px; }"
+    },
+    {
+      "name": "Accordion Row",
+      "kind": "custom",
+      "refersTo": "panel",
+      "description": "Hairline disclosure rows with no container. An authored plus rotates into a minus and tints to the accent when open; the panel opens via a 0fr-to-1fr grid row.",
+      "html": "<div class=\"ds-acc\"><div class=\"ds-acc__item\" data-open=\"true\"><button class=\"ds-acc__q\" type=\"button\" aria-expanded=\"true\"><span>What is the difference between Neo One and NeoCore?</span><span class=\"ds-acc__icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 20 20\" width=\"20\" height=\"20\" fill=\"none\"><path d=\"M3.25 10h13.5\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><path class=\"ds-acc__bar\" d=\"M10 3.25v13.5\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/></svg></span></button><div class=\"ds-acc__panel\"><div class=\"ds-acc__inner\"><p class=\"ds-acc__a\">Neo One captures frontline conversations. NeoCore processes, structures and aggregates those conversations into management intelligence.</p></div></div></div><div class=\"ds-acc__item\" data-open=\"false\"><button class=\"ds-acc__q\" type=\"button\" aria-expanded=\"false\"><span>Can we define our own adherence criteria?</span><span class=\"ds-acc__icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 20 20\" width=\"20\" height=\"20\" fill=\"none\"><path d=\"M3.25 10h13.5\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><path class=\"ds-acc__bar\" d=\"M10 3.25v13.5\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/></svg></span></button><div class=\"ds-acc__panel\"><div class=\"ds-acc__inner\"><p class=\"ds-acc__a\">Yes. Teams configure the pitch points, questions, processes and follow-ups that matter.</p></div></div></div></div>",
+      "css": ".ds-acc { border-block-start: 1px solid var(--line, #1e3d2c); max-width: 560px; } .ds-acc__item { border-block-end: 1px solid var(--line, #1e3d2c); } .ds-acc__q { display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 24px; width: 100%; padding: 20px 0; margin: 0; background: none; border: 0; text-align: left; cursor: pointer; color: var(--ink, #f2f8f0); font-family: var(--font-display, 'Schibsted Grotesk Variable', system-ui, sans-serif); font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.012em; line-height: 1.35; } .ds-acc__q:focus-visible { outline: 2px solid var(--green, #3fe07c); outline-offset: -3px; border-radius: var(--r-s, 6px); } .ds-acc__icon { display: block; color: var(--ink-3, #7fa38b); margin-block-start: 2px; transition: color 0.18s ease; } .ds-acc__q:hover .ds-acc__icon { color: var(--ink, #f2f8f0); } .ds-acc__bar { transform-origin: 50% 50%; transition: transform 0.34s cubic-bezier(0.16,1,0.3,1); } .ds-acc__item[data-open='true'] .ds-acc__icon { color: var(--green, #3fe07c); } .ds-acc__item[data-open='true'] .ds-acc__bar { transform: rotate(90deg); } .ds-acc__panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.34s cubic-bezier(0.16,1,0.3,1); } .ds-acc__inner { overflow: hidden; visibility: hidden; transition: visibility 0s linear 0.34s; } .ds-acc__item[data-open='true'] .ds-acc__panel { grid-template-rows: 1fr; } .ds-acc__item[data-open='true'] .ds-acc__inner { visibility: visible; transition-delay: 0s; } .ds-acc__a { margin: 0; color: var(--ink-2, #a9c6b0); font-family: var(--font-display, 'Schibsted Grotesk Variable', system-ui, sans-serif); font-size: 1rem; line-height: 1.62; padding-block-end: 24px; }"
+    },
+    {
+      "name": "Terminal CTA Field",
+      "kind": "custom",
+      "refersTo": "button-inverted",
+      "description": "The page's one green field. The accent owns the whole surface, so the button inverts to near-black and the focus ring inverts with it.",
+      "html": "<div class=\"ds-cta\"><p class=\"ds-cta__line\">We will scope the team, workflows, languages, integrations and success measures with you.</p><button class=\"ds-cta__btn\">Talk to our enterprise team</button></div>",
+      "css": ".ds-cta { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 40px; background: var(--green, #3fe07c); border: 1px solid var(--green-dim, #2a9d58); border-radius: var(--r-m, 10px); box-shadow: 0 24px 60px -20px rgba(2, 8, 5, 0.7); padding: 44px 48px; } .ds-cta__line { margin: 0; font-family: var(--font-display, 'Schibsted Grotesk Variable', system-ui, sans-serif); font-size: 1.75rem; line-height: 1.18; letter-spacing: -0.02em; font-weight: 640; color: var(--green-ink, #05130b); max-width: 28ch; text-wrap: balance; } .ds-cta__btn { display: inline-flex; align-items: center; justify-content: center; background: var(--green-ink, #05130b); color: var(--ink, #f2f8f0); border: 1px solid var(--green-ink, #05130b); border-radius: var(--r-s, 6px); padding: 18px 32px; font-family: inherit; font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.01em; cursor: pointer; white-space: nowrap; box-shadow: 0 12px 32px -12px rgba(2, 8, 5, 0.55); transition: transform 0.15s cubic-bezier(0.16,1,0.3,1), background-color 0.15s ease, border-color 0.15s ease; } .ds-cta__btn:hover { background: var(--g-800, #133023); border-color: var(--g-800, #133023); } .ds-cta__btn:active { transform: translateY(1px); } .ds-cta__btn:focus-visible { outline: 2px solid var(--green-ink, #05130b); outline-offset: 3px; } @media (max-width: 640px) { .ds-cta { grid-template-columns: 1fr; padding: 32px 26px; } .ds-cta__btn { width: 100%; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Instrument Panel in the Dark Room",
+    "overview": "This is a management console rendered as a marketing page. The whole surface sits in layered evergreen darkness, and every structure on it \u2014 folds, panels, tables, flows, accordions \u2014 is drawn with 1px hairlines rather than boxes, borders-as-decoration, or floating cards. The reading experience is that of standing in front of a working instrument: readings are precise, labels are small and mono, the grounds recede, and exactly one colour is allowed to mean something.\n\nThe system's central discipline is restraint of its own accent. Bright green (#3fe07c) is not the brand's atmosphere; it is the brand's signal. It appears where a person can act (primary buttons, focus rings, links), where data is live or currently measured, and where a status is being asserted (pilot-outlined tiles, the governed stage of the security pipeline). Everywhere else the page is white-green ink on evergreen, and the accent's rarity is what makes any single green mark read as information rather than styling. The one place the accent owns an entire surface is the final CTA field, and there it inverts: the button flips to near-black so the commitment still reads as a control.\n\nDensity is enterprise-high but never crowded. Sections carry generous vertical air (a 72\u2013140px fold rhythm) around interiors that are tight and tabular. Depth comes from a five-step ground ramp plus large, soft, near-black shadows in the world's own colour \u2014 no glass, no blur, no light-mode elevation borrowed into a dark page. Motion is deliberately scarce: one entrance per fold and one authored moment on the whole page.",
+    "keyCharacteristics": [
+      "Layered evergreen grounds (five steps, #060f0a \u2192 #18402d), never neutral grey",
+      "Hairline structure: one panel divided by 1px lines, not many separate cards",
+      "Bright green strictly reserved for action, live data, and status",
+      "Schibsted Grotesk at intermediate variable weights (520\u2013680); Spline Sans Mono only on measured values",
+      "Small radii (6/10/16px) \u2014 enterprise precision, not soft consumer roundness",
+      "Instrument fragments (bars, meters, roll-ups, transcripts) instead of feature-icon cards",
+      "One entrance per fold; one authored motion moment on the page"
+    ],
+    "rules": [
+      {
+        "name": "The Signal Rule",
+        "body": "{colors.green} is reserved for action, live data, and status. If a green mark on screen cannot be clicked, is not the currently-live measurement, and is not asserting a status, it is wrong. Audit test: cover the page and count the green marks \u2014 every one of them should be nameable as \"a thing to do\" or \"a thing being measured right now.\"",
+        "section": "colors"
+      },
+      {
+        "name": "The One Green Field Rule",
+        "body": "Exactly one surface on a page may be filled with {colors.green}: the terminal call to action. Inside it the primary button inverts to {colors.green-ink} and the focus ring inverts with it. A second green field cancels the first.",
+        "section": "colors"
+      },
+      {
+        "name": "The Reading-Not-Emphasis Rule",
+        "body": "Amber and coral are data and validation semantics. They never highlight a heading, never brighten a card, and never appear outside an instrument fragment or a form.",
+        "section": "colors"
+      },
+      {
+        "name": "The Measured-Values Rule",
+        "body": "Mono is for measured values, axes, chips, IDs, and system labels. It never sets prose, never sets a headline, and never appears as a stylistic flourish. Audit test: read every mono string aloud \u2014 each one should be a number, a code, or a label naming a machine-side thing. Corollary: security proof points and other buyer-facing evidence set in the display face at a readable size (0.9375rem), not shrunk into mono chrome.",
+        "section": "typography"
+      },
+      {
+        "name": "The In-Between Weight Rule",
+        "body": "Weights land on the variable font's intermediate steps \u2014 520, 540, 560, 600, 620, 640, 660, 680 \u2014 never the 400/700 defaults. Headings are 640 with -0.02em tracking and text-wrap: balance; paragraphs get text-wrap: pretty.",
+        "section": "typography"
+      },
+      {
+        "name": "The Stepped-Focal Rule",
+        "body": "Section headings must remain visibly smaller than the page's H1. If a new surface needs a bigger heading, it needs a different page.",
+        "section": "typography"
+      },
+      {
+        "name": "The Hairline Structure Rule",
+        "body": "Structure comes from 1px lines inside a shared surface, not from gaps between separate surfaces. When two things need separating, add a {colors.line} divider before you consider adding a second panel.",
+        "section": "layout"
+      },
+      {
+        "name": "The Own-Dark Shadow Rule",
+        "body": "Shadows are cast in the page's own near-black at low opacity with negative spread. Never a black shadow tuned for a light UI, never a coloured glow used as ambience, and never a shadow on a hairline-divided interior row.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Small-Radius Rule",
+        "body": "Nothing exceeds 16px. If a surface looks soft, it is wrong for this world.",
+        "section": "shapes"
+      },
+      {
+        "name": "The Illustrative Tag Rule",
+        "body": "Any fragment or panel that represents product UI carries .illustrative-tag (\"Illustrative view\" / \"Illustrative synthetic example\") inside its own chrome. A representative screen without its tag does not ship.",
+        "section": "components"
+      },
+      {
+        "name": "The Control Border Rule",
+        "body": "Interactive controls use {colors.line-control}. Decorative and structural hairlines use {colors.line} / {colors.line-strong} and must never be promoted to a control border, nor a control demoted to a decorative one.",
+        "section": "components"
+      },
+      {
+        "name": "The One Entrance Rule",
+        "body": "One .reveal per fold, on the fold head. Staggering a grid of items, revealing a panel's interior, or adding a second entrance to a fold is out of system.",
+        "section": "components"
+      },
+      {
+        "name": "The Settle Rule",
+        "body": "Authored motion runs a bounded number of passes and then rests. Nothing on this page loops.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do reserve {colors.green} for action, live data, and status, and let its rarity carry the meaning.",
+      "Do build structure from 1px {colors.line} divisions inside one panel before reaching for a second panel.",
+      "Do alternate fold grounds ({colors.ground-abyss} \u2194 .fold--lifted on {colors.ground-deep}) to divide the page.",
+      "Do use .mono-label and .mono-value for labels, axes, chips, IDs, and every measured number \u2014 and the display face for everything a buyer reads as prose.",
+      "Do keep headings on the stepped scale: display-xl at the top of a page, display-l for folds, display-m inside them.",
+      "Do cast shadows in the world's own near-black (rgba(2, 8, 5, \u2026)) with a large blur and negative spread.",
+      "Do give interactive controls the {colors.line-control} border so non-text contrast holds (WCAG 1.4.11).",
+      "Do tag representative product UI with .illustrative-tag inside the fragment's own chrome.",
+      "Do invert the focus ring to {colors.green-ink} on any green ground.",
+      "Do express data density as instrument fragments \u2014 bars, meters, roll-ups, ranked queues \u2014 rather than icons.",
+      "Do collapse multi-column instruments into reading order on mobile, rotating conduits and arrows rather than deleting them.",
+      "Do null every animation under prefers-reduced-motion and make sure the meaning survives."
+    ],
+    "donts": [
+      "Don't use {colors.green} as ambience \u2014 no green washes, gradients, ambient glows, tinted backgrounds, or green-on-green decoration. The primary button's lift is the only accent glow in the system.",
+      "Don't fill a second surface with {colors.green}; the terminal CTA field is the page's only green field.",
+      "Don't set prose, headings, buttons, or navigation in Spline Sans Mono.",
+      "Don't use amber or coral for emphasis; they are data semantics and validation only.",
+      "Don't introduce glass, backdrop blur, gradients-as-surface, or any light-mode shadow recipe.",
+      "Don't exceed a 16px radius, and don't round data marks past 4px.",
+      "Don't replace hairline-divided instruments with equal-weight icon feature cards.",
+      "Don't ship a representative product screen without its illustrative tag.",
+      "Don't stagger reveals across a grid, loop an animation, or add a second entrance to a fold.",
+      "Don't autoplay a carousel; the mobile logo wall is manually scrolled by design.",
+      "Don't borrow {colors.line} for an input border or {colors.line-control} for a divider."
+    ]
+  }
+}

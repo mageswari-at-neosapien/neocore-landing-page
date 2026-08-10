@@ -1,0 +1,499 @@
+---
+// Fold 2 — Enterprise engagement + outcome proof.
+// Logo wall renders the slide-9 artwork from the client's deck (see the
+// HTML comment at the wall below). `invert` marks artwork that is
+// dark-on-transparent and needs the white-silhouette treatment to be
+// legible on this ground. Status language stays exact: engagement, never
+// "customers", never "Trusted by".
+
+type Single = {
+  kind: 'org';
+  name: string;
+  slug: string;
+  pilot?: boolean;
+  invert?: boolean;
+};
+type Group = {
+  kind: 'group';
+  slug: string;
+  orgs: { name: string; slug: string; invert?: boolean }[];
+};
+type Item = Single | Group;
+
+const wall: Item[] = [
+  // Row 1 — CPG / durables, automotive, real estate, first retail name
+  { kind: 'org', name: 'Diageo', slug: 'diageo' },
+  { kind: 'org', name: 'P&G', slug: 'p-and-g', pilot: true },
+  { kind: 'org', name: 'ITC Limited', slug: 'itc-limited', pilot: true },
+  { kind: 'org', name: 'Eureka Forbes', slug: 'eureka-forbes', invert: true },
+  { kind: 'org', name: 'Panasonic', slug: 'panasonic', pilot: true },
+  { kind: 'org', name: 'Mamaearth', slug: 'mamaearth', pilot: true, invert: true },
+  { kind: 'org', name: 'Page Industries Limited', slug: 'page-industries-limited', invert: true },
+  { kind: 'org', name: 'Ather', slug: 'ather' },
+  { kind: 'org', name: 'Mahindra Rise', slug: 'mahindra-rise' },
+  { kind: 'org', name: 'Honda', slug: 'honda', pilot: true },
+  { kind: 'org', name: 'Shriram Properties', slug: 'shriram-properties', pilot: true },
+  { kind: 'org', name: 'HomeLane', slug: 'homelane', pilot: true },
+  { kind: 'org', name: 'The Souled Store', slug: 'the-souled-store' },
+
+  // Row 2 — retail / media, public sector, others
+  { kind: 'org', name: 'Sony Entertainment Television', slug: 'sony-entertainment-television' },
+  { kind: 'org', name: 'Specsmakers', slug: 'specsmakers', invert: true },
+  { kind: 'org', name: 'BIG FM', slug: 'big-fm' },
+  { kind: 'org', name: 'Zee Entertainment Enterprises', slug: 'zee-entertainment-enterprises', pilot: true },
+  { kind: 'org', name: 'Government of Andhra Pradesh', slug: 'government-of-andhra-pradesh', pilot: true },
+  { kind: 'org', name: 'Uttar Pradesh Police', slug: 'uttar-pradesh-police' },
+  { kind: 'org', name: 'Bodycraft', slug: 'bodycraft', invert: true },
+  { kind: 'org', name: 'Emirates', slug: 'emirates' },
+  { kind: 'org', name: 'Larsen & Toubro', slug: 'larsen-and-toubro' },
+  {
+    kind: 'group',
+    slug: 'matrix-acko-om-logistics',
+    orgs: [
+      { name: 'Matrix Life Science', slug: 'matrix-life-science', invert: true },
+      { name: 'ACKO', slug: 'acko' },
+      { name: 'OM Logistics Supply Chain', slug: 'om-logistics-supply-chain' },
+    ],
+  },
+  { kind: 'org', name: 'Hindustan Petroleum', slug: 'hindustan-petroleum' },
+  { kind: 'org', name: 'CHRIST (Deemed to be University)', slug: 'christ-deemed-to-be-university', invert: true },
+];
+
+const outcomes = [
+  { value: '70%+', context: 'Utilization reported for the always-on option' },
+  { value: '+15%', context: 'Increase in lines per store in a leading FMCG rollout' },
+  { value: '+20%', context: 'Increase in sales per store in the same rollout' },
+];
+---
+
+<section class="fold fold--lifted" id="engagement">
+  <div class="container">
+    <div class="fold-head reveal">
+      <h2 class="display-l">Engagement with leaders across sectors</h2>
+      <p class="lede">
+        Across CPG and durables, automotive, real estate, retail and media, public sector and more.
+      </p>
+    </div>
+
+    <div class="wall-legend">
+      <p class="legend">
+        <span class="legend-swatch" aria-hidden="true"></span>
+        <span class="mono-label legend-term">Pilots underway</span>
+        <span class="legend-note">Green-outlined slots mark engagements currently in pilot.</span>
+      </p>
+      <p class="wall-hint mono-label">Scroll for all 27</p>
+    </div>
+
+    <!--
+      LOGO ARTWORK: sourced from slide 9 of the client's own deck
+      ("Introduction to NeoCore_vRevised.pptx"), the brief's approved artwork
+      source, at the client's direction. Files live in /public/logos/<slug>.png.
+      Marks whose artwork is dark-on-transparent carry `invert: true` in the
+      data array (rendered as white silhouettes for legibility on the dark
+      ground); all other marks render their original artwork. Do not add,
+      remove or rename any organization.
+    -->
+    <div class="wall-scroll">
+      <ul class="wall" aria-label="Organizations engaged across sectors" tabindex="0">
+        {
+          wall.map((item) =>
+            item.kind === 'group' ? (
+              <li class="tile tile--group is-pilot" data-logo-group={item.slug}>
+                <span class="visually-hidden">Pilots underway:</span>
+                {item.orgs.map((org) => (
+                  <span class="group-slot" data-logo={org.slug}>
+                    <img
+                      src={`/logos/${org.slug}.png`}
+                      alt={`${org.name} logo`}
+                      class:list={['mark', { 'mark--invert': org.invert }]}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </span>
+                ))}
+              </li>
+            ) : (
+              <li class:list={['tile', { 'is-pilot': item.pilot }]} data-logo={item.slug}>
+                <img
+                  src={`/logos/${item.slug}.png`}
+                  alt={`${item.name} logo`}
+                  class:list={['mark', { 'mark--invert': item.invert }]}
+                  loading="lazy"
+                  decoding="async"
+                />
+                {item.pilot && <span class="visually-hidden">{item.name} — pilot underway</span>}
+              </li>
+            )
+          )
+        }
+      </ul>
+    </div>
+
+    <p class="smb">Plus a growing clientele of 25+ SMBs.</p>
+
+    <h3 class="visually-hidden">Reported deployment outcomes</h3>
+    <div class="band panel panel--raised">
+      {
+        outcomes.map((o) => (
+          <div class="band-cell">
+            <p class="band-value mono-value">{o.value}</p>
+            <p class="band-context">{o.context}</p>
+          </div>
+        ))
+      }
+    </div>
+    <p class="band-note">
+      Deployment outcomes are contextual and are not attributable to every organization shown.
+    </p>
+  </div>
+</section>
+
+<style>
+  /* ---------- Legend row ----------
+     Rhythm: the legend belongs to the wall, so it sits tight beneath the
+     head's generous break and close above the grid it explains. The fold
+     reads as head / wall-group / readout, not four evenly-spaced blocks. */
+
+  .fold-head {
+    margin-bottom: clamp(52px, 6.5vw, 84px);
+  }
+
+  .wall-legend {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+
+  .legend {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* Keyed to the real thing: same fill and same outer ring as a pilot tile. */
+  .legend-swatch {
+    width: 26px;
+    height: 15px;
+    border: 1px solid var(--green);
+    border-radius: 3px;
+    background: var(--g-950);
+    box-shadow: 0 0 0 1px var(--g-950);
+    flex: none;
+  }
+
+  .legend-term {
+    color: var(--ink);
+  }
+
+  .legend-note {
+    font-size: 0.875rem;
+    color: var(--ink-3);
+  }
+
+  .wall-hint {
+    display: none;
+    color: var(--ink-3);
+  }
+
+  /* ---------- Logo wall ----------
+     Placeholder text slots, uniform footprint, monochrome. Swapping in the
+     approved SVGs should not change the grid. */
+
+  .wall-scroll {
+    --wall-w: min(1440px, calc(100vw - 2 * var(--gutter)));
+    width: var(--wall-w);
+    margin-inline: calc((100% - var(--wall-w)) / 2);
+    position: relative;
+  }
+
+  .wall {
+    --tile-scale: 1.18;
+    /* Positioned so absolutely-positioned descendants (visually-hidden
+       status text) are contained by this scroll container instead of
+       escaping to the page and widening the document. */
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(13, minmax(0, 1fr));
+    grid-auto-rows: 88px;
+    grid-auto-flow: row dense;
+    gap: 10px;
+  }
+
+  /* Tiles are cut into the fold ground, not laid on it: a darker fill than
+     the fold's g-900 plus a shadow falling in from the top edge. The wall
+     stays monumental because the material is uniform — only the pilot
+     hairlines and hover break it. */
+  .tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-s);
+    background: var(--g-950);
+    box-shadow: inset 0 1px 2px rgba(2, 8, 5, 0.5);
+    transition: transform 0.2s var(--ease-out), box-shadow 0.2s ease,
+      border-color 0.18s ease, background-color 0.18s ease;
+  }
+
+  .mark {
+    max-width: 100%;
+    max-height: calc(38px * var(--tile-scale));
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+
+  /* Dark-on-transparent artwork: white silhouette for legibility on this
+     ground. Assigned per organization in the frontmatter data. */
+  .mark--invert {
+    filter: brightness(0) invert(1);
+    opacity: 0.88;
+  }
+
+  /* Hover lifts the tile out of its recess: the inset shadow flips to a cast
+     one and the fill rises toward the fold ground. */
+  .tile:hover {
+    border-color: var(--line-strong);
+    background: var(--g-850);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-panel);
+  }
+
+  /* Status, not decoration: the hairline is the pilot signal. The 1px ring of
+     page-dark just outside it gives the green breathing room from the ground
+     so ten of them read as indicator lights, not as decorated tiles. */
+  .tile.is-pilot {
+    border-color: var(--green);
+    box-shadow: inset 0 1px 2px rgba(2, 8, 5, 0.5), 0 0 0 1px var(--g-950);
+  }
+
+  .tile.is-pilot:hover {
+    border-color: var(--green-soft);
+    box-shadow: var(--shadow-panel), 0 0 0 1px var(--g-950);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tile:hover {
+      transform: none;
+    }
+  }
+
+  .tile--group {
+    grid-column: span 2;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+    padding: 6px 8px;
+    overflow: hidden;
+  }
+
+  .group-slot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 0;
+    padding-block: 3px;
+  }
+
+  /* Three marks share one tile row: each capped so the stack fits the
+     grid row with the tile's padding. */
+  .group-slot .mark {
+    max-height: calc(13px * var(--tile-scale));
+    max-width: 70%;
+  }
+
+  .group-slot + .group-slot {
+    border-top: 1px solid var(--line);
+  }
+
+  .tile--group:hover .group-slot + .group-slot {
+    border-top-color: var(--line-strong);
+  }
+
+  /* ---------- Supporting line ---------- */
+
+  .smb {
+    /* Stays with the wall — it extends the roster, so it hangs off it. */
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    max-width: 46ch;
+    font-size: 0.9375rem;
+    color: var(--ink-2);
+  }
+
+  /* ---------- Outcome band ----------
+     The fold's one light moment. Raised material (so it sits proudest of
+     anything here), carved cell grooves, and a green tick per measure that
+     casts light down into its own cell — a lit readout rail, not a stat row.
+     No bloom behind it: one device, not two. */
+
+  .band {
+    display: flex;
+    margin-top: clamp(56px, 7vw, 88px);
+    /* Fill and catch-light come from .panel--raised — do not repaint it. */
+  }
+
+  .band-cell {
+    position: relative;
+    flex: 1 1 0;
+    padding: clamp(22px, 2.4vw, 30px) clamp(20px, 2.2vw, 28px);
+  }
+
+  /* Groove, not hairline: a dark cut with a faint lit lip on the near side. */
+  .band-cell + .band-cell {
+    border-left: 1px solid var(--g-950);
+    box-shadow: inset 1px 0 0 rgba(242, 248, 240, 0.045);
+  }
+
+  .band-cell::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: clamp(20px, 2.2vw, 28px);
+    width: 30px;
+    height: 1px;
+    background: var(--green);
+    /* Tight cast: the tick is a lit source, so the light falls downward. */
+    box-shadow: 0 0 4px var(--green-glow), 0 2px 12px var(--green-glow);
+  }
+
+  .band-value {
+    font-size: clamp(1.625rem, 2.4vw, 2.125rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .band-context {
+    margin-top: 10px;
+    max-width: 30ch;
+    font-size: 0.9375rem;
+    line-height: 1.45;
+    color: var(--ink-2);
+  }
+
+  .band-note {
+    margin-top: 14px;
+    max-width: 66ch;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--ink-3);
+  }
+
+  /* ---------- Breakpoints ---------- */
+
+  @media (max-width: 1239px) {
+    .wall {
+      --tile-scale: 1.24;
+      grid-template-columns: repeat(9, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 999px) {
+    .wall {
+      --tile-scale: 1.36;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-auto-rows: 84px;
+    }
+  }
+
+  @media (max-width: 860px) {
+    .band {
+      display: block;
+    }
+
+    .band-cell + .band-cell {
+      border-left: 0;
+      border-top: 1px solid var(--g-950);
+      box-shadow: inset 0 1px 0 rgba(242, 248, 240, 0.045);
+    }
+
+    .band-context {
+      max-width: 44ch;
+    }
+  }
+
+  /* Mobile: manually scrollable two-row strip. No autoplay, no carousel. */
+  @media (max-width: 720px) {
+    .wall-legend {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .wall-hint {
+      display: block;
+    }
+
+    .wall-scroll {
+      --wall-w: auto;
+      width: auto;
+      margin-inline: calc(var(--gutter) * -1);
+    }
+
+    .wall-scroll::after {
+      content: '';
+      position: absolute;
+      inset-block: 0;
+      right: 0;
+      width: 44px;
+      pointer-events: none;
+      background: linear-gradient(to right, transparent, var(--g-900));
+    }
+
+    .wall {
+      --tile-scale: 1.5;
+      grid-template-columns: none;
+      grid-template-rows: repeat(2, 84px);
+      grid-auto-rows: 84px;
+      grid-auto-columns: 132px;
+      grid-auto-flow: column dense;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x proximity;
+      padding-inline: var(--gutter);
+      padding-bottom: 12px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--line-strong) var(--g-850);
+    }
+
+    .tile {
+      scroll-snap-align: start;
+    }
+
+    /* Inside the scroll strip the container clips vertically, so the tile
+       keeps its material but drops the lift. */
+    .tile:hover {
+      transform: none;
+    }
+
+    .tile--group {
+      grid-column: span 1;
+      grid-row: span 2;
+    }
+
+    .wall::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .wall::-webkit-scrollbar-track {
+      background: var(--g-850);
+      border-radius: 999px;
+    }
+
+    .wall::-webkit-scrollbar-thumb {
+      background: var(--line-strong);
+      border-radius: 999px;
+    }
+  }
+</style>

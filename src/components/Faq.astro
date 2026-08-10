@@ -1,0 +1,278 @@
+---
+/**
+ * Fold 6 — FAQ (brief lines 258–287)
+ * Objective: resolve common product, deployment and integration questions
+ * without interrupting the main narrative.
+ * Representation mandate: collapsed accordion, only the first item open.
+ *
+ * Questions and answers below are VERBATIM brief copy — do not paraphrase.
+ * `slug` is the stable analytics key for neoTrack('faq_expand', { question }).
+ *
+ * A11y note: panels use role="group" + aria-labelledby rather than
+ * role="region". The ARIA APG advises against role="region" on accordions with
+ * more than ~6 panels because it floods the landmark list; there are 7 here.
+ * `group` keeps the named association without adding landmarks.
+ */
+const faqs = [
+  {
+    slug: 'neo-one-vs-neocore',
+    q: 'What is the difference between Neo One and NeoCore?',
+    a: 'Neo One captures frontline conversations. NeoCore processes, structures and aggregates those conversations into management intelligence for adherence, coaching and Voice of Customer.',
+  },
+  {
+    slug: 'languages-and-terminology',
+    q: 'Can NeoCore work across languages and company-specific terminology?',
+    a: 'Yes. NeoCore supports 100+ languages and can be tuned for product names, local brands, competitors, regional terminology and industry-specific language.',
+  },
+  {
+    slug: 'custom-adherence-criteria',
+    q: 'Can we define our own adherence criteria?',
+    a: 'Yes. Teams can configure the pitch points, questions, processes and follow-ups that matter to their sales motion. NeoCore structures captured conversations against those custom fields.',
+  },
+  {
+    slug: 'coaching-improvement',
+    q: 'How does NeoCore improve coaching?',
+    a: 'It surfaces repeated behaviours, missed steps and execution gaps across representatives and teams, helping managers focus coaching on specific evidence rather than occasional observation.',
+  },
+  {
+    slug: 'integrations',
+    q: 'Can NeoCore integrate with our existing systems?',
+    a: 'Yes. APIs and MCP can connect NeoCore with CRM, BI and other enterprise workflows. The precise integration scope is agreed during the pilot.',
+  },
+  {
+    slug: 'enterprise-data-handling',
+    q: 'How is enterprise data handled?',
+    a: 'NeoCore is ISO 27001 certified, does not store audio by default, does not train models on customer data and uses India-resident servers. PII redaction and role-based access can be configured for the deployment.',
+  },
+  {
+    slug: 'pilot-scope',
+    q: 'What does an enterprise pilot include?',
+    a: 'A pilot defines the team, use case and success measures; configures company terminology and custom fields; deploys capture; measures results; and produces a rollout recommendation.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<section id="faq" class="fold fold--lifted">
+  <div class="container">
+    <div class="faq-col">
+      <!-- HEADING NOTE: the brief specifies no heading copy for Fold 6. This
+           h2 is authored scaffolding, not client copy — safe to swap. -->
+      <div class="faq-head reveal">
+        <h2 class="display-m">Questions enterprises ask</h2>
+      </div>
+
+      <div class="faq-list">
+        {
+          faqs.map((item, i) => (
+            <div class="faq-item" data-open={i === 0 ? 'true' : 'false'}>
+              <h3 class="faq-heading">
+                <button
+                  type="button"
+                  class="faq-q"
+                  id={`faq-q-${item.slug}`}
+                  aria-controls={`faq-a-${item.slug}`}
+                  aria-expanded={i === 0 ? 'true' : 'false'}
+                  data-faq-slug={item.slug}
+                >
+                  <span class="faq-q-text">{item.q}</span>
+                  <span class="faq-icon" aria-hidden="true">
+                    <svg viewBox="0 0 20 20" width="20" height="20" fill="none">
+                      <path
+                        d="M3.25 10h13.5"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                      />
+                      <path
+                        class="faq-icon-bar"
+                        d="M10 3.25v13.5"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </h3>
+              <div
+                class="faq-panel"
+                id={`faq-a-${item.slug}`}
+                role="group"
+                aria-labelledby={`faq-q-${item.slug}`}
+              >
+                <div class="faq-panel-inner">
+                  <p class="faq-a">{item.a}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+</section>
+
+<style>
+  /* Narrow reading column — this fold is prose, not instrumentation. */
+  .faq-col {
+    max-width: 800px;
+    margin-inline: auto;
+  }
+
+  .faq-head {
+    margin-bottom: clamp(32px, 4vw, 48px);
+  }
+
+  /* Hairline-separated rows: structure comes from lines, not containers. */
+  .faq-list {
+    border-block-start: 1px solid var(--line);
+  }
+
+  .faq-item {
+    border-block-end: 1px solid var(--line);
+  }
+
+  .faq-heading {
+    font: inherit;
+    letter-spacing: inherit;
+    line-height: inherit;
+  }
+
+  .faq-q {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: clamp(16px, 3vw, 32px);
+    width: 100%;
+    padding: clamp(18px, 2.4vw, 24px) 0;
+    margin: 0;
+    background: none;
+    border: 0;
+    text-align: left;
+    cursor: pointer;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: clamp(1.0625rem, 1.15vw, 1.1875rem);
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    line-height: 1.35;
+    transition: color 0.18s ease;
+  }
+
+  .faq-q:focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: -3px;
+    border-radius: var(--r-s);
+  }
+
+  .faq-q:hover .faq-icon {
+    color: var(--ink);
+  }
+
+  .faq-icon {
+    display: block;
+    color: var(--ink-3);
+    /* optical alignment with the first line of the question */
+    margin-block-start: 2px;
+    transition: color 0.18s ease;
+  }
+
+  /* Plus rotates into a minus — one authored control, no default marker. */
+  .faq-icon-bar {
+    transform-origin: 50% 50%;
+    transition: transform 0.34s var(--ease-out);
+  }
+
+  .faq-item[data-open='true'] .faq-icon {
+    color: var(--green);
+  }
+
+  .faq-item[data-open='true'] .faq-icon-bar {
+    transform: rotate(90deg);
+  }
+
+  /* 0fr → 1fr gives a true content-height transition with no JS measuring. */
+  .faq-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.34s var(--ease-out);
+  }
+
+  .faq-panel-inner {
+    overflow: hidden;
+    /* collapsed content leaves the a11y tree once the row has closed */
+    visibility: hidden;
+    transition: visibility 0s linear 0.34s;
+  }
+
+  .faq-item[data-open='true'] .faq-panel {
+    grid-template-rows: 1fr;
+  }
+
+  .faq-item[data-open='true'] .faq-panel-inner {
+    visibility: visible;
+    transition-delay: 0s;
+  }
+
+  .faq-a {
+    color: var(--ink-2);
+    font-size: 1rem;
+    line-height: 1.62;
+    max-width: 66ch;
+    padding-block-end: clamp(22px, 2.6vw, 28px);
+    padding-inline-end: clamp(0px, 4vw, 52px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq-panel,
+    .faq-icon-bar {
+      transition: none;
+    }
+
+    .faq-panel-inner {
+      transition-delay: 0s;
+    }
+  }
+</style>
+
+<script>
+  // Fold 6 — accordion behaviour.
+  // Items toggle independently (disclosure set): closing a row above the
+  // pointer would yank content out from under the reader mid-scan.
+  type NeoTracker = (event: string, detail?: Record<string, unknown>) => void;
+
+  const items = document.querySelectorAll<HTMLElement>('#faq .faq-item');
+
+  items.forEach((item) => {
+    const btn = item.querySelector<HTMLButtonElement>('.faq-q');
+    if (!btn) return;
+
+    const panelId = btn.getAttribute('aria-controls');
+    if (!panelId || !document.getElementById(panelId)) return;
+
+    btn.addEventListener('click', () => {
+      const willOpen = btn.getAttribute('aria-expanded') !== 'true';
+      btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      item.setAttribute('data-open', willOpen ? 'true' : 'false');
+
+      // Brief §analytics: FAQ expansion by question — openings only.
+      if (!willOpen) return;
+      const track = (window as unknown as { neoTrack?: NeoTracker }).neoTrack;
+      if (typeof track === 'function') {
+        track('faq_expand', { question: btn.dataset.faqSlug || '' });
+      }
+    });
+  });
+</script>

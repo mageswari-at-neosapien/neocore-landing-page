@@ -1,0 +1,1120 @@
+---
+/**
+ * Fold 3 — How NeoCore works.
+ * Option 1 from the brief: Capture → NeoCore intelligence → management action.
+ * One continuous annotated flow. Step 1 is a small, dim, subordinate input (~14% of
+ * the width); steps 2–5 live inside one dominant "NeoCore intelligence layer".
+ * The layer is the fold's lit machine: it carries the only light source (a bloom
+ * field behind it) and its interior steps down — lit top face, shadowed working
+ * bays, deeply recessed screens — before the Act band rises again as the payoff.
+ * Synthetic, plausible data — the whole layer is tagged as an illustrative view.
+ */
+
+type FieldRow = { label: string; value: string; flagged?: boolean };
+type RegionRow = { region: string; score: number; flagged?: boolean };
+type Readout = { label: string; statement: string; value: string; meta: string; flagged?: boolean };
+
+// Capture cue — a measured waveform, not decoration. Percentages of the cue height.
+const waveform = [
+  22, 41, 63, 35, 78, 52, 88, 44, 69, 33, 57, 40, 74, 29, 61, 46, 83, 37, 55, 26, 48, 70, 31, 43,
+];
+
+const fields: FieldRow[] = [
+  { label: 'opening_hook', value: 'Delivered' },
+  { label: 'pricing_disclosed', value: 'Yes' },
+  { label: 'objection_type', value: 'Cold chain' },
+  { label: 'competitor_named', value: 'None' },
+  { label: 'next_step_set', value: 'Not set', flagged: true },
+];
+
+const rollup: RegionRow[] = [
+  { region: 'North', score: 87 },
+  { region: 'Nordics', score: 83 },
+  { region: 'West', score: 79 },
+  { region: 'South', score: 64, flagged: true },
+];
+
+// Brief order: adherence first, coaching second, Voice of Customer third.
+const readouts: Readout[] = [
+  {
+    label: 'Adherence gap',
+    statement: 'Next step set — South region',
+    value: '61%',
+    meta: 'target 85%',
+    flagged: true,
+  },
+  {
+    label: 'Coaching priority',
+    statement: 'Cold-chain SLA objection handling',
+    value: '12',
+    meta: 'reps · 3 teams',
+  },
+  {
+    label: 'Voice of Customer',
+    statement: 'Reorder lead time',
+    value: '+18%',
+    meta: 'mentions · 30 days',
+  },
+];
+---
+
+<section id="how-it-works" class="fold hiw">
+  <div class="container">
+    <div class="hiw__head">
+      <p class="hiw__bridge display-l reveal">
+        <span class="hiw__bridge-a">Your CRM shows what happened.</span>{' '}
+        <span class="hiw__bridge-b">Frontline conversations reveal why.</span>
+      </p>
+      <p class="lede">
+        Manual notes and occasional ride-alongs leave most field conversations invisible. NeoCore
+        turns them into structured intelligence managers can act on.
+      </p>
+    </div>
+
+    <div class="hiw__title">
+      <h2 class="display-m">Turn conversations into management intelligence.</h2>
+      <span class="hiw__rule" aria-hidden="true"></span>
+    </div>
+
+    <div class="flow" id="hiw-flow">
+      <!-- 1 — Capture: the subordinate input feeding the layer -->
+      <div class="node capture panel" style="--i: 0">
+        <span class="node__rail" aria-hidden="true">
+          <span class="node__rail-fill"></span>
+          <span class="node__signal"><span class="node__dot"></span></span>
+        </span>
+
+        <div class="node__meta">
+          <span class="node__idx mono-value">1</span>
+          <h3 class="node__name">Capture</h3>
+        </div>
+        <p class="node__copy">Neo One captures frontline conversations with minimal added effort.</p>
+
+        <div class="capture__device">
+          <svg class="pendant" width="46" height="60" viewBox="0 0 46 60" fill="none" aria-hidden="true">
+            <path d="M14 0.5 L20 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+            <path d="M32 0.5 L26 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+            <rect x="19.25" y="7.25" width="7.5" height="5.5" rx="2" stroke="currentColor" stroke-width="1.5"></rect>
+            <rect x="8.75" y="12.75" width="28.5" height="42.5" rx="11" stroke="currentColor" stroke-width="1.5"></rect>
+            <circle cx="23" cy="28" r="5.75" stroke="currentColor" stroke-width="1.5"></circle>
+            <circle cx="23" cy="28" r="1.5" fill="currentColor"></circle>
+            <circle class="pendant__live" cx="23" cy="45.5" r="2.4"></circle>
+          </svg>
+          <div class="capture__id">
+            <span class="mono-label">Neo One</span>
+            <span class="capture__state mono-value">Recording · 04:12</span>
+          </div>
+        </div>
+
+        <div class="capture__cue">
+          <span class="capture__cue-label mono-label">Field conversation</span>
+          <span class="wave" aria-hidden="true">
+            {waveform.map((h, i) => (
+              <span class:list={['wave__bar', i > 15 && 'wave__bar--live']} style={`height:${h}%`}></span>
+            ))}
+          </span>
+        </div>
+
+        <span class="feed" aria-hidden="true">
+          <svg width="26" height="12" viewBox="0 0 26 12" fill="none">
+            <path d="M0 6 H22" stroke="currentColor" stroke-width="1.5"></path>
+            <path d="M17.5 1.5 L22 6 L17.5 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </span>
+      </div>
+
+      <!-- 2–5 — one container, ≥80% of the composition.
+           The wrapper carries this fold's single light source: a bloom field
+           behind the layer, so the machine reads as the thing emitting light. -->
+      <div class="layer-lit bloom">
+        <div class="layer panel panel--raised">
+          <div class="layer__head">
+            <span class="mono-label">NeoCore intelligence layer</span>
+            <span class="illustrative-tag">Illustrative view</span>
+          </div>
+
+          <div class="layer__grid">
+            <!-- 2 — Understand -->
+            <div class="node node--stage" style="--i: 1">
+              <span class="node__rail" aria-hidden="true">
+                <span class="node__rail-fill"></span>
+                <span class="node__signal"><span class="node__dot"></span></span>
+              </span>
+              <div class="node__meta">
+                <span class="node__idx mono-value">2</span>
+                <h3 class="node__name">Understand</h3>
+              </div>
+              <p class="node__copy">
+                NeoCore processes speech in 100+ languages, separates speakers and understands
+                company-specific vocabulary.
+              </p>
+
+              <div class="frag">
+                <div class="frag__head">
+                  <span class="frag__title mono-label">Transcript</span>
+                  <span class="frag__meta mono-value">ES → EN</span>
+                </div>
+                <ul class="tsc">
+                  <li class="tsc__line">
+                    <span class="tsc__who">
+                      <span class="tsc__t mono-value">02:14</span>
+                      <span class="tsc__s mono-value">Rep</span>
+                    </span>
+                    <span class="tsc__u">“<mark>NX-40</mark> holds cold chain for 36 hours.”</span>
+                  </li>
+                  <li class="tsc__line">
+                    <span class="tsc__who">
+                      <span class="tsc__t mono-value">02:31</span>
+                      <span class="tsc__s mono-value">Buyer</span>
+                    </span>
+                    <span class="tsc__u">“And the <mark>reorder SLA</mark> in the north?”</span>
+                  </li>
+                </ul>
+                <p class="frag__foot">
+                  <span class="mono-label">Vocabulary</span>
+                  <span class="frag__foot-v mono-value">3 matched</span>
+                </p>
+              </div>
+            </div>
+
+            <!-- 3 — Structure -->
+            <div class="node node--stage" style="--i: 2">
+              <span class="node__rail" aria-hidden="true">
+                <span class="node__rail-fill"></span>
+                <span class="node__signal"><span class="node__dot"></span></span>
+              </span>
+              <div class="node__meta">
+                <span class="node__idx mono-value">3</span>
+                <h3 class="node__name">Structure</h3>
+              </div>
+              <p class="node__copy">
+                Custom fields map each conversation against the messages, questions and steps the sales
+                motion requires.
+              </p>
+
+              <div class="frag">
+                <div class="frag__head">
+                  <span class="frag__title mono-label">Custom fields</span>
+                  <span class="frag__meta mono-value">#4192</span>
+                </div>
+                <dl class="fields">
+                  {fields.map((f) => (
+                    <div class="fields__row">
+                      <dt class="fields__k mono-value">{f.label}</dt>
+                      <dd class:list={['fields__v', 'mono-value', f.flagged && 'is-flagged']}>{f.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            </div>
+
+            <!-- 4 — Aggregate -->
+            <div class="node node--stage" style="--i: 3">
+              <span class="node__rail" aria-hidden="true">
+                <span class="node__rail-fill"></span>
+                <span class="node__signal"><span class="node__dot"></span></span>
+              </span>
+              <div class="node__meta">
+                <span class="node__idx mono-value">4</span>
+                <h3 class="node__name">Aggregate</h3>
+              </div>
+              <p class="node__copy">
+                Signals roll up across representatives, teams, regions, products and time in one
+                management view.
+              </p>
+
+              <div class="frag">
+                <div class="frag__head">
+                  <span class="frag__title mono-label">Adherence roll-up</span>
+                  <span class="frag__meta mono-value">30d</span>
+                </div>
+                <table class="rollup">
+                  <caption class="visually-hidden">
+                    Illustrative pitch-adherence roll-up by region, last 30 days
+                  </caption>
+                  <tbody>
+                    {rollup.map((r) => (
+                      <tr>
+                        <th scope="row" class="rollup__region">{r.region}</th>
+                        <td class="rollup__adh">
+                          <span class="rollup__cell">
+                            <span class="bar" aria-hidden="true">
+                              <span class:list={['bar__fill', r.flagged && 'is-flagged']} style={`width:${r.score}%`}></span>
+                            </span>
+                            <span class:list={['rollup__num', 'mono-value', r.flagged && 'is-flagged']}>{r.score}</span>
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p class="frag__foot">
+                  <span class="frag__foot-v mono-value">155 reps · 12 teams · 5 products</span>
+                </p>
+              </div>
+            </div>
+
+            <!-- 5 — Act -->
+            <div class="node node--act" style="--i: 4">
+              <span class="node__rail" aria-hidden="true">
+                <span class="node__rail-fill"></span>
+                <span class="node__signal"><span class="node__dot"></span></span>
+              </span>
+              <div class="act__inner">
+                <div class="act__lede">
+                  <div class="node__meta">
+                    <span class="node__idx mono-value">5</span>
+                    <h3 class="node__name">Act</h3>
+                  </div>
+                  <p class="node__copy">
+                    Leaders see adherence gaps, coaching priorities and Voice of Customer themes while
+                    they are still actionable.
+                  </p>
+                </div>
+
+                <div class="act__readouts">
+                  {readouts.map((r) => (
+                    <div class="readout">
+                      <div class="readout__head">
+                        <span class="mono-label readout__label">{r.label}</span>
+                        {r.flagged && <span class="readout__flag" aria-hidden="true"></span>}
+                      </div>
+                      <p class="readout__statement">{r.statement}</p>
+                      <p class="readout__values">
+                        <span class:list={['readout__num', 'mono-value', r.flagged && 'is-flagged']}>{r.value}</span>
+                        <span class="readout__meta mono-value">{r.meta}</span>
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hiw {
+    background: var(--g-950);
+  }
+
+  /* ---------- Head ---------- */
+
+  .hiw__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1.32fr) minmax(0, 1fr);
+    gap: clamp(20px, 4vw, 72px);
+    align-items: end;
+    margin-bottom: clamp(44px, 6vw, 76px);
+  }
+
+  /* The fold's opening statement, delivered at the top of the display scale it
+     is allowed: a step above the section head, still clearly under the hero. */
+  .hiw .hiw__bridge {
+    max-width: 24ch;
+    font-size: clamp(2.05rem, 3.7vw, 3.1rem);
+    line-height: 1.04;
+    letter-spacing: -0.028em;
+  }
+
+  /* Two-tone, one clause per line: the dim line states the limit, the lit line
+     answers it. Weight carries the shift as well as colour. */
+  .hiw__bridge-a,
+  .hiw__bridge-b {
+    display: block;
+  }
+
+  .hiw__bridge-a {
+    color: var(--ink-3);
+    font-weight: 600;
+  }
+
+  .hiw__bridge-b {
+    color: var(--ink);
+    font-weight: 690;
+  }
+
+  .hiw__title {
+    display: flex;
+    align-items: flex-end;
+    gap: clamp(20px, 3vw, 40px);
+    margin-bottom: clamp(22px, 2.6vw, 34px);
+  }
+
+  .hiw__title h2 {
+    max-width: 30ch;
+  }
+
+  .hiw__rule {
+    flex: 1 1 auto;
+    height: 1px;
+    background: var(--line);
+    margin-bottom: 0.62em;
+  }
+
+  /* ---------- Flow: ~14 / 86 — a small dim input feeding a large lit core ---------- */
+
+  .flow {
+    --flow-gap: clamp(26px, 3vw, 46px);
+    --layer-head: 52px;
+    --node-pad: clamp(17px, 1.7vw, 24px);
+    display: grid;
+    grid-template-columns: minmax(152px, 0.62fr) 5.6fr;
+    gap: var(--flow-gap);
+    align-items: start;
+  }
+
+  /* ---------- Shared node grammar ---------- */
+
+  .node {
+    position: relative;
+  }
+
+  .node__rail {
+    position: relative;
+    display: block;
+    flex: none;
+    height: 1px;
+    background: var(--line);
+    margin-bottom: 16px;
+  }
+
+  .node__rail-fill {
+    position: absolute;
+    inset: 0;
+    background: var(--green-dim);
+    /* The crossed rail keeps a trace of the light that crossed it. */
+    box-shadow: 0 0 8px 1px var(--green-glow);
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+
+  .node__signal {
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .node__dot {
+    position: absolute;
+    right: -4px;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    margin-top: -4px;
+    border-radius: 50%;
+    background: var(--green);
+    /* A moving light, so the halo is blurred at two radii rather than a hard ring. */
+    box-shadow: 0 0 6px 2px var(--green-glow), 0 0 20px 7px var(--green-glow);
+  }
+
+  .node__dot::before {
+    content: '';
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    width: 78px;
+    height: 4px;
+    transform: translateY(-50%);
+    border-radius: 2px;
+    background: linear-gradient(to left, var(--green-soft), var(--green-glow) 22%, transparent);
+    opacity: 0.5;
+  }
+
+  .node__meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .node__idx {
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    flex: none;
+    border: 1px solid var(--line-strong);
+    border-radius: 4px;
+    font-size: 0.6875rem;
+    color: var(--ink-2);
+  }
+
+  .node__name {
+    font-size: 1.0625rem;
+    font-weight: 640;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+
+  .node__copy {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 38ch;
+  }
+
+  /* ---------- 1 — Capture (the subordinate input) ---------- */
+
+  /* Small, dim, at the edge — deliberately the least lit object in the fold, so
+     the core it feeds reads as the source of everything. Sits above the layer's
+     bloom field so the light never washes across it. */
+  .capture {
+    /* Tighter gutters than the layer buys measure back in a narrower column; the
+       top padding stays on --node-pad so this rail still lines up with theirs. */
+    --cap-pad: clamp(14px, 1.3vw, 18px);
+    z-index: 1;
+    background: var(--g-900);
+    margin-top: var(--layer-head);
+    padding: var(--node-pad) var(--cap-pad) var(--cap-pad);
+  }
+
+  .capture .node__idx {
+    width: 19px;
+    height: 19px;
+    font-size: 0.625rem;
+  }
+
+  .capture .node__name {
+    font-size: 0.9375rem;
+  }
+
+  .capture .node__copy {
+    font-size: 0.8125rem;
+    color: var(--ink-3);
+  }
+
+  /* Rails sit one pad below each node's top edge and run the node's full width,
+     so the five segments read as one line broken by the structure it crosses. */
+  .capture .node__rail {
+    margin-inline: calc(var(--cap-pad) * -1);
+    margin-bottom: var(--node-pad);
+  }
+
+  .capture__device {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .pendant {
+    width: 38px;
+    height: 50px;
+    color: var(--ink-3);
+    flex: none;
+  }
+
+  .pendant__live {
+    fill: var(--green);
+  }
+
+  .capture__id {
+    display: grid;
+    gap: 5px;
+    min-width: 0;
+  }
+
+  .capture__state {
+    font-size: 0.6875rem;
+    color: var(--ink-3);
+  }
+
+  .capture__cue {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    display: grid;
+    gap: 9px;
+  }
+
+  .capture__cue-label {
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+  }
+
+  .wave {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    height: 22px;
+  }
+
+  .wave__bar {
+    flex: 1 1 0;
+    min-width: 1px;
+    border-radius: 1px;
+    background: var(--line-strong);
+  }
+
+  .wave__bar--live {
+    background: var(--green-dim);
+  }
+
+  .feed {
+    position: absolute;
+    top: 50%;
+    right: calc((var(--flow-gap) + 26px) / -2);
+    transform: translateY(-50%);
+    color: var(--ink-3);
+    line-height: 0;
+  }
+
+  /* ---------- 2–5 — NeoCore intelligence layer ---------- */
+
+  /* This fold's one light source, hung behind the layer and biased low toward
+     the Act band: the machine lights the room it sits in. `isolation` keeps the
+     negative-z field above the fold ground and below the panel itself. */
+  .layer-lit {
+    min-width: 0;
+    isolation: isolate;
+    --bloom-spread: clamp(64px, 8vw, 148px);
+    --bloom-w: 62%;
+    --bloom-h: 56%;
+    --bloom-y: 60%;
+    --bloom-alpha: 0.15;
+  }
+
+  .layer {
+    overflow: hidden;
+  }
+
+  .layer__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    height: var(--layer-head);
+    padding-inline: var(--node-pad);
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  /* The machine's nameplate, on the lit top face — read it at full ink. */
+  .layer__head .mono-label {
+    color: var(--ink);
+  }
+
+  /* Interior depth: the top face takes the catch-light, the working bays sit
+     one step lower and in the chassis' own shadow, the Act band rises again. */
+  .layer__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    background: var(--g-850);
+    box-shadow: inset 0 10px 22px -12px rgba(2, 8, 5, 0.75);
+  }
+
+  .node--stage {
+    display: flex;
+    flex-direction: column;
+    padding: var(--node-pad);
+  }
+
+  .node--stage + .node--stage {
+    border-left: 1px solid var(--line);
+  }
+
+  .node--stage .node__rail {
+    margin-inline: calc(var(--node-pad) * -1);
+    margin-bottom: var(--node-pad);
+  }
+
+  /* ---------- Representative UI fragments (recessed screens) ---------- */
+
+  .frag {
+    margin-top: 18px;
+    background: var(--g-950);
+    border: 1px solid var(--line);
+    border-radius: var(--r-s);
+    box-shadow: inset 0 2px 6px -1px rgba(2, 8, 5, 0.65);
+    padding: 12px;
+    display: grid;
+    gap: 10px;
+    align-content: start;
+  }
+
+  .node--stage .frag {
+    margin-top: auto;
+  }
+
+  .frag__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .frag__title {
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+  }
+
+  .frag__meta {
+    font-size: 0.6875rem;
+    color: var(--ink-3);
+    white-space: nowrap;
+  }
+
+  .frag__foot {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    padding-top: 9px;
+    border-top: 1px solid var(--line);
+  }
+
+  .frag__foot .mono-label {
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+  }
+
+  .frag__foot-v {
+    font-size: 0.6875rem;
+    color: var(--ink-3);
+  }
+
+  /* Transcript */
+
+  .tsc {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+  }
+
+  .tsc__who {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 2px;
+  }
+
+  .tsc__t {
+    font-size: 0.6875rem;
+    color: var(--ink-3);
+  }
+
+  .tsc__s {
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+
+  .tsc__u {
+    display: block;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+
+  .tsc mark {
+    background: var(--green-glow);
+    color: var(--green-soft);
+    border-radius: 3px;
+    padding: 0 3px;
+  }
+
+  /* Custom fields */
+
+  .fields {
+    margin: 0;
+    display: grid;
+  }
+
+  .fields__row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+    padding-block: 6px;
+  }
+
+  .fields__row + .fields__row {
+    border-top: 1px solid var(--line);
+  }
+
+  .fields__k {
+    margin: 0;
+    font-size: 0.6875rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    overflow-wrap: anywhere;
+  }
+
+  .fields__v {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--ink);
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .fields__v.is-flagged {
+    color: var(--signal-warn);
+  }
+
+  /* Region roll-up */
+
+  .rollup {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  .rollup__region {
+    width: 44%;
+    text-align: left;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--ink-2);
+    padding-block: 5px;
+    padding-right: 8px;
+  }
+
+  .rollup__adh {
+    padding-block: 5px;
+  }
+
+  .rollup__cell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .bar {
+    flex: 1 1 auto;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--g-800);
+    overflow: hidden;
+  }
+
+  .bar__fill {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--green-dim);
+  }
+
+  .bar__fill.is-flagged {
+    background: var(--signal-warn);
+  }
+
+  .rollup__num {
+    flex: none;
+    font-size: 0.75rem;
+    color: var(--ink-2);
+  }
+
+  .rollup__num.is-flagged {
+    color: var(--signal-warn);
+  }
+
+  /* ---------- 5 — Management action readout ---------- */
+
+  /* The payoff band: highest ground in the layer, with a lit seam along the top
+     edge where it meets the chassis. */
+  .node--act {
+    grid-column: 1 / -1;
+    background: var(--g-750);
+    background-image: linear-gradient(
+      180deg,
+      rgba(143, 240, 180, 0.075),
+      rgba(143, 240, 180, 0.014) 55%,
+      transparent
+    );
+    border-top: 1px solid var(--line-strong);
+    box-shadow: inset 0 1px 0 rgba(143, 240, 180, 0.16),
+      0 -14px 32px -20px rgba(2, 8, 5, 0.85);
+    padding: calc(var(--node-pad) * 1.15) var(--node-pad);
+  }
+
+  .node--act .node__rail {
+    margin-inline: calc(var(--node-pad) * -1);
+    margin-bottom: var(--node-pad);
+    background: var(--line-strong);
+  }
+
+  /* The last rail is the one that arrives — it lands at full signal. */
+  .node--act .node__rail-fill {
+    background: var(--green);
+    box-shadow: 0 0 14px 2px var(--green-glow);
+  }
+
+  .node--act .node__name {
+    font-size: 1.25rem;
+    letter-spacing: -0.018em;
+  }
+
+  .node--act .node__idx {
+    border-color: var(--green-dim);
+    color: var(--ink);
+  }
+
+  .act__inner {
+    display: grid;
+    grid-template-columns: minmax(190px, 0.85fr) 2.9fr;
+    gap: clamp(20px, 2.6vw, 40px);
+    align-items: start;
+  }
+
+  .act__lede .node__copy {
+    color: var(--ink-2);
+  }
+
+  .act__readouts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .readout {
+    padding-right: clamp(14px, 1.8vw, 26px);
+  }
+
+  .readout + .readout {
+    border-left: 1px solid var(--line-strong);
+    padding-left: clamp(14px, 1.8vw, 26px);
+  }
+
+  .readout__head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .readout__label {
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+  }
+
+  .readout__flag {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex: none;
+    background: var(--signal-warn);
+  }
+
+  .readout__statement {
+    font-size: 1rem;
+    line-height: 1.32;
+    font-weight: 540;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  .readout__values {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .readout__num {
+    font-size: clamp(1.25rem, 1.7vw, 1.5rem);
+    font-weight: 520;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .readout__num.is-flagged {
+    color: var(--signal-warn);
+  }
+
+  .readout__meta {
+    font-size: 0.75rem;
+    color: var(--ink-2);
+  }
+
+  /* ---------- The one authored moment: a conversation signal traversing the flow ----------
+     Each node carries one rail segment; the dot crosses them in sequence, and the
+     rail it has crossed stays lit. Nothing here carries meaning on its own — the
+     flow reads identically with the animation never running. */
+
+  .flow.is-flowing .node__rail-fill {
+    transform: scaleX(1);
+    transition: transform 0.95s cubic-bezier(0.4, 0, 0.25, 1);
+    transition-delay: calc(var(--i, 0) * 0.5s + 0.2s);
+  }
+
+  .flow.is-flowing .node__signal {
+    animation: hiw-signal 0.95s cubic-bezier(0.4, 0, 0.25, 1) forwards;
+    animation-delay: calc(var(--i, 0) * 0.5s + 0.2s);
+  }
+
+  @keyframes hiw-signal {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    12% {
+      opacity: 1;
+    }
+    86% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flow.is-flowing .node__rail-fill {
+      transform: scaleX(1);
+      transition: none;
+    }
+
+    .flow.is-flowing .node__signal {
+      animation: none;
+    }
+
+    .node__signal {
+      display: none;
+    }
+  }
+
+  /* ---------- Responsive: stack in reading order, keep 20/80 ---------- */
+
+  @media (max-width: 1080px) {
+    .flow {
+      grid-template-columns: minmax(140px, 0.6fr) 5fr;
+    }
+
+    .act__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hiw__head {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+
+    .hiw__bridge {
+      max-width: 24ch;
+    }
+
+    .flow {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .capture {
+      /* Stacked, it shares the layer's gutter so the column reads as one edge. */
+      --cap-pad: var(--node-pad);
+      margin-top: 0;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom: 0;
+    }
+
+    .feed {
+      position: static;
+      display: grid;
+      place-items: center;
+      width: 100%;
+      height: 34px;
+      margin-top: 4px;
+      transform: none;
+    }
+
+    .feed svg {
+      transform: rotate(90deg);
+    }
+
+    .layer {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    .layer__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .node--stage + .node--stage {
+      border-left: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .node--stage .frag {
+      margin-top: 18px;
+    }
+
+    .act__readouts {
+      grid-template-columns: 1fr;
+    }
+
+    .readout {
+      padding-right: 0;
+    }
+
+    .readout + .readout {
+      border-left: 0;
+      padding-left: 0;
+      border-top: 1px solid var(--line-strong);
+      padding-top: 14px;
+      margin-top: 14px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .hiw__title {
+      display: block;
+    }
+
+    .hiw__rule {
+      display: none;
+    }
+
+    .layer__head {
+      height: auto;
+      min-height: var(--layer-head);
+      flex-wrap: wrap;
+      gap: 6px 12px;
+      padding-block: 12px;
+    }
+  }
+</style>
+
+<script>
+  // Scroll trigger for the single signal traversal. The flow is fully legible
+  // without it; this only adds the class the CSS animation is gated on.
+  const flow = document.getElementById('hiw-flow');
+
+  if (flow) {
+    const start = () => flow.classList.add('is-flowing');
+
+    if (typeof IntersectionObserver === 'undefined') {
+      start();
+    } else {
+      const flowObserver = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              start();
+              flowObserver.disconnect();
+            }
+          }
+        },
+        { threshold: 0.2, rootMargin: '0px 0px -8% 0px' }
+      );
+      flowObserver.observe(flow);
+    }
+  }
+</script>

@@ -1,0 +1,449 @@
+---
+/**
+ * Fold 5 — Enterprise data, security and integrations.
+ * The object is a governed pipeline, drawn as an annotated left-to-right
+ * flow in the page's own hairline grammar. Signal green appears once, on
+ * the redaction stage, because that is the control this fold argues for.
+ * Claim rule: nothing on this fold beyond the headline, the description
+ * and the seven proof entries below.
+ */
+const proof = [
+  'ISO 27001 certified',
+  'No audio storage by default',
+  'No training on customer data',
+  'India-resident servers',
+  'Configurable PII redaction',
+  'Role-based access',
+  'APIs and MCP',
+];
+---
+
+<section
+  id="security"
+  class="fold fold-light"
+  aria-labelledby="security-title"
+  data-evt-view="security_view"
+>
+  <div class="container">
+    <div class="fold-head reveal">
+      <h2 id="security-title" class="display-l">Enterprise-ready by design.</h2>
+      <p class="lede">
+        NeoCore combines configurable intelligence with the security, data controls
+        and integrations required for enterprise deployment.
+      </p>
+    </div>
+
+    <figure class="flow">
+      <figcaption class="flow-caption mono-label">Data flow</figcaption>
+
+      <ol class="track">
+        <li class="stage" style="--i: 0">
+          <span class="node" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9.25" y="3.25" width="5.5" height="10.5" rx="2.75"></rect>
+              <path d="M6 11.5a6 6 0 0 0 12 0"></path>
+              <path d="M12 17.5v3"></path>
+              <path d="M9 20.5h6"></path>
+            </svg>
+          </span>
+          <div class="stage-body">
+            <span class="stage-label">Capture</span>
+          </div>
+        </li>
+
+        <li class="stage" style="--i: 1">
+          <span class="node" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="7.25" y="10.75" width="9.5" height="8" rx="2"></rect>
+              <path d="M9.5 10.75V8.5a2.5 2.5 0 0 1 5 0v2.25"></path>
+              <path d="M12 13.75v2"></path>
+              <path d="M2.5 14.75h3"></path>
+              <path d="M18.5 14.75h2"></path>
+              <path d="m19.8 13.35 1.7 1.4-1.7 1.4"></path>
+            </svg>
+          </span>
+          <div class="stage-body">
+            <span class="stage-label">Encrypted transfer</span>
+          </div>
+        </li>
+
+        <li class="stage" style="--i: 2">
+          <span class="node" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3.75" y="4.75" width="16.5" height="14.5" rx="2"></rect>
+              <path d="M3.75 9.5h16.5"></path>
+              <path d="M10 9.5v9.75"></path>
+            </svg>
+          </span>
+          <div class="stage-body">
+            <span class="stage-label">Process and structure</span>
+          </div>
+        </li>
+
+        <li class="stage stage--governed" style="--i: 3">
+          <span class="node" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 7.25h16"></path>
+              <rect x="4" y="10.25" width="8.5" height="3.5" rx="1"></rect>
+              <path d="M14.5 12h5.5"></path>
+              <path d="M4 16.75h11"></path>
+            </svg>
+          </span>
+          <div class="stage-body">
+            <span class="stage-label">Redact configured PII</span>
+            <span class="chip mono-value">
+              <span class="visually-hidden">Representative detail: 9876 is masked before delivery.</span>
+              <span aria-hidden="true">9876…</span>
+              <svg aria-hidden="true" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2.5 8h9.5"></path>
+                <path d="m9.25 5.25 2.75 2.75-2.75 2.75"></path>
+              </svg>
+              <span class="mask" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            </span>
+          </div>
+        </li>
+
+        <li class="stage" style="--i: 4">
+          <span class="node" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="5.5" cy="12" r="2.25"></circle>
+              <path d="M7.75 12h2.75"></path>
+              <path d="M10.5 12h1.5a1.5 1.5 0 0 0 1.5-1.5V8a1.5 1.5 0 0 1 1.5-1.5"></path>
+              <path d="M10.5 12h4.5"></path>
+              <path d="M10.5 12h1.5a1.5 1.5 0 0 1 1.5 1.5V16a1.5 1.5 0 0 0 1.5 1.5"></path>
+              <circle cx="17" cy="6.5" r="2"></circle>
+              <circle cx="17" cy="12" r="2"></circle>
+              <circle cx="17" cy="17.5" r="2"></circle>
+            </svg>
+          </span>
+          <div class="stage-body">
+            <span class="stage-label">Deliver role-based intelligence and integrations</span>
+          </div>
+        </li>
+      </ol>
+    </figure>
+
+    <div class="attest">
+      <!-- official certification artwork pending from NeoSapien; replace this tile with the supplied badge file. -->
+      <div class="iso-slot">
+        <span class="iso-slot__mark">ISO</span>
+        <span class="iso-slot__num">27001</span>
+      </div>
+
+      <ul class="ribbon">
+        {proof.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* The fold's ground takes a very faint wash under the pipeline — the spill
+     from the one lit stage, not a second light source. */
+  #security {
+    --light-x: 50%;
+    --light-y: 58%;
+    --light-w: 76%;
+    --light-h: 46%;
+    --light-alpha: 0.035;
+  }
+
+  /* ---------- The pipeline panel ---------- */
+
+  .flow {
+    --pad: clamp(26px, 3.6vw, 44px);
+    --node: 48px;
+    --ring: 7px;
+    /* The well: the recessed field the conduit runs through. Each node's
+       knockout ring must be filled with exactly this colour, or the gap the
+       ring holds open in the conduit reads as a halo instead of as clearance. */
+    --well: var(--g-950);
+    margin: 0;
+    padding: var(--pad);
+    /* Machined housing: a lit top edge, the room's light falling off fast */
+    background: var(--g-850)
+      linear-gradient(180deg, rgba(143, 240, 180, 0.03), transparent 120px);
+    border: 1px solid var(--line);
+    border-radius: var(--r-l);
+    box-shadow: var(--shadow-raised), inset 0 1px 0 rgba(242, 248, 240, 0.05);
+  }
+
+  .flow-caption {
+    display: block;
+    margin-inline: calc(-1 * var(--pad));
+    padding-inline: var(--pad);
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: clamp(34px, 4.4vw, 52px);
+    color: var(--ink-3);
+  }
+
+  /* The conduit runs in a recess milled into the housing face, so the
+     pipeline sits in the panel's own shadow rather than on top of it. */
+  .track {
+    list-style: none;
+    margin: 0;
+    padding: clamp(30px, 3.6vw, 42px) clamp(12px, 2vw, 24px);
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    background: var(--well);
+    border: 1px solid var(--line);
+    border-radius: var(--r-s);
+    box-shadow: inset 0 2px 12px rgba(2, 8, 5, 0.6),
+      inset 0 -1px 0 rgba(242, 248, 240, 0.025);
+  }
+
+  .stage {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 18px;
+    padding-inline: clamp(6px, 1.2vw, 16px);
+  }
+
+  /* Hairline conduit between consecutive stages, stopping at each node's ring */
+  .stage:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: calc(var(--node) / 2 - 0.5px);
+    left: calc(50% + var(--node) / 2 + var(--ring));
+    right: calc(-50% + var(--node) / 2 + var(--ring));
+    height: 1px;
+    background: var(--line-strong);
+    transform-origin: left center;
+  }
+
+  /* Machined tile: a top-lit face seated in the well. The knockout ring is
+     listed last so it fills the conduit clearance behind the seating shadow. */
+  .node {
+    position: relative;
+    z-index: 1;
+    flex: none;
+    width: var(--node);
+    height: var(--node);
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-s);
+    background: linear-gradient(180deg, var(--g-800), var(--g-850) 70%);
+    color: var(--ink-2);
+    box-shadow: 0 3px 10px -3px rgba(2, 8, 5, 0.85),
+      inset 0 1px 0 rgba(242, 248, 240, 0.07),
+      0 0 0 var(--ring) var(--well);
+  }
+
+  /* One signal point: the stage where the governance actually happens. This
+     node is the fold's only lit object — it glows, and the light pools in the
+     well around it. Nothing else on the fold emits. */
+  .stage--governed {
+    background: radial-gradient(
+      ellipse 70% 84px at 50% calc(var(--node) / 2),
+      rgba(63, 224, 124, 0.055),
+      transparent 72%
+    );
+  }
+
+  .stage--governed .node {
+    color: var(--green);
+    border-color: var(--green-dim);
+    background: linear-gradient(180deg, var(--g-750), var(--g-800) 70%);
+    box-shadow: 0 0 18px -1px var(--green-glow),
+      0 6px 26px -6px var(--green-glow),
+      0 3px 10px -3px rgba(2, 8, 5, 0.85),
+      inset 0 1px 0 rgba(143, 240, 180, 0.12),
+      0 0 0 var(--ring) var(--well);
+  }
+
+  .stage-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .stage-label {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+    max-width: 20ch;
+  }
+
+  /* Representative fragment: a token entering redaction and leaving masked */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 11px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-s);
+    background: var(--g-900);
+    box-shadow: inset 0 1px 0 rgba(242, 248, 240, 0.05),
+      0 2px 8px -4px rgba(2, 8, 5, 0.8);
+    font-size: 0.8125rem;
+    color: var(--ink-2);
+  }
+
+  /* The operator, not an ornament: the arrow is where the control acts */
+  .chip svg {
+    color: var(--green-dim);
+  }
+
+  .mask {
+    display: inline-flex;
+    gap: 3px;
+  }
+
+  .mask i {
+    width: 8px;
+    height: 13px;
+    border-radius: 1px;
+    background: var(--ink-3);
+  }
+
+  /* ---------- Certification slot + proof ribbon ---------- */
+
+  .attest {
+    margin-top: clamp(44px, 6vw, 72px);
+    padding-top: clamp(28px, 3.6vw, 40px);
+    border-top: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    gap: clamp(24px, 3vw, 40px);
+  }
+
+  .iso-slot {
+    flex: none;
+    width: 104px;
+    height: 104px;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 5px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-s);
+    /* Raised material: the one certified artifact on the row, not a badge */
+    background: var(--g-800)
+      linear-gradient(180deg, rgba(143, 240, 180, 0.045), transparent 96px);
+    box-shadow: var(--shadow-raised), inset 0 1px 0 rgba(242, 248, 240, 0.07);
+    font-family: var(--font-mono);
+    text-align: center;
+  }
+
+  .iso-slot__mark {
+    font-size: 0.6875rem;
+    letter-spacing: 0.22em;
+    text-indent: 0.22em;
+    color: var(--ink-3);
+  }
+
+  .iso-slot__num {
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-indent: 0.1em;
+    color: var(--ink-2);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ribbon {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    row-gap: 16px;
+  }
+
+  .ribbon li {
+    /* The IT buyer's primary evidence: display face at a readable size,
+       not miniature system labels. Mono stays on measured values only. */
+    position: relative;
+    font-size: 0.9375rem;
+    font-weight: 560;
+    line-height: 1.35;
+    color: var(--ink);
+    padding-inline: clamp(14px, 1.5vw, 20px);
+  }
+
+  /* Separators are ticks cut to the cap height, at the conduit's own weight —
+     a measured rhythm rather than seven full-height rules. */
+  .ribbon li + li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 1px;
+    height: 1em;
+    margin-top: -0.5em;
+    background: var(--line-strong);
+  }
+
+  .ribbon li:first-child {
+    padding-left: 0;
+  }
+
+  /* The flow renders static: the page's one authored motion moment lives in
+     Fold 3's signal traversal, so this diagram states its sequence plainly. */
+
+  /* ---------- Stacked: same order, conduit turns vertical ---------- */
+
+  @media (max-width: 880px) {
+    .stage {
+      flex-direction: row;
+      align-items: flex-start;
+      text-align: left;
+      gap: 20px;
+      padding-inline: 0;
+      padding-bottom: 32px;
+    }
+
+    .stage:last-child {
+      padding-bottom: 0;
+    }
+
+    .stage:not(:last-child)::after {
+      top: calc(var(--node) + var(--ring));
+      bottom: var(--ring);
+      left: calc(var(--node) / 2 - 0.5px);
+      right: auto;
+      width: 1px;
+      height: auto;
+      transform-origin: center top;
+    }
+
+    .track {
+      grid-template-columns: 1fr;
+    }
+
+    .stage-body {
+      align-items: flex-start;
+      padding-top: 11px;
+    }
+
+    .stage-label {
+      max-width: 34ch;
+    }
+
+    /* The light stays on the node, which has moved to the row's left edge */
+    .stage--governed {
+      background: radial-gradient(
+        ellipse 220px 84px at calc(var(--node) / 2) calc(var(--node) / 2),
+        rgba(63, 224, 124, 0.055),
+        transparent 72%
+      );
+    }
+  }
+
+  @media (max-width: 720px) {
+    .attest {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 28px;
+    }
+  }
+</style>
