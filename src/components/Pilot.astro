@@ -27,6 +27,13 @@ const steps = [
       ))}
     </ol>
 
+    <div class="passure reveal">
+      <span class="passure__ic" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 4 5.5v5.2c0 4.6 3.2 8 8 9.8 4.8-1.8 8-5.2 8-9.8V5.5z"/><path d="M8.7 12.1l2.3 2.3 4.3-4.6"/></svg>
+      </span>
+      <p class="passure__t"><b>No upfront costs.</b> We earn only when your trade succeeds.</p>
+    </div>
+
     <div class="terminus reveal">
       <div class="terminus__glow" aria-hidden="true"></div>
       <div class="terminus__text">
@@ -49,7 +56,16 @@ const steps = [
   .pstep__n { font-size: 1.2rem; font-weight: 500; margin-top: 2px; }
   .pstep__d { margin-top: 10px; color: var(--ink-2); font-size: .9rem; line-height: 1.45; }
 
-  .terminus { position: relative; overflow: hidden; margin-top: 76px; background: var(--green); border-radius: var(--r-l); padding: clamp(32px, 4.5vw, 60px); display: grid; grid-template-columns: 1fr auto; align-items: center; gap: clamp(24px, 3vw, 48px); box-shadow: var(--shadow-3); }
+  .passure { margin-top: 40px; display: flex; align-items: center; gap: 16px; padding: 18px 24px; border-radius: var(--r-l);
+    border: 1px solid color-mix(in srgb, var(--green) 30%, var(--hair)); box-shadow: var(--shadow-2);
+    background: linear-gradient(120deg, color-mix(in srgb, var(--green) 9%, var(--surface)), var(--surface) 74%); }
+  .passure__ic { flex: none; width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; color: var(--green-text);
+    background: color-mix(in srgb, var(--green) 14%, var(--surface)); border: 1px solid color-mix(in srgb, var(--green) 28%, transparent); }
+  .passure__ic svg { width: 24px; height: 24px; }
+  .passure__t { font-size: clamp(1.02rem, 1.3vw, 1.2rem); color: var(--ink-2); }
+  .passure__t b { font-weight: 600; color: var(--ink); }
+
+  .terminus { position: relative; overflow: hidden; margin-top: 28px; background: var(--green); border-radius: var(--r-l); padding: clamp(32px, 4.5vw, 60px); display: grid; grid-template-columns: 1fr auto; align-items: center; gap: clamp(24px, 3vw, 48px); box-shadow: var(--shadow-3); }
   .terminus__glow { position: absolute; right: -6%; top: -40%; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.35), transparent 65%); pointer-events: none; }
   .terminus__text { position: relative; }
   .terminus__h { color: var(--green-ink); font-size: clamp(1.9rem, 3.2vw, 2.8rem); font-weight: 600; letter-spacing: -0.025em; }
