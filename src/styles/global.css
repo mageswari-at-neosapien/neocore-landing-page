@@ -78,6 +78,64 @@
   color-scheme: dark;
 }
 
+/* Slate — brand green on a cool grey-blue light ground */
+:root[data-theme="slate"] {
+  --ground: #eef1f5;
+  --surface: #ffffff;
+  --surface-2: #f2f5f9;
+  --ink: #0f1720;
+  --ink-2: #525d6b;
+  --ink-3: #8793a2;
+  --hair: #d7dee7;
+
+  --bubble: #111a24;
+  --bubble-2: #1a2531;
+  --bubble-ink: #eef3f8;
+  --bubble-ink-2: #7d8a99;
+
+  --green-text: #04945a;
+
+  --btn-bg: #111a24;
+  --btn-text: var(--green);
+  --btn-ico-bg: var(--green);
+  --btn-ico-ink: var(--green-ink);
+
+  --glow: rgba(0, 223, 121, 0.12);
+  --shadow-1: 0 6px 20px -10px rgba(20, 35, 55, 0.18);
+  --shadow-2: 0 24px 50px -24px rgba(16, 32, 52, 0.28);
+  --shadow-3: 0 40px 84px -36px rgba(12, 28, 48, 0.40);
+  color-scheme: light;
+}
+
+/* Sand — brand green on warm cream */
+:root[data-theme="sand"] {
+  --ground: #f3ecdf;
+  --surface: #fffdf8;
+  --surface-2: #f7f1e6;
+  --ink: #1b160d;
+  --ink-2: #6b6152;
+  --ink-3: #9c907c;
+  --hair: #e6dcc9;
+
+  --bubble: #191510;
+  --bubble-2: #231d15;
+  --bubble-ink: #f6efe4;
+  --bubble-ink-2: #9c9484;
+
+  --green-text: #0a7d4d;
+
+  --btn-bg: #191510;
+  --btn-text: var(--green-2);
+  --btn-ico-bg: var(--green-2);
+  --btn-ico-ink: var(--green-ink);
+
+  --glow: rgba(0, 201, 110, 0.12);
+  --shadow-1: 0 6px 20px -10px rgba(60, 45, 20, 0.16);
+  --shadow-2: 0 24px 50px -24px rgba(55, 40, 16, 0.26);
+  --shadow-3: 0 40px 84px -36px rgba(45, 32, 12, 0.36);
+  color-scheme: light;
+}
+
 /* ---------- Reset ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }

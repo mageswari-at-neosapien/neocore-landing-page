@@ -65,21 +65,33 @@ const {
           neoTrack: (event: string, detail?: Record<string, unknown>) => void;
         }
       }
-      // ---- Theme toggle ----
+      // ---- Theme menu (Daylight / Midnight / Slate / Sand) ----
       const root = document.documentElement;
-      const setTheme = (t: string) => {
-        root.setAttribute('data-theme', t);
-        try { localStorage.setItem('neo-theme', t); } catch {}
-        document.querySelectorAll<HTMLElement>('[data-theme-toggle]').forEach((b) =>
-          b.setAttribute('aria-pressed', String(t === 'dark'))
-        );
-      };
-      document.querySelectorAll<HTMLElement>('[data-theme-toggle]').forEach((btn) => {
-        btn.setAttribute('aria-pressed', String(root.getAttribute('data-theme') === 'dark'));
-        btn.addEventListener('click', () =>
-          setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark')
-        );
-      });
+      const themeMenu = document.querySelector<HTMLElement>('[data-theme-menu]');
+      if (themeMenu) {
+        const btn = themeMenu.querySelector<HTMLButtonElement>('[data-theme-btn]')!;
+        const pop = themeMenu.querySelector<HTMLElement>('[data-theme-pop]')!;
+        const opts = Array.from(themeMenu.querySelectorAll<HTMLButtonElement>('[data-set-theme]'));
+
+        const mark = () => {
+          const cur = root.getAttribute('data-theme') || 'light';
+          opts.forEach((o) => o.setAttribute('aria-checked', String(o.dataset.setTheme === cur)));
+        };
+        const setTheme = (t: string) => {
+          root.setAttribute('data-theme', t);
+          try { localStorage.setItem('neo-theme', t); } catch {}
+          mark();
+        };
+        const open = (o: boolean) => { pop.hidden = !o; btn.setAttribute('aria-expanded', String(o)); };
+
+        mark();
+        btn.addEventListener('click', (e) => { e.stopPropagation(); open(pop.hidden); });
+        opts.forEach((o) => o.addEventListener('click', () => { setTheme(o.dataset.setTheme!); open(false); }));
+        document.addEventListener('click', (e) => {
+          if (!pop.hidden && !themeMenu.contains(e.target as Node)) open(false);
+        });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') open(false); });
+      }
 
       // ---- Analytics (brief §5): data-evt (click) / data-evt-view (first view) ----
       window.dataLayer = window.dataLayer || [];
