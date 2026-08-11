@@ -35,9 +35,9 @@ const structured = [
   { k: 'Next action', v: 'Follow up with the updated scheme' },
 ];
 // A deterministic, speech-like waveform profile (varied bar heights + ripple delays).
-const wave = Array.from({ length: 44 }, (_, i) => {
+const wave = Array.from({ length: 72 }, (_, i) => {
   const v = Math.abs(Math.sin(i * 0.7) * 0.5 + Math.sin(i * 1.9 + 1) * 0.3 + Math.sin(i * 0.33) * 0.2);
-  return { h: Math.round(20 + v * 80), d: +((i % 12) * 0.06).toFixed(2) };
+  return { h: Math.round(14 + v * 86), d: +((i % 16) * 0.05).toFixed(2) };
 });
 const icons: Record<string, string> = {
   target: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.8" fill="currentColor" stroke="none"/></svg>',
@@ -298,9 +298,9 @@ const icons: Record<string, string> = {
   @keyframes csRise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
   /* state 0 — processing */
-  .cs__wave { display: flex; align-items: center; gap: 2px; height: 58px; margin-bottom: 20px; }
-  .cs__wave span { flex: 1; min-width: 2px; height: var(--h, 50%); border-radius: 2px; transform: scaleY(.5); transform-origin: center;
-    background: linear-gradient(180deg, var(--green), color-mix(in srgb, var(--green) 45%, transparent)); }
+  .cs__wave { display: flex; align-items: center; justify-content: space-between; gap: 0; height: 56px; margin-bottom: 20px; }
+  .cs__wave span { flex: none; width: 2px; height: var(--h, 50%); border-radius: 2px; transform: scaleY(.5); transform-origin: center;
+    background: var(--green); opacity: .9; }
   .capstate.is-active .cs__wave span {
     animation-name: cswave; animation-duration: 1.15s; animation-timing-function: cubic-bezier(.4,0,.5,1);
     animation-iteration-count: infinite; animation-direction: alternate; animation-delay: var(--d, 0s); }
