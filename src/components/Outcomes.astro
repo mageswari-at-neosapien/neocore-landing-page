@@ -91,21 +91,85 @@ const icons: Record<string, string> = {
 
 <section class="fold capsfold glowsec">
   <span class="secglow secglow--bl" aria-hidden="true"></span>
-  <div class="shell">
-    <div class="fold-head reveal capsfold__head">
+  <div class="shell caps__grid">
+    <div class="caps__copy reveal">
       <h2 class="h2">Built for <span class="b">enterprise scale.</span></h2>
       <p class="lede">The breakthrough technology, tuning, adoption and integrations enterprise deployment needs.</p>
+      <ul class="crail" data-crail role="tablist" aria-label="Enterprise capabilities">
+        {caps.map((c, i) => (
+          <li class="crow" class:list={[{ 'is-active': i === 0 }]} data-crow={i} role="tab" tabindex="0" aria-selected={i === 0 ? 'true' : 'false'}>
+            <span class="iconh iconh--sm" aria-hidden="true" set:html={icons[c.icon]} />
+            <div class="crow__body">
+              <h3 class="crow__n">{c.n}<span class="crow__num">{String(i + 1).padStart(2, '0')}</span></h3>
+              <p class="crow__c">{c.c}</p>
+            </div>
+            <span class="crow__bar" aria-hidden="true"><i></i></span>
+          </li>
+        ))}
+      </ul>
     </div>
-    <div class="caps reveal">
-      {caps.map((c, i) => (
-        <article class="cap">
-          <span class="iconh" aria-hidden="true" set:html={icons[c.icon]} />
-          <div class="cap__body">
-            <h3 class="cap__n">{c.n}<span class="cap__num">{String(i + 1).padStart(2, '0')}</span></h3>
-            <p class="cap__c">{c.c}</p>
+
+    <div class="caps__view reveal">
+      <div class="capscreen" data-capscreen>
+        <div class="capscreen__body">
+          <!-- 0 · Breakthrough technology -->
+          <div class="capstate is-active" data-capstate="0">
+            <div class="cs__cap"><span class="live" aria-hidden="true"></span>Processing · Neo One</div>
+            <div class="cs__wave" aria-hidden="true">{Array.from({ length: 34 }).map(() => <span></span>)}</div>
+            <div class="cs__chips">
+              <span class="cchip">Hindi</span><span class="cchip">Tamil</span><span class="cchip">English</span><span class="cchip">Telugu</span><span class="cchip cchip--muted">+96 languages</span>
+            </div>
+            <div class="cs__meta">
+              <span class="cpill">Speaker · Rep</span><span class="cpill">Speaker · Retailer</span><span class="cpill cpill--g">Tone · Confident</span>
+            </div>
+            <div class="cs__timer">
+              <div class="cs__tbar"><i></i></div>
+              <span class="cs__tlbl">01:48 · processed in under two minutes</span>
+            </div>
           </div>
-        </article>
-      ))}
+
+          <!-- 1 · Tailored to your needs -->
+          <div class="capstate" data-capstate="1">
+            <div class="cs__cap">Tuning profile · West region</div>
+            <ul class="cs__tune">
+              <li><span class="cs__tk">Brands</span><span class="cs__tv">NeoGold · SunMax · +12</span><span class="cs__ok" aria-hidden="true">✓</span></li>
+              <li><span class="cs__tk">Competitors</span><span class="cs__tv">Brand X · Brand Y</span><span class="cs__ok" aria-hidden="true">✓</span></li>
+              <li><span class="cs__tk">Terminology</span><span class="cs__tv">Scheme · margin · beat</span><span class="cs__ok" aria-hidden="true">✓</span></li>
+              <li><span class="cs__tk">Regional language</span><span class="cs__tv">Code-mixed Hinglish</span><span class="cs__ok" aria-hidden="true">✓</span></li>
+            </ul>
+          </div>
+
+          <!-- 2 · Built for adoption -->
+          <div class="capstate" data-capstate="2">
+            <div class="cs__cap">Frontline capture</div>
+            <div class="cs__tap">
+              <span class="cs__mic" aria-hidden="true"><span></span></span>
+              <div><b>One tap to capture</b><em>No forms. No manual logging.</em></div>
+            </div>
+            <div class="cs__compare">
+              <span class="cs__clbl">Instead of</span>
+              <ul class="cs__old"><li>Log the call</li><li>Fill the CRM form</li><li>Tag and submit</li></ul>
+              <span class="cs__cgo" aria-hidden="true">→</span>
+              <span class="cs__cnew">Tap once. Keep selling.</span>
+            </div>
+          </div>
+
+          <!-- 3 · API-first -->
+          <div class="capstate" data-capstate="3">
+            <div class="cs__cap">Integrations</div>
+            <div class="cs__hub">
+              <span class="cs__core">NeoCore</span>
+              <ul class="cs__nodes">
+                <li class="cs__node"><span class="cs__line" aria-hidden="true"></span>CRM<em>Synced</em></li>
+                <li class="cs__node"><span class="cs__line" aria-hidden="true"></span>BI dashboards<em>Synced</em></li>
+                <li class="cs__node"><span class="cs__line" aria-hidden="true"></span>MCP<em>Live</em></li>
+                <li class="cs__node"><span class="cs__line" aria-hidden="true"></span>Webhooks<em>Active</em></li>
+              </ul>
+            </div>
+            <code class="cs__json">GET /v1/conversations/<span class="cs__jk">:id</span>/insights</code>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -190,24 +254,102 @@ const icons: Record<string, string> = {
   .mt { background: var(--inset-2); border: 1px solid var(--inset-line); border-radius: var(--r-pill); padding: 8px 14px; font-size: .86rem; color: var(--bubble-ink); }
   .mt--up { background: var(--green); color: var(--green-ink); border-color: transparent; font-weight: 500; }
 
-  /* Capabilities — premium tiles, 2×2, with depth + hover glow */
-  .capsfold__head { margin-bottom: clamp(32px, 4vw, 52px); }
-  .caps { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 1.6vw, 22px); }
-  .cap { position: relative; display: flex; gap: 22px; align-items: flex-start; padding: clamp(24px, 2.4vw, 34px);
-    border-radius: var(--r-l); border: 1px solid var(--hair); box-shadow: var(--shadow-2); overflow: hidden;
-    background: linear-gradient(158deg, color-mix(in srgb, var(--green) 6%, var(--surface)), var(--surface) 72%);
-    transition: transform .25s var(--ease), border-color .25s var(--ease), box-shadow .25s var(--ease); }
-  .cap::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(0,223,121,.35), transparent); }
-  .cap::after { content: ""; position: absolute; right: -30%; top: -60%; width: 60%; height: 140%; border-radius: 50%;
-    background: radial-gradient(circle, var(--green-glow), transparent 70%); opacity: 0; transition: opacity .3s var(--ease); pointer-events: none; }
-  .cap:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--green) 34%, var(--hair)); box-shadow: var(--shadow-3); }
-  .cap:hover::after { opacity: .8; }
-  .cap .iconh { flex: none; width: 56px; height: 56px; border-radius: 16px; }
-  .cap .iconh :global(svg) { width: 27px; height: 27px; }
-  .cap__body { position: relative; z-index: 1; }
-  .cap__n { font-size: clamp(1.2rem, 1.55vw, 1.5rem); font-weight: 500; letter-spacing: -0.018em; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-  .cap__num { font-size: .78rem; font-weight: 600; color: var(--ink-3); font-variant-numeric: tabular-nums; }
-  .cap__c { margin-top: 12px; color: var(--ink-2); font-size: .98rem; line-height: 1.55; }
+  /* Capabilities — left rail auto-advances, right screen morphs per capability */
+  .caps__grid { display: grid; grid-template-columns: 0.96fr 1.04fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
+  .caps__copy { max-width: 560px; }
+  .crail { list-style: none; margin-top: clamp(24px, 3vw, 36px); display: grid; gap: 6px; }
+  .crow { position: relative; display: flex; gap: 15px; align-items: flex-start; padding: 15px 16px; border-radius: var(--r-m);
+    border: 1px solid transparent; cursor: pointer; transition: background .25s var(--ease), border-color .25s var(--ease), opacity .25s var(--ease); }
+  .crow:not(.is-active) { opacity: .58; }
+  .crow:not(.is-active):hover { opacity: .85; background: color-mix(in srgb, var(--green) 5%, transparent); }
+  .crow.is-active { background: linear-gradient(120deg, color-mix(in srgb, var(--green) 9%, var(--surface)), var(--surface) 78%);
+    border-color: color-mix(in srgb, var(--green) 22%, var(--hair)); box-shadow: var(--shadow-1); }
+  .crow:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+  .crow .iconh--sm { width: 42px; height: 42px; flex: none; transition: transform .25s var(--ease); }
+  .crow.is-active .iconh--sm { transform: scale(1.04); }
+  .crow__body { flex: 1; min-width: 0; }
+  .crow__n { font-size: 1.12rem; font-weight: 500; letter-spacing: -0.015em; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .crow__num { font-size: .72rem; font-weight: 600; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .crow__c { margin-top: 4px; color: var(--ink-2); font-size: .9rem; line-height: 1.45; }
+  .crow__bar { display: block; height: 2px; margin-top: 12px; border-radius: 2px; background: var(--hair); overflow: hidden; opacity: 0; }
+  .crow.is-active .crow__bar { opacity: 1; }
+  .crow__bar i { display: block; height: 100%; width: 0; background: var(--green); border-radius: 2px; }
+  .crow.is-active .crow__bar i { animation: crbar var(--cdwell, 3.8s) linear forwards; }
+  @keyframes crbar { to { width: 100%; } }
+
+  /* the morphing product screen (dark in both themes) */
+  .capscreen { position: relative; background: var(--bubble); border-radius: var(--r-l); padding: clamp(22px, 2.4vw, 30px);
+    color: var(--bubble-ink); box-shadow: var(--shadow-3); border: 1px solid color-mix(in srgb, var(--green) 14%, transparent); }
+  .capscreen::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 1px; border-radius: var(--r-l) var(--r-l) 0 0; background: linear-gradient(90deg, transparent, rgba(0,223,121,.4), transparent); }
+  .capscreen__body { position: relative; min-height: 300px; }
+  .capstate { position: absolute; inset: 0; display: flex; flex-direction: column; opacity: 0; visibility: hidden; transition: opacity .4s var(--ease); }
+  .capstate.is-active { opacity: 1; visibility: visible; }
+  .cs__cap { display: inline-flex; align-items: center; gap: 9px; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--bubble-ink-2); margin-bottom: 20px; }
+  /* inner elements rise in when the state activates */
+  .capstate.is-active > :not(.cs__cap) { animation: csRise .5s var(--ease) both; }
+  .capstate.is-active > :nth-child(3) { animation-delay: .06s; }
+  .capstate.is-active > :nth-child(4) { animation-delay: .12s; }
+  .capstate.is-active > :nth-child(5) { animation-delay: .18s; }
+  @keyframes csRise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  /* state 0 — processing */
+  .cs__wave { display: flex; align-items: center; gap: 3px; height: 46px; margin-bottom: 20px; }
+  .cs__wave span { flex: 1; border-radius: 2px; background: linear-gradient(180deg, var(--green), color-mix(in srgb, var(--green) 40%, transparent)); }
+  .capstate.is-active .cs__wave span { animation: cswave 1.1s ease-in-out infinite; }
+  .cs__wave span:nth-child(3n) { animation-delay: .15s; } .cs__wave span:nth-child(3n+1) { animation-delay: .35s; } .cs__wave span:nth-child(4n) { animation-delay: .5s; }
+  @keyframes cswave { 0%,100% { height: 22%; opacity: .6; } 50% { height: 100%; opacity: 1; } }
+  .cs__chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .cchip { font-size: .84rem; padding: 6px 13px; border-radius: var(--r-pill); background: var(--inset-2); border: 1px solid var(--inset-line); color: var(--bubble-ink); }
+  .cchip--muted { color: var(--bubble-ink-2); }
+  .cs__meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: auto; }
+  .cpill { font-size: .8rem; padding: 6px 12px; border-radius: var(--r-pill); background: var(--inset); color: var(--bubble-ink-2); }
+  .cpill--g { background: var(--green); color: var(--green-ink); font-weight: 500; }
+  .cs__timer { margin-top: 20px; }
+  .cs__tbar { height: 6px; border-radius: 6px; background: var(--inset-line); overflow: hidden; }
+  .cs__tbar i { display: block; height: 100%; width: 82%; border-radius: 6px; background: var(--green); }
+  .capstate.is-active .cs__tbar i { animation: cstimer 1.6s var(--ease) both; }
+  @keyframes cstimer { from { width: 0; } to { width: 82%; } }
+  .cs__tlbl { display: block; margin-top: 10px; font-size: .82rem; color: var(--bubble-ink-2); }
+
+  /* state 1 — tuning */
+  .cs__tune { list-style: none; display: grid; gap: 10px; margin: auto 0; }
+  .cs__tune li { display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-radius: var(--r-m); background: var(--inset); border: 1px solid var(--inset-line); }
+  .cs__tk { font-size: .96rem; color: var(--bubble-ink); font-weight: 500; width: 42%; }
+  .cs__tv { font-size: .88rem; color: var(--bubble-ink-2); flex: 1; }
+  .cs__ok { width: 22px; height: 22px; border-radius: 50%; background: var(--green); color: var(--green-ink); display: grid; place-items: center; font-size: .64rem; font-weight: 800; flex: none; }
+
+  /* state 2 — adoption */
+  .cs__tap { display: flex; align-items: center; gap: 16px; padding: 16px; border-radius: var(--r-m); background: var(--inset); border: 1px solid var(--inset-line); margin-bottom: 18px; }
+  .cs__mic { width: 46px; height: 46px; border-radius: 50%; background: var(--green); display: grid; place-items: center; flex: none; position: relative; }
+  .cs__mic span { width: 15px; height: 15px; border-radius: 50%; background: var(--green-ink); }
+  .capstate.is-active .cs__mic::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--green); animation: csping 1.8s ease-out infinite; }
+  @keyframes csping { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(1.7); opacity: 0; } }
+  .cs__tap b { font-size: 1.08rem; font-weight: 500; color: var(--bubble-ink); }
+  .cs__tap em { display: block; font-style: normal; color: var(--bubble-ink-2); font-size: .86rem; margin-top: 3px; }
+  .cs__compare { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: auto; }
+  .cs__clbl { font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; color: var(--bubble-ink-2); width: 100%; }
+  .cs__old { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+  .cs__old li { font-size: .82rem; color: var(--bubble-ink-2); padding: 5px 11px; border-radius: var(--r-pill); background: var(--inset-2); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--bubble-ink-2) 60%, transparent); }
+  .cs__cgo { color: var(--green); font-size: 1.1rem; }
+  .cs__cnew { font-size: .9rem; font-weight: 500; color: var(--green); padding: 6px 13px; border-radius: var(--r-pill); background: var(--green-glow); }
+
+  /* state 3 — integrations */
+  .cs__hub { display: flex; align-items: center; gap: 20px; margin: auto 0; }
+  .cs__core { flex: none; font-size: 1rem; font-weight: 600; color: var(--green-ink); background: var(--green); padding: 14px 20px; border-radius: 14px; box-shadow: 0 10px 26px -10px var(--green-glow); }
+  .cs__nodes { list-style: none; flex: 1; display: grid; gap: 8px; }
+  .cs__node { position: relative; display: flex; align-items: center; gap: 12px; padding: 11px 15px 11px 22px; font-size: .94rem; color: var(--bubble-ink);
+    background: var(--inset); border: 1px solid var(--inset-line); border-radius: var(--r-m); }
+  .cs__node em { margin-left: auto; font-style: normal; font-size: .74rem; color: var(--green); display: inline-flex; align-items: center; gap: 6px; }
+  .cs__node em::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 3px var(--green-glow); }
+  .cs__line { position: absolute; left: -20px; top: 50%; width: 20px; height: 1px; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--green) 55%, transparent)); }
+  .capstate.is-active .cs__node { animation: csnode .5s var(--ease) both; }
+  .capstate.is-active .cs__node:nth-child(2) { animation-delay: .08s; }
+  .capstate.is-active .cs__node:nth-child(3) { animation-delay: .16s; }
+  .capstate.is-active .cs__node:nth-child(4) { animation-delay: .24s; }
+  @keyframes csnode { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: none; } }
+  .cs__json { display: block; margin-top: 20px; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .82rem; color: var(--bubble-ink-2);
+    background: var(--inset); border: 1px solid var(--inset-line); border-radius: var(--r-s, 10px); padding: 12px 15px; overflow-x: auto; }
+  .cs__jk { color: var(--green); }
 
   /* Sample — product-grade */
   .sample__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: clamp(24px, 3vw, 40px); }
@@ -258,12 +400,16 @@ const icons: Record<string, string> = {
 
   @media (max-width: 900px) {
     .out__grid { grid-template-columns: 1fr; gap: 32px; }
-    .caps { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .caps__grid { grid-template-columns: 1fr; gap: 32px; }
     .analysis { grid-template-columns: 1fr; }
     .analysis__flow { flex-direction: row; margin: 4px 0; }
     .analysis__in { border-radius: 22px; }
   }
-  @media (max-width: 560px) { .caps { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) {
+    .crow.is-active .crow__bar i, .capstate.is-active .cs__wave span,
+    .capstate.is-active .cs__tbar i, .capstate.is-active .cs__mic::after { animation: none; }
+    .capstate.is-active > :not(.cs__cap), .capstate.is-active .cs__node { animation: none; }
+  }
 </style>
 
 <script>
@@ -314,5 +460,39 @@ const icons: Record<string, string> = {
       { threshold: 0.35 }
     );
     io.observe(el);
+  }
+
+  // Capabilities showcase — rail rows auto-advance and drive the morphing screen.
+  const crail = document.querySelector<HTMLElement>('[data-crail]');
+  const screen = document.querySelector<HTMLElement>('[data-capscreen]');
+  if (crail && screen) {
+    const DWELL = 3800;
+    const rows = Array.from(crail.querySelectorAll<HTMLElement>('.crow'));
+    const states = Array.from(screen.querySelectorAll<HTMLElement>('.capstate'));
+    const reducedC = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let idx = 0, timer = 0, inView = false;
+
+    const show = (i: number) => {
+      idx = (i + rows.length) % rows.length;
+      rows.forEach((r, n) => { const on = n === idx; r.classList.toggle('is-active', on); r.setAttribute('aria-selected', String(on)); });
+      states.forEach((s, n) => s.classList.toggle('is-active', n === idx));
+    };
+    const stop = () => { if (timer) { clearInterval(timer); timer = 0; } };
+    const play = () => { stop(); if (reducedC) return; timer = window.setInterval(() => show(idx + 1), DWELL); };
+    const goto = (i: number) => { show(i); if (inView) play(); };
+
+    rows.forEach((r, n) => {
+      r.addEventListener('click', () => goto(n));
+      r.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goto(n); }
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); rows[(n + 1) % rows.length].focus(); goto(n + 1); }
+        if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); rows[(n - 1 + rows.length) % rows.length].focus(); goto(n - 1); }
+      });
+    });
+
+    new IntersectionObserver((entries) => entries.forEach((e) => {
+      inView = e.isIntersecting;
+      if (inView) play(); else stop();
+    }), { threshold: 0.3 }).observe(screen);
   }
 </script>
