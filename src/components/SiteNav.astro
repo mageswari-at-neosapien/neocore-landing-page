@@ -7,9 +7,13 @@ const links = [
 ];
 const themes = [
   { id: 'light', label: 'Daylight', ground: '#ececec', accent: '#00df79' },
-  { id: 'dark', label: 'Midnight', ground: '#080c0a', accent: '#00df79' },
-  { id: 'slate', label: 'Slate', ground: '#eef1f5', accent: '#00df79' },
+  { id: 'ice', label: 'Ice', ground: '#eaf4f7', accent: '#0ea5c4' },
+  { id: 'lagoon', label: 'Lagoon', ground: '#e9f5f3', accent: '#12b5a3' },
   { id: 'sand', label: 'Sand', ground: '#f3ecdf', accent: '#00c96e' },
+  { id: 'peach', label: 'Peach', ground: '#fbeee4', accent: '#ef6b3d' },
+  { id: 'butter', label: 'Butter', ground: '#f6f0e2', accent: '#e0932a' },
+  { id: 'editorial', label: 'Editorial', ground: '#f4efe6', accent: '#d63423' },
+  { id: 'dark', label: 'Midnight', ground: '#080c0a', accent: '#00df79' },
 ];
 ---
 
@@ -70,7 +74,8 @@ const themes = [
   .tglr__sw::after { content: ""; position: absolute; right: -1px; bottom: -1px; width: 10px; height: 10px; border-radius: 50%; background: var(--green); }
 
   .thm__pop { position: absolute; top: calc(100% + 10px); right: 0; z-index: 60; width: 190px; padding: 6px; display: grid; gap: 2px;
-    background: var(--surface); border: 1px solid var(--hair); border-radius: var(--r-m); box-shadow: var(--shadow-2); }
+    background: var(--surface); border: 1px solid var(--hair); border-radius: var(--r-m); box-shadow: var(--shadow-2);
+    max-height: min(72vh, 460px); overflow-y: auto; }
   .thm__opt { display: flex; align-items: center; gap: 11px; width: 100%; padding: 10px 11px; border-radius: 12px; color: var(--ink-2); font-size: .95rem; font-weight: 500; text-align: left; transition: background .14s var(--ease), color .14s var(--ease); }
   .thm__opt:hover { background: var(--surface-2); color: var(--ink); }
   .thm__sw { width: 20px; height: 20px; border-radius: 50%; flex: none; background: var(--sw-g); border: 1.5px solid color-mix(in srgb, var(--ink-3) 60%, transparent); position: relative; overflow: hidden; }

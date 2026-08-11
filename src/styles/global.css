@@ -78,35 +78,6 @@
   color-scheme: dark;
 }
 
-/* Slate — brand green on a cool grey-blue light ground */
-:root[data-theme="slate"] {
-  --ground: #eef1f5;
-  --surface: #ffffff;
-  --surface-2: #f2f5f9;
-  --ink: #0f1720;
-  --ink-2: #525d6b;
-  --ink-3: #8793a2;
-  --hair: #d7dee7;
-
-  --bubble: #111a24;
-  --bubble-2: #1a2531;
-  --bubble-ink: #eef3f8;
-  --bubble-ink-2: #7d8a99;
-
-  --green-text: #04945a;
-
-  --btn-bg: #111a24;
-  --btn-text: var(--green);
-  --btn-ico-bg: var(--green);
-  --btn-ico-ink: var(--green-ink);
-
-  --glow: rgba(0, 223, 121, 0.12);
-  --shadow-1: 0 6px 20px -10px rgba(20, 35, 55, 0.18);
-  --shadow-2: 0 24px 50px -24px rgba(16, 32, 52, 0.28);
-  --shadow-3: 0 40px 84px -36px rgba(12, 28, 48, 0.40);
-  color-scheme: light;
-}
-
 /* Sand — brand green on warm cream */
 :root[data-theme="sand"] {
   --ground: #f3ecdf;
@@ -133,6 +104,61 @@
   --shadow-1: 0 6px 20px -10px rgba(60, 45, 20, 0.16);
   --shadow-2: 0 24px 50px -24px rgba(55, 40, 16, 0.26);
   --shadow-3: 0 40px 84px -36px rgba(45, 32, 12, 0.36);
+  color-scheme: light;
+}
+
+/* Ice — cyan accent on a pale cyan-white ground */
+:root[data-theme="ice"] {
+  --green: #0ea5c4; --green-2: #0d93ae; --green-ink: #04222b; --green-glow: rgba(14,165,196,0.18); --green-text: #0a7f98;
+  --ground: #eaf4f7; --surface: #ffffff; --surface-2: #eef6f9; --ink: #0c1a1f; --ink-2: #54666d; --ink-3: #849aa0; --hair: #d0e4ea;
+  --bubble: #08191f; --bubble-2: #122730; --bubble-ink: #eaf4f7; --bubble-ink-2: #7d9aa0;
+  --btn-bg: #08191f; --btn-text: var(--green); --btn-ico-bg: var(--green); --btn-ico-ink: var(--green-ink);
+  --glow: rgba(14,165,196,0.10);
+  --shadow-1: 0 6px 20px -10px rgba(10,40,50,0.18); --shadow-2: 0 24px 50px -24px rgba(8,36,46,0.28); --shadow-3: 0 40px 84px -36px rgba(6,30,42,0.40);
+  color-scheme: light;
+}
+
+/* Lagoon — teal accent on a pale aqua ground */
+:root[data-theme="lagoon"] {
+  --green: #12b5a3; --green-2: #0fa392; --green-ink: #04231f; --green-glow: rgba(18,181,163,0.18); --green-text: #0a8576;
+  --ground: #e9f5f3; --surface: #ffffff; --surface-2: #eff8f6; --ink: #0a1c1a; --ink-2: #526d69; --ink-3: #849a96; --hair: #cee6e2;
+  --bubble: #08201d; --bubble-2: #122a27; --bubble-ink: #e9f5f3; --bubble-ink-2: #7f9a95;
+  --btn-bg: #08201d; --btn-text: var(--green); --btn-ico-bg: var(--green); --btn-ico-ink: var(--green-ink);
+  --glow: rgba(18,181,163,0.10);
+  --shadow-1: 0 6px 20px -10px rgba(10,50,45,0.18); --shadow-2: 0 24px 50px -24px rgba(8,44,40,0.28); --shadow-3: 0 40px 84px -36px rgba(6,38,34,0.40);
+  color-scheme: light;
+}
+
+/* Peach — coral accent on a warm peach ground */
+:root[data-theme="peach"] {
+  --green: #ef6b3d; --green-2: #e05c30; --green-ink: #ffffff; --green-glow: rgba(239,107,61,0.18); --green-text: #c9531f;
+  --ground: #fbeee4; --surface: #fffdfb; --surface-2: #f9efe6; --ink: #24160d; --ink-2: #6b5a4d; --ink-3: #a89484; --hair: #f0dccb;
+  --bubble: #1e130b; --bubble-2: #281c12; --bubble-ink: #f8efe6; --bubble-ink-2: #a08c7d;
+  --btn-bg: #1e130b; --btn-text: var(--green); --btn-ico-bg: var(--green); --btn-ico-ink: var(--green-ink);
+  --glow: rgba(239,107,61,0.10);
+  --shadow-1: 0 6px 20px -10px rgba(60,35,20,0.16); --shadow-2: 0 24px 50px -24px rgba(55,32,16,0.26); --shadow-3: 0 40px 84px -36px rgba(45,26,12,0.36);
+  color-scheme: light;
+}
+
+/* Butter — amber accent on a warm cream ground */
+:root[data-theme="butter"] {
+  --green: #e0932a; --green-2: #cf8420; --green-ink: #2a1e04; --green-glow: rgba(224,147,42,0.20); --green-text: #a66c12;
+  --ground: #f6f0e2; --surface: #fffdf6; --surface-2: #f8f2e4; --ink: #20180a; --ink-2: #6f6350; --ink-3: #9d9078; --hair: #ece2c9;
+  --bubble: #1d1608; --bubble-2: #271e10; --bubble-ink: #f8efe0; --bubble-ink-2: #9d9078;
+  --btn-bg: #1d1608; --btn-text: var(--green); --btn-ico-bg: var(--green); --btn-ico-ink: var(--green-ink);
+  --glow: rgba(224,147,42,0.10);
+  --shadow-1: 0 6px 20px -10px rgba(60,45,15,0.16); --shadow-2: 0 24px 50px -24px rgba(55,40,14,0.26); --shadow-3: 0 40px 84px -36px rgba(45,32,10,0.36);
+  color-scheme: light;
+}
+
+/* Editorial — newsprint red accent on a warm ivory ground */
+:root[data-theme="editorial"] {
+  --green: #d63423; --green-2: #c22e1f; --green-ink: #ffffff; --green-glow: rgba(214,52,35,0.16); --green-text: #b82e1f;
+  --ground: #f4efe6; --surface: #fffdf9; --surface-2: #f7f2e9; --ink: #1a1712; --ink-2: #6b6355; --ink-3: #978c7b; --hair: #e5dccb;
+  --bubble: #1a1712; --bubble-2: #251f18; --bubble-ink: #f4efe6; --bubble-ink-2: #9a8f7d;
+  --btn-bg: #1a1712; --btn-text: var(--green); --btn-ico-bg: var(--green); --btn-ico-ink: var(--green-ink);
+  --glow: rgba(214,52,35,0.09);
+  --shadow-1: 0 6px 20px -10px rgba(45,35,25,0.16); --shadow-2: 0 24px 50px -24px rgba(40,32,22,0.26); --shadow-3: 0 40px 84px -36px rgba(35,28,18,0.36);
   color-scheme: light;
 }
 
