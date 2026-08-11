@@ -1,0 +1,14 @@
+---
+// NeoSapien wordmark, inlined so it inherits the theme ink via currentColor.
+import raw from '../assets/logo-neosapien.svg?raw';
+const svg = raw
+  .replaceAll('#111111', 'currentColor')
+  .replace(/\s(width|height)="[^"]*"/g, '');
+---
+
+<span class="brandlogo" aria-hidden="true" set:html={svg}></span>
+
+<style>
+  .brandlogo { display: inline-flex; color: var(--ink); }
+  .brandlogo :global(svg) { display: block; height: 22px; width: auto; }
+</style>

@@ -5,6 +5,7 @@ const links = [
   { href: '#security', label: 'Security' },
   { href: '#faq', label: 'FAQ' },
 ];
+import BrandLogo from './BrandLogo.astro';
 const themes = [
   { id: 'light', label: 'Daylight', ground: '#ececec', accent: '#00df79' },
   { id: 'ice', label: 'Ice', ground: '#eaf4f7', accent: '#0ea5c4' },
@@ -19,9 +20,8 @@ const themes = [
 
 <header class="nav">
   <div class="shell nav__row">
-    <a href="#top" class="brand" aria-label="NeoCore for Enterprise, home">
-      <span class="brand__m" aria-hidden="true"></span>
-      <span class="brand__word">NeoCore</span>
+    <a href="#top" class="brand" aria-label="NeoSapien NeoCore, home">
+      <BrandLogo />
     </a>
     <nav class="nav__links" aria-label="Sections">
       {links.map((l) => <a href={l.href} class="nav__link">{l.label}</a>)}
@@ -59,10 +59,7 @@ const themes = [
   .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 40; padding: 16px 0; }
   .nav::before { content: ""; position: absolute; inset: 0; background: color-mix(in srgb, var(--ground) 78%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); opacity: 0; transition: opacity .25s var(--ease); z-index: -1; }
   .nav__row { display: flex; align-items: center; gap: 24px; }
-  .brand { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; margin-right: auto; }
-  .brand__m { width: 22px; height: 22px; border-radius: 50%; background: var(--green); display: grid; place-items: center; }
-  .brand__m::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--green-ink); }
-  .brand__word { font-weight: 600; font-size: 1.3rem; letter-spacing: -0.02em; }
+  .brand { display: inline-flex; align-items: center; text-decoration: none; margin-right: auto; }
   .nav__links { display: flex; align-items: center; gap: 28px; }
   .nav__link { color: var(--ink-2); text-decoration: none; font-size: 1rem; transition: color .16s var(--ease); }
   .nav__link:hover { color: var(--ink); }

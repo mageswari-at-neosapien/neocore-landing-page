@@ -1,4 +1,5 @@
 ---
+import BrandLogo from './BrandLogo.astro';
 const year = new Date().getFullYear();
 const links = [
   { href: '#how-it-works', label: 'How it works' },
@@ -12,9 +13,8 @@ const links = [
   <div class="shell">
     <div class="foot__top">
       <div class="foot__brand">
-        <a href="#top" class="brand" aria-label="NeoCore for Enterprise, home">
-          <span class="brand__m" aria-hidden="true"></span>
-          <span class="brand__word">NeoCore</span>
+        <a href="#top" class="brand" aria-label="NeoSapien NeoCore, home">
+          <BrandLogo />
         </a>
         <p class="foot__tag">Frontline conversation intelligence: pitch adherence, coaching and Voice of Customer, across teams, regions and languages.</p>
         <button type="button" class="pill" data-lead-open data-evt="footer_cta_click" data-evt-source="footer">Talk to our enterprise team <span class="ico" aria-hidden="true">→</span></button>
@@ -39,10 +39,7 @@ const links = [
 <style>
   .foot { border-top: 1px solid var(--hair); padding-block: clamp(48px, 6vw, 72px); }
   .foot__top { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: clamp(24px, 4vw, 56px); }
-  .brand { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; }
-  .brand__m { width: 22px; height: 22px; border-radius: 50%; background: var(--green); display: grid; place-items: center; }
-  .brand__m::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--green-ink); }
-  .brand__word { font-weight: 600; font-size: 1.3rem; letter-spacing: -0.02em; }
+  .brand { display: inline-flex; align-items: center; text-decoration: none; }
   .foot__tag { max-width: 42ch; margin: 18px 0 24px; color: var(--ink-2); font-size: .98rem; line-height: 1.5; }
   .foot__col { display: grid; align-content: start; gap: 14px; }
   .foot__ct { font-size: .8rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-3); }
