@@ -27,6 +27,11 @@ const caps = [
   { n: 'Built for adoption', c: 'Friction-light capture minimizes additional administrative work for frontline teams.', icon: 'adopt' },
   { n: 'API-first', c: 'Connect NeoCore intelligence with CRM, BI and enterprise workflows through APIs and MCP.', icon: 'api' },
 ];
+const transcript = [
+  { who: 'Rep', them: false, t: 'Have you seen our Q3 scheme? The margin is better this quarter.' },
+  { who: 'Retailer', them: true, t: 'Brand X still gives us more. I will stock this if your scheme beats theirs.' },
+  { who: 'Rep', them: false, t: 'Let me share the updated comparison and follow up this week.' },
+];
 const structured = [
   { k: 'Pitch adherence', v: '4 of 5 required points covered' },
   { k: 'Missed topic', v: 'Current retailer scheme', miss: true },
@@ -185,27 +190,45 @@ const icons: Record<string, string> = {
       <div class="sample__head">
         <div>
           <h2 class="h2 sample__h">See what NeoCore <span class="b">produces.</span></h2>
-          <p class="sample__desc">One frontline conversation, scanned and turned into structured intelligence: pitch adherence, coaching priorities and the Voice of Customer, ready to act on.</p>
+          <p class="sample__desc">One frontline conversation, captured live and turned into structured intelligence: pitch adherence, coaching priorities and the Voice of Customer, ready to act on.</p>
         </div>
         <button type="button" class="ghost sample__demo" data-lead-open data-evt="tailored_demo_click" data-evt-source="sample">See a tailored demo</button>
       </div>
 
-      <div class="analysis">
-        <div class="analysis__in" data-convo>
-          <span class="scanbeam" aria-hidden="true"></span>
-          <span class="analysis__cap"><span class="live" aria-hidden="true"></span>One conversation</span>
-          <p class="analysis__quote">“Brand X offers us a better margin. I can stock this product if your scheme improves.”</p>
-          <span class="analysis__who">Retailer · West region · Neo One</span>
+      <div class="live2" data-live>
+        <!-- left: the conversation streaming in live -->
+        <div class="ltr">
+          <div class="ltr__head"><span class="live" aria-hidden="true"></span>Neo One · live transcript</div>
+          <div class="ltr__body">
+            {transcript.map((l) => (
+              <p class="ltr__line" class:list={[{ 'ltr__line--them': l.them }]}>
+                <span class="ltr__who">{l.who}</span>
+                <span class="ltr__tx" data-type={l.t}></span>
+              </p>
+            ))}
+          </div>
+          <span class="ltr__who2">Retailer · West region</span>
         </div>
-        <div class="analysis__flow" aria-hidden="true"><span></span><span></span><span></span></div>
-        <div class="analysis__out" data-analysis>
-          {structured.map((s) => (
-            <div class="afield" class:list={[{ 'afield--miss': s.miss }]}>
-              <span class="afield__node" aria-hidden="true"></span>
-              <span class="afield__k">{s.k}</span>
-              <span class="afield__v">{s.v}</span>
-            </div>
-          ))}
+
+        <!-- right: NeoCore assembling the structured output -->
+        <div class="lrs" data-aresult>
+          <div class="lrs__head">
+            <span class="lrs__t">NeoCore analysis</span>
+            <span class="lrs__stat" data-lstat>Waiting</span>
+            <span class="lring" aria-hidden="true">
+              <svg viewBox="0 0 36 36"><circle class="lring__trk" cx="18" cy="18" r="15.5"/><circle class="lring__arc" cx="18" cy="18" r="15.5"/></svg>
+              <span class="lring__ck">✓</span>
+            </span>
+          </div>
+          <div class="lrs__fields">
+            {structured.map((s) => (
+              <div class="lfield" class:list={[{ 'lfield--miss': s.miss }]}>
+                <span class="lfield__node" aria-hidden="true"></span>
+                <span class="lfield__k">{s.k}</span>
+                <span class="lfield__v">{s.v}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -354,59 +377,63 @@ const icons: Record<string, string> = {
   .capstate.is-active .cs__node:nth-child(4) { animation-delay: .24s; }
   @keyframes csnode { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: none; } }
 
-  /* Sample — product-grade */
+  /* Sample — live processing */
   .sample__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: clamp(24px, 3vw, 40px); }
   .sample__h { margin-top: 0; }
   .sample__desc { margin-top: 16px; max-width: 52ch; color: var(--ink-2); font-size: clamp(1.02rem, 1.15vw, 1.15rem); line-height: 1.5; }
-  .analysis { display: grid; grid-template-columns: 1fr auto 1.15fr; align-items: center; gap: clamp(16px, 2vw, 32px); }
-  .analysis__in { background: var(--bubble); border-radius: 24px 24px 8px 24px; padding: 28px; color: var(--bubble-ink); box-shadow: var(--shadow-3); position: relative; }
-  .analysis__in::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 1px 0 rgba(255,255,255,.06); pointer-events: none; }
-  .analysis__cap { font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--bubble-ink-2); display: inline-flex; align-items: center; gap: 8px; }
-  .analysis__quote { margin-top: 16px; font-size: 1.32rem; line-height: 1.4; color: var(--bubble-ink); }
-  .analysis__who { margin-top: 16px; display: block; color: var(--bubble-ink-2); font-size: .84rem; }
-  .analysis__flow { display: flex; flex-direction: column; gap: 6px; align-items: center; }
-  .analysis__flow span { width: 34px; height: 3px; border-radius: 3px; background: linear-gradient(90deg, var(--green-dim, var(--green)), var(--green)); opacity: .85; }
-  .analysis__flow span:nth-child(2) { width: 24px; opacity: .55; }
-  .analysis__flow span:nth-child(3) { width: 30px; opacity: .7; }
-  /* scan the conversation, then print the results point by point */
-  .analysis__in { overflow: hidden; }
-  .scanbeam { position: absolute; left: 0; right: 0; top: -52px; height: 52px; pointer-events: none; opacity: 0; z-index: 3; border-radius: 4px;
-    background: linear-gradient(180deg, rgba(0,223,121,0), rgba(0,223,121,.10) 62%, rgba(0,223,121,.22));
-    border-bottom: 2px solid rgba(0,223,121,.9); box-shadow: 0 12px 26px -6px var(--green-glow); }
-  .is-scanning .scanbeam { animation: scanUpDown 4s ease-in-out; }
-  @keyframes scanUpDown {
-    0%   { top: -52px; opacity: 0; }
-    8%   { opacity: 1; }
-    46%  { top: 100%; opacity: 1; }
-    54%  { top: 100%; opacity: 1; }
-    92%  { top: -52px; opacity: 1; }
-    100% { top: -52px; opacity: 0; }
-  }
+  .live2 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(18px, 2.4vw, 32px); align-items: stretch; }
 
-  .analysis__out { position: relative; display: grid; gap: 4px; }
-  .afield { position: relative; display: grid; gap: 4px; padding: 14px 0 14px 28px; }
-  .afield__node { position: absolute; left: 0; top: 20px; width: 12px; height: 12px; border-radius: 50%;
-    background: var(--green); box-shadow: 0 0 0 4px var(--ground); transition: background .35s var(--ease), box-shadow .35s var(--ease); }
-  .afield--miss .afield__node { background: #e0a13a; }
-  .afield__k { font-size: .72rem; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-3); }
-  .afield__v { font-size: 1.05rem; color: var(--ink); }
-  .afield--miss .afield__v { color: #c88a1e; }
+  /* left — streaming transcript (dark screen) */
+  .ltr { position: relative; background: var(--bubble); border-radius: var(--r-l); padding: clamp(22px, 2.4vw, 30px); color: var(--bubble-ink);
+    box-shadow: var(--shadow-3); border: 1px solid color-mix(in srgb, var(--green) 14%, transparent); display: flex; flex-direction: column; }
+  .ltr__head { display: inline-flex; align-items: center; gap: 9px; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--bubble-ink-2); margin-bottom: 20px; }
+  .ltr__body { display: grid; gap: 16px; margin-bottom: auto; }
+  .ltr__line { position: relative; max-width: 92%; padding: 13px 16px; border-radius: 16px 16px 16px 4px; background: var(--inset); font-size: 1.05rem; line-height: 1.45; color: var(--bubble-ink); }
+  .ltr__line--them { margin-left: auto; border-radius: 16px 16px 4px 16px; background: color-mix(in srgb, var(--green) 15%, var(--inset)); }
+  .ltr__who { display: block; font-size: .66rem; letter-spacing: .06em; text-transform: uppercase; color: var(--bubble-ink-2); margin-bottom: 5px; }
+  .ltr__tx::after { content: ""; display: inline-block; width: 2px; height: 1em; margin-left: 1px; vertical-align: -2px; background: var(--green); opacity: 0; }
+  .ltr__tx.is-typing::after { opacity: 1; animation: caret .8s step-end infinite; }
+  @keyframes caret { 50% { opacity: 0; } }
+  .ltr__who2 { margin-top: 18px; font-size: .82rem; color: var(--bubble-ink-2); }
 
-  /* armed by JS: nodes idle, results hidden until a thread derives them */
-  .is-armed .afield__node { background: var(--inset-line); box-shadow: 0 0 0 4px var(--ground); }
-  .is-armed .afield.is-done .afield__node { background: var(--green); box-shadow: 0 0 0 4px var(--ground), 0 0 12px 2px var(--green-glow); }
-  .is-armed .afield--miss.is-done .afield__node { background: #e0a13a; box-shadow: 0 0 0 4px var(--ground), 0 0 12px 2px rgba(224,161,58,.55); }
-  .is-armed .afield__k, .is-armed .afield__v { opacity: 0; }
-  .is-armed .afield.is-done .afield__k { animation: fieldReveal .5s var(--ease) forwards; }
-  .is-armed .afield.is-done .afield__v { animation: fieldReveal .55s var(--ease) .1s forwards; }
-  @keyframes fieldReveal { from { opacity: 0; clip-path: inset(0 100% 0 0); transform: translateY(2px); } to { opacity: 1; clip-path: inset(0 0 0 0); transform: none; } }
+  /* right — NeoCore analysis (light card in light theme) */
+  .lrs { background: var(--surface); border: 1px solid var(--hair); border-radius: var(--r-l); padding: clamp(22px, 2.4vw, 30px); box-shadow: var(--shadow-2); display: flex; flex-direction: column; }
+  .lrs__head { display: flex; align-items: center; gap: 12px; padding-bottom: 18px; margin-bottom: 6px; border-bottom: 1px solid var(--hair); }
+  .lrs__t { font-size: 1.05rem; font-weight: 500; color: var(--ink); }
+  .lrs__stat { margin-left: auto; font-size: .78rem; color: var(--ink-3); }
+  [data-aresult].is-analyzing .lrs__stat { color: var(--green-text); }
+  [data-aresult].is-done .lrs__stat { color: var(--green-text); }
+  .lring { position: relative; width: 30px; height: 30px; flex: none; }
+  .lring svg { width: 30px; height: 30px; transform: rotate(-90deg); }
+  .lring__trk { fill: none; stroke: var(--hair); stroke-width: 3; }
+  .lring__arc { fill: none; stroke: var(--green); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 97.4; stroke-dashoffset: 97.4; transition: stroke-dashoffset .5s var(--ease); }
+  [data-aresult].is-analyzing .lring { animation: spin 1s linear infinite; }
+  [data-aresult].is-analyzing .lring__arc { stroke-dashoffset: 68; }
+  [data-aresult].is-done .lring__arc { stroke-dashoffset: 0; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .lring__ck { position: absolute; inset: 0; display: grid; place-items: center; color: var(--green); font-size: .8rem; font-weight: 800; opacity: 0; transform: scale(.6); transition: opacity .3s var(--ease), transform .3s var(--ease); }
+  [data-aresult].is-done .lring__ck { opacity: 1; transform: none; }
+
+  .lrs__fields { display: grid; align-content: center; flex: 1; }
+  .lfield { position: relative; display: grid; gap: 3px; padding: 12px 0 12px 26px; border-bottom: 1px solid var(--hair); opacity: 0; transform: translateY(8px); }
+  .lfield:last-child { border-bottom: none; }
+  .lfield__node { position: absolute; left: 0; top: 17px; width: 11px; height: 11px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 4px color-mix(in srgb, var(--green) 16%, transparent); }
+  .lfield--miss .lfield__node { background: #e0a13a; box-shadow: 0 0 0 4px rgba(224,161,58,.16); }
+  .lfield__k { font-size: .7rem; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-3); }
+  .lfield__v { font-size: 1.05rem; color: var(--ink); }
+  .lfield--miss .lfield__v { color: #c88a1e; }
+  [data-aresult].is-done .lfield { animation: lfieldIn .5s var(--ease) forwards; }
+  [data-aresult].is-done .lfield:nth-child(1) { animation-delay: .0s; }
+  [data-aresult].is-done .lfield:nth-child(2) { animation-delay: .1s; }
+  [data-aresult].is-done .lfield:nth-child(3) { animation-delay: .2s; }
+  [data-aresult].is-done .lfield:nth-child(4) { animation-delay: .3s; }
+  [data-aresult].is-done .lfield:nth-child(5) { animation-delay: .4s; }
+  @keyframes lfieldIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
   @media (max-width: 900px) {
     .out__grid { grid-template-columns: 1fr; gap: 32px; }
     .caps__grid { grid-template-columns: 1fr; gap: 32px; }
-    .analysis { grid-template-columns: 1fr; }
-    .analysis__flow { flex-direction: row; margin: 4px 0; }
-    .analysis__in { border-radius: 22px; }
+    .live2 { grid-template-columns: 1fr; }
   }
   @media (prefers-reduced-motion: reduce) {
     .crow.is-active .crow__bar i, .capstate.is-active .cs__wave span,
@@ -416,53 +443,64 @@ const icons: Record<string, string> = {
 </style>
 
 <script>
-  // Sample analysis — scan the conversation, then print the results point by point.
-  const el = document.querySelector<HTMLElement>('[data-analysis]');
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (el && !reduced) {
-    const analysis = el.closest<HTMLElement>('.analysis')!;
-    const convo = analysis.querySelector<HTMLElement>('[data-convo]')!;
-    const fields = Array.from(el.querySelectorAll<HTMLElement>('.afield'));
+  // Sample — the conversation streams in live, then NeoCore assembles the output.
+  const live = document.querySelector<HTMLElement>('[data-live]');
+  const result = document.querySelector<HTMLElement>('[data-aresult]');
+  if (live && result) {
+    const stat = result.querySelector<HTMLElement>('[data-lstat]')!;
+    const lines = Array.from(live.querySelectorAll<HTMLElement>('.ltr__tx'));
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
-    el.classList.add('is-armed');
     let visible = false, looping = false;
 
-    const pass = async () => {
-      // reset
-      fields.forEach((f) => f.classList.remove('is-done'));
-      convo.classList.remove('is-scanning');
-      void convo.offsetWidth; // restart the scan animation cleanly
-      await wait(350);
-      // 1) scan the conversation — slower, sweeping down and back up (4s)
-      convo.classList.add('is-scanning');
-      // 2) once the beam reaches the bottom (~45% of the 4s scan), start listing the
-      //    points — the beam keeps sweeping back up while they print.
-      await wait(1850);
-      for (let i = 0; i < fields.length && visible; i++) {
-        fields[i].classList.add('is-done');
-        await wait(520);
-      }
-      await wait(5000); // keep all points listed for ~5s
-    };
+    const fill = () => lines.forEach((s) => { s.textContent = s.dataset.type || ''; });
 
-    const loop = async () => {
-      if (looping) return; looping = true;
-      while (visible) {
-        await pass();
-        if (!visible) break;
-        el.style.transition = 'opacity .45s'; el.style.opacity = '0';
-        await wait(470);
-        el.style.opacity = ''; el.style.transition = '';
-        await wait(160);
-      }
-      looping = false;
-    };
+    if (reduced) {
+      fill();
+      result.classList.add('is-done');
+      stat.textContent = 'Complete';
+    } else {
+      const typeLine = (span: HTMLElement) => new Promise<void>((res) => {
+        const text = span.dataset.type || '';
+        let i = 0; span.classList.add('is-typing');
+        const step = () => {
+          span.textContent = text.slice(0, i);
+          if (i++ < text.length) { setTimeout(step, 20); }
+          else { span.classList.remove('is-typing'); res(); }
+        };
+        step();
+      });
 
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { visible = e.isIntersecting; if (visible) loop(); }),
-      { threshold: 0.35 }
-    );
-    io.observe(el);
+      const pass = async () => {
+        // reset
+        result.classList.remove('is-analyzing', 'is-done');
+        lines.forEach((s) => { s.textContent = ''; });
+        stat.textContent = 'Listening';
+        await wait(400);
+        // 1) conversation streams in, NeoCore starts analyzing
+        result.classList.add('is-analyzing');
+        stat.textContent = 'Analyzing';
+        for (const s of lines) { if (!visible) return; await typeLine(s); await wait(320); }
+        // 2) processing completes, structured fields snap in
+        await wait(500);
+        if (!visible) return;
+        result.classList.remove('is-analyzing');
+        result.classList.add('is-done');
+        stat.textContent = 'Complete';
+        await wait(5200);
+      };
+
+      const loop = async () => {
+        if (looping) return; looping = true;
+        while (visible) { await pass(); }
+        looping = false;
+      };
+
+      new IntersectionObserver(
+        (entries) => entries.forEach((e) => { visible = e.isIntersecting; if (visible) loop(); }),
+        { threshold: 0.3 }
+      ).observe(live);
+    }
   }
 
   // Capabilities showcase — rail rows auto-advance and drive the morphing screen.
