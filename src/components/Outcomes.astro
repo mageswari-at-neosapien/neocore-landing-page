@@ -1,988 +1,318 @@
 ---
-/**
- * Fold 4 — Management outcomes, enterprise capabilities, ungated sample analysis.
- * Weighting is mandated by the brief: adherence first, coaching second, Voice of
- * Customer third, with the first two carrying more visual weight (size, elevation
- * and data density) than the third. Every fragment is an instrument reading, not
- * an icon tile; all values are synthetic and internally consistent.
- */
-
-// Card 1 — custom-field coverage across a region. Mean of these five is 76%.
-const adherenceFields = [
-  { name: 'Opening value proposition', value: 94, flagged: false },
-  { name: 'Product margin comparison', value: 88, flagged: false },
-  { name: 'Competitor handling', value: 71, flagged: false },
-  { name: 'Current retailer scheme', value: 46, flagged: true },
-  { name: 'Close and next step', value: 83, flagged: false },
+// Fold 4 — Management outcomes, enterprise capabilities, ungated sample.
+// Premium redesign: glowing icon holders, depth, product-grade sample.
+const outcomes = [
+  {
+    n: 'Measure pitch adherence',
+    c: 'Define the messages, questions and steps that matter. NeoCore structures each conversation against those custom fields and shows where execution is consistent or slipping.',
+    icon: 'target',
+    tags: [{ t: 'Scheme comparison', v: 'Covered', ok: true }, { t: 'Margin objection', v: 'Missed', miss: true }],
+  },
+  {
+    n: 'Coach with evidence',
+    c: 'Identify repeated behaviours and missed steps, then focus coaching on the representatives, teams and regions that need it most.',
+    icon: 'coach',
+    tags: [{ t: 'Margin objection', v: 'West · 34 reps', rank: '01' }, { t: 'Scheme step', v: 'South · 21 reps', rank: '02' }],
+  },
+  {
+    n: 'Hear the Voice of Customer',
+    c: 'Aggregate objections, competitor mentions, product feedback and emerging market themes while they are still actionable.',
+    icon: 'voice',
+    voc: ['Competitor margin', 'Scheme clarity', 'Stock availability', 'Price sensitivity'],
+  },
 ];
-
-// Card 2 — the coaching queue, ranked because the order is the information.
-const coachingQueue = [
-  { rank: '01', who: 'R. Menon', context: 'North · Missed scheme step', score: '46%', flagged: true },
-  { rank: '02', who: 'Team Sharma', context: 'West · Weak margin rebuttal', score: '58%', flagged: false },
-  { rank: '03', who: 'A. Iyer', context: 'South · No close attempt', score: '61%', flagged: false },
+const caps = [
+  { n: 'Breakthrough technology', c: 'Multilingual processing, speaker attribution, emotion capture and processing in under two minutes.', icon: 'spark' },
+  { n: 'Tailored to your needs', c: 'Tune NeoCore for local brands, products, competitors, industry terminology and regional sales language.', icon: 'tune' },
+  { n: 'Built for adoption', c: 'Friction-light capture minimizes additional administrative work for frontline teams.', icon: 'adopt' },
+  { n: 'API-first', c: 'Connect NeoCore intelligence with CRM, BI and enterprise workflows through APIs and MCP.', icon: 'api' },
 ];
-
-// Card 3 — Voice of Customer themes, counted over a rolling window.
-const vocThemes = [
-  { name: 'Competitor margin pressure', count: '214', rising: true },
-  { name: 'Scheme clarity', count: '168', rising: false },
-  { name: 'Stock availability', count: '97', rising: false },
-  { name: 'Pack size feedback', count: '64', rising: false },
-  { name: 'Credit terms', count: '41', rising: false },
+const structured = [
+  { k: 'Pitch adherence', v: '4 of 5 required points covered' },
+  { k: 'Missed topic', v: 'Current retailer scheme', miss: true },
+  { k: 'Coaching priority', v: 'Address the margin objection using the approved comparison' },
+  { k: 'Voice of Customer', v: 'Competitor margin pressure' },
+  { k: 'Next action', v: 'Follow up with the updated scheme' },
 ];
+const icons: Record<string, string> = {
+  target: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.8" fill="currentColor" stroke="none"/></svg>',
+  coach: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5h16v10H9l-4 3v-3H4z"/><path d="M8.8 10.4l2 2 3.6-3.6"/></svg>',
+  voice: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 12h.01M8 8.5v7M12 5v14M16 9v6M20 11v2"/></svg>',
+  spark: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3c.7 4.6 2 5.9 6.5 6.5C14 10.1 12.7 11.4 12 16c-.7-4.6-2-5.9-6.5-6.5C10 8.9 11.3 7.6 12 3z"/></svg>',
+  tune: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 7h5M12 7h9M3 12h13M20 12h1M3 17h8M15 17h6"/><circle cx="10" cy="7" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="13" cy="17" r="2"/></svg>',
+  adopt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c0-3 2.5-5.2 5.5-5.2S14.5 16 14.5 19"/><path d="M15.8 5.6a3 3 0 0 1 0 5.6M17.4 13.9c2.2.6 3.8 2.5 3.8 4.9"/></svg>',
+  api: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 7.5 4.5 12l4 4.5M15.5 7.5l4 4.5-4 4.5M13.5 5l-3 14"/></svg>',
+};
 ---
 
-<section id="outcomes" class="fold fold--lifted" aria-labelledby="outcomes-title">
-  <div class="container">
-    <div class="fold-head reveal">
-      <h2 id="outcomes-title" class="display-l">Turn visibility into better frontline execution.</h2>
-      <p class="lede">
-        NeoCore makes conversations queryable and comparable, giving leaders the evidence to improve
-        how teams sell and learn.
-      </p>
-    </div>
-
-    <!-- Outcome cards: 7/5 on the top row, a wide low-profile strip beneath. -->
-    <div class="outcomes-grid">
-      <article class="panel panel--raised card card--lead card--a">
-        <h3 class="card-title">Measure pitch adherence</h3>
-        <p class="card-copy">
-          Define the messages, questions and steps that matter. NeoCore structures each conversation
-          against those custom fields and shows where execution is consistent or slipping.
-        </p>
-
-        <div class="frag">
-          <div class="frag-head">
-            <span class="frag-id">
-              <span class="mono-label">Custom fields · North region</span>
-              <span class="illustrative-tag">Illustrative view</span>
-            </span>
-            <span class="mono-value frag-metric">76% avg</span>
-          </div>
-          <ul class="field-rows">
-            {
-              adherenceFields.map((f) => (
-                <li class:list={['field-row', f.flagged && 'is-flagged']}>
-                  <span class="field-name">{f.name}</span>
-                  <span class="bar" aria-hidden="true">
-                    <span class="bar-fill" style={`width:${f.value}%`}></span>
-                  </span>
-                  <span class="mono-value field-value">{f.value}%</span>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-      </article>
-
-      <article class="panel panel--raised card card--lead card--b">
-        <h3 class="card-title">Coach with evidence</h3>
-        <p class="card-copy">
-          Identify repeated behaviours and missed steps, then focus coaching on the representatives,
-          teams and regions that need it most.
-        </p>
-
-        <div class="frag">
-          <div class="frag-head">
-            <span class="frag-id">
-              <span class="mono-label">Coaching queue · this week</span>
-              <span class="illustrative-tag">Illustrative view</span>
-            </span>
-            <span class="mono-value frag-metric">3 flagged</span>
-          </div>
-          <ol class="queue">
-            {
-              coachingQueue.map((c) => (
-                <li class:list={['queue-row', c.flagged && 'is-flagged']}>
-                  <span class="mono-value queue-rank">{c.rank}</span>
-                  <span class="queue-body">
-                    <span class="queue-who">{c.who}</span>
-                    <span class="queue-context">{c.context}</span>
-                  </span>
-                  <span class="mono-value queue-score">{c.score}</span>
-                </li>
-              ))
-            }
-          </ol>
-        </div>
-      </article>
-
-      <article class="panel card card--voc">
-        <div class="voc-copy">
-          <h3 class="card-title card-title--sm">Hear the Voice of Customer</h3>
-          <p class="card-copy">
-            Aggregate objections, competitor mentions, product feedback and emerging market themes
-            while they are still actionable.
-          </p>
-        </div>
-        <div class="voc-frag">
-          <span class="voc-frag-head">
-            <span class="mono-label">Emerging themes · last 30 days</span>
-            <span class="illustrative-tag">Illustrative view</span>
-          </span>
-          <ul class="chips">
-            {
-              vocThemes.map((t) => (
-                <li class:list={['chip', t.rising && 'is-rising']}>
-                  {t.rising && (
-                    <svg class="chip-tick" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path
-                        d="M6 16.5 11 10l3.5 3.5L19 7.5"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                      <path
-                        d="M14.5 7.5H19V12"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                  )}
-                  <span class="chip-name">{t.name}</span>
-                  <span class="mono-value chip-count">{t.count}</span>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-      </article>
-    </div>
-
-    <!-- Enterprise capability rail: a list under a hairline, subordinate by design. -->
-    <div class="rail">
-      <h3 class="mono-label rail-title">Enterprise capabilities</h3>
-      <ul class="rail-list">
-        <li class="rail-item">
-          <span class="rail-glyph" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M3 12h1.5M20.5 12H22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-              <path
-                d="M7 8.5v7M11 4.5v15M15 7v10M19 10v4"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-              />
-            </svg>
-          </span>
-          <h4 class="rail-name">Breakthrough technology</h4>
-          <p class="rail-copy">
-            Multilingual processing, speaker attribution, emotion capture and processing in under two
-            minutes.
-          </p>
-        </li>
-        <li class="rail-item">
-          <span class="rail-glyph" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M3 8.5h9M16.5 8.5H21M3 15.5h4.5M12 15.5h9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-              <circle cx="14.25" cy="8.5" r="2.25" stroke="currentColor" stroke-width="1.5" />
-              <circle cx="9.75" cy="15.5" r="2.25" stroke="currentColor" stroke-width="1.5" />
-            </svg>
-          </span>
-          <h4 class="rail-name">Tailored to your needs</h4>
-          <p class="rail-copy">
-            Tune NeoCore for local brands, products, competitors, industry terminology and regional
-            sales language.
-          </p>
-        </li>
-        <li class="rail-item">
-          <span class="rail-glyph" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M12 3.5v10.5m0 0 3.75-3.75M12 14l-3.75-3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M4 15.5v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-            </svg>
-          </span>
-          <h4 class="rail-name">Built for adoption</h4>
-          <p class="rail-copy">
-            Friction-light capture minimizes additional administrative work for frontline teams.
-          </p>
-        </li>
-        <li class="rail-item">
-          <span class="rail-glyph" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M8.5 7.5 4 12l4.5 4.5M15.5 7.5 20 12l-4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M13.25 5.5 10.75 18.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-            </svg>
-          </span>
-          <h4 class="rail-name">API-first</h4>
-          <p class="rail-copy">
-            Connect NeoCore intelligence with CRM, BI and enterprise workflows through APIs and MCP.
-          </p>
-        </li>
+<section id="outcomes" class="fold out glowsec">
+  <span class="secglow secglow--tr" aria-hidden="true"></span>
+  <div class="shell out__grid">
+    <div class="out__copy reveal">
+      <h2 class="h2">Turn visibility into <span class="b">better frontline execution.</span></h2>
+      <p class="lede">NeoCore makes conversations queryable and comparable, giving leaders the evidence to improve how teams sell and learn.</p>
+      <ul class="olist">
+        {outcomes.map((o, i) => (
+          <li class="oitem" class:list={[{ 'oitem--lg': i < 2 }]}>
+            <span class="iconh iconh--sm" aria-hidden="true" set:html={icons[o.icon]} />
+            <div>
+              <h3 class="oitem__n">{o.n}</h3>
+              <p class="oitem__c">{o.c}</p>
+            </div>
+          </li>
+        ))}
       </ul>
     </div>
 
-    <!-- Ungated proof: fully readable, never gated. -->
-    <div id="sample-analysis" class="sample" data-evt-view="sample_analysis_view">
-      <div class="sample-head">
-        <h3 class="display-m">See what NeoCore produces.</h3>
-        <span class="illustrative-tag">Illustrative synthetic example</span>
-      </div>
-
-      <!-- The fold's one light source hangs behind the middle stage: the
-           transformation is where the light is. -->
-      <div class="flow bloom">
-        <article class="panel flow-panel flow-panel--signal">
-          <h4 class="mono-label flow-title">Conversation signal</h4>
-          <div class="sig-meta">
-            <span class="sig-speaker"><span class="sig-dot" aria-hidden="true"></span>Retailer</span>
-            <span class="mono-value sig-time">00:04:12</span>
+    <div class="out__view reveal">
+      <div class="mgmt">
+        <div class="mgmt__cap"><span class="live" aria-hidden="true"></span>NeoCore · Management view<span class="tag mgmt__tagr">Illustrative view</span></div>
+        <div class="mgmt__metric">
+          <span class="mgmt__big">84%</span>
+          <span class="mgmt__ml">Team pitch adherence<em>On target · +6 pts this quarter</em></span>
+        </div>
+        <div class="mgmt__block">
+          <span class="mgmt__lbl">Coaching priorities</span>
+          <div class="mgmt__row"><span class="mgmt__rk">01</span> Margin objection <em>West · 34 reps</em></div>
+          <div class="mgmt__row"><span class="mgmt__rk">02</span> Scheme comparison step <em>South · 21 reps</em></div>
+        </div>
+        <div class="mgmt__block">
+          <span class="mgmt__lbl">Voice of Customer · rising</span>
+          <div class="mgmt__tags">
+            <span class="mt mt--up">Competitor margin ↗</span>
+            <span class="mt">Scheme clarity</span>
+            <span class="mt">Stock availability</span>
           </div>
-          <blockquote class="sig-quote">
-            “Brand X offers us a better margin. I can stock this product if your scheme improves.”
-          </blockquote>
-        </article>
-
-        <div class="flow-link" aria-hidden="true">
-          <svg class="flow-arrow" viewBox="0 0 44 12" fill="none">
-            <path class="arrow-shaft" d="M0 6h36" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-            <path class="arrow-head" d="m31 1.5 5 4.5-5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <article class="panel panel--raised flow-panel flow-panel--core">
-          <h4 class="mono-label flow-title">Structured intelligence</h4>
-          <dl class="fields">
-            <div class="field">
-              <dt class="mono-label field-key">Pitch adherence</dt>
-              <dd class="mono-value field-val">
-                4 of 5 required points covered
-                <span class="meter" aria-hidden="true">
-                  <span class="meter-seg is-on"></span>
-                  <span class="meter-seg is-on"></span>
-                  <span class="meter-seg is-on"></span>
-                  <span class="meter-seg is-on"></span>
-                  <span class="meter-seg is-miss"></span>
-                </span>
-              </dd>
-            </div>
-            <div class="field field--warn">
-              <dt class="mono-label field-key">Missed topic</dt>
-              <dd class="mono-value field-val">
-                <svg class="warn-glyph" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <circle cx="12" cy="12" r="7.25" stroke="currentColor" stroke-width="1.5" />
-                  <path d="M8.75 12h6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                </svg>
-                Current retailer scheme
-              </dd>
-            </div>
-            <div class="field">
-              <dt class="mono-label field-key">Voice of Customer</dt>
-              <dd class="mono-value field-val">Competitor margin pressure</dd>
-            </div>
-          </dl>
+<section class="fold capsfold glowsec">
+  <span class="secglow secglow--bl" aria-hidden="true"></span>
+  <div class="shell">
+    <div class="fold-head reveal capsfold__head">
+      <h2 class="h2">Built for <span class="b">enterprise scale.</span></h2>
+      <p class="lede">The breakthrough technology, tuning, adoption and integrations enterprise deployment needs.</p>
+    </div>
+    <div class="caps reveal">
+      {caps.map((c, i) => (
+        <article class="cap">
+          <span class="iconh" aria-hidden="true" set:html={icons[c.icon]} />
+          <div class="cap__body">
+            <h3 class="cap__n">{c.n}<span class="cap__num">{String(i + 1).padStart(2, '0')}</span></h3>
+            <p class="cap__c">{c.c}</p>
+          </div>
         </article>
+      ))}
+    </div>
+  </div>
+</section>
 
-        <div class="flow-link" aria-hidden="true">
-          <svg class="flow-arrow" viewBox="0 0 44 12" fill="none">
-            <path class="arrow-shaft" d="M0 6h36" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-            <path class="arrow-head" d="m31 1.5 5 4.5-5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
+<section id="sample-analysis" class="fold samplefold glowsec">
+  <span class="secglow secglow--tr" aria-hidden="true"></span>
+  <div class="shell">
+    <div class="sample reveal" data-evt-view="sample_analysis_view">
+      <div class="sample__head">
+        <div>
+          <h2 class="h2 sample__h">See what NeoCore <span class="b">produces.</span></h2>
+          <p class="sample__desc">One frontline conversation, scanned and turned into structured intelligence: pitch adherence, coaching priorities and the Voice of Customer, ready to act on.</p>
         </div>
-
-        <article class="panel flow-panel flow-panel--action">
-          <h4 class="mono-label flow-title">Management action</h4>
-          <dl class="fields">
-            <div class="field">
-              <dt class="mono-label field-key">Coaching priority</dt>
-              <dd class="field-val field-val--prose">
-                <svg class="act-glyph" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="m5 12.5 4.25 4.25L19 7.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-                Address the margin objection using the approved comparison
-              </dd>
-            </div>
-            <div class="field">
-              <dt class="mono-label field-key">Next action</dt>
-              <dd class="field-val field-val--prose">
-                <svg class="act-glyph" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M4 12h14M13.5 6.5 19 12l-5.5 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-                Follow up with the updated scheme
-              </dd>
-            </div>
-          </dl>
-        </article>
+        <button type="button" class="ghost sample__demo" data-lead-open data-evt="tailored_demo_click" data-evt-source="sample">See a tailored demo</button>
       </div>
 
-      <div class="sample-cta">
-        <button class="btn btn--outline" data-open-form data-evt="tailored_demo_click" data-evt-source="sample-analysis">
-          See a tailored demo
-        </button>
+      <div class="analysis">
+        <div class="analysis__in" data-convo>
+          <span class="scanbeam" aria-hidden="true"></span>
+          <span class="analysis__cap"><span class="live" aria-hidden="true"></span>One conversation</span>
+          <p class="analysis__quote">“Brand X offers us a better margin. I can stock this product if your scheme improves.”</p>
+          <span class="analysis__who">Retailer · West region · Neo One</span>
+        </div>
+        <div class="analysis__flow" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div class="analysis__out" data-analysis>
+          {structured.map((s) => (
+            <div class="afield" class:list={[{ 'afield--miss': s.miss }]}>
+              <span class="afield__node" aria-hidden="true"></span>
+              <span class="afield__k">{s.k}</span>
+              <span class="afield__v">{s.v}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  /* ---------- Rhythm ----------
-     The fold accelerates: dense at the top, tightening through the rail,
-     then opening wide around the sample module so it reads as a stage. */
-
-  #outcomes .fold-head {
-    margin-bottom: clamp(32px, 3.8vw, 50px);
-  }
-
-  /* ---------- Outcome cards ---------- */
-
-  .outcomes-grid {
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: clamp(12px, 1.2vw, 16px);
-  }
-
-  .card {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-  }
-
-  .card--a {
-    grid-column: span 7;
-  }
-
-  .card--b {
-    grid-column: span 5;
-  }
-
-  .card--voc {
-    grid-column: span 12;
-  }
-
-  /* Weight lives in size, elevation and density — not in an icon. */
-  .card--lead {
-    padding: clamp(22px, 2.2vw, 30px);
-  }
-
-  /* Third by mandate: a low-profile strip that sits almost flush with the
-     fold ground — no elevation to compete with the two lead cards. */
-  .outcomes-grid .card--voc {
-    padding: clamp(16px, 1.6vw, 22px) clamp(18px, 2vw, 26px);
-    display: grid;
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    align-items: center;
-    gap: clamp(20px, 3vw, 44px);
-    background: var(--g-900);
-    box-shadow: none;
-  }
-
-  .card-title {
-    font-size: clamp(1.25rem, 1.7vw, 1.5rem);
-    letter-spacing: -0.02em;
-  }
-
-  .card-title--sm {
-    font-size: clamp(1.125rem, 1.3vw, 1.25rem);
-  }
-
-  .card-copy {
-    margin-top: 12px;
-    color: var(--ink-2);
-    font-size: 1rem;
-    line-height: 1.55;
-    max-width: 46ch;
-  }
-
-  .card--voc .card-copy {
-    font-size: 0.9375rem;
-    margin-top: 10px;
-  }
-
-  /* ---------- Shared fragment chrome ---------- */
-
-  .frag {
-    --well-pad: clamp(12px, 1.2vw, 16px);
-    margin-top: clamp(22px, 2.4vw, 30px);
-    padding-top: 16px;
-    border-top: 1px solid var(--line);
-  }
-
-  /* The fragment sits on the card floor, with a guaranteed gap above it. */
-  .card--lead .card-copy {
-    margin-bottom: clamp(22px, 2.4vw, 30px);
-  }
-
-  .card--lead .frag {
-    margin-top: auto;
-  }
-
-  .frag-head {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 10px 16px;
-    margin-bottom: 14px;
-  }
-
-  .frag-id {
-    display: inline-flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  /* When the head wraps in a narrow card, the measured value still
-     anchors to the right edge instead of clustering left. */
-  .frag-head .frag-metric {
-    margin-left: auto;
-  }
-
-  .voc-frag-head {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px 14px;
-  }
-
-  .frag-metric {
-    font-size: 0.8125rem;
-    color: var(--ink-2);
-  }
-
-  /* ---------- Card 1: custom-field coverage ---------- */
-
-  .field-rows,
-  .queue,
-  .chips {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  /* The readings sit in a well cut into the card floor — instrument, not tile. */
-  .field-rows,
-  .queue {
-    background: var(--g-950);
-    border: 1px solid var(--line);
-    border-radius: var(--r-s);
-    padding: 5px var(--well-pad);
-    box-shadow: inset 0 2px 6px -2px rgba(2, 8, 5, 0.9);
-  }
-
-  .field-row {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(64px, 130px) 42px;
-    align-items: center;
-    gap: 14px;
-    padding-block: 9px;
-    border-top: 1px solid var(--line);
-  }
-
-  .field-row:first-child {
-    border-top: 0;
-  }
-
-  .field-name {
-    font-size: 0.875rem;
-    color: var(--ink-2);
-    min-width: 0;
-  }
-
-  .bar {
-    display: block;
-    height: 5px;
-    border-radius: 999px;
-    background: var(--g-950);
-    border: 1px solid var(--line-strong);
-    overflow: hidden;
-  }
-
-  .bar-fill {
-    display: block;
-    height: 100%;
-    background: var(--green-dim);
-    box-shadow: inset 0 1px 0 rgba(143, 240, 180, 0.3);
-  }
-
-  .field-row .field-value {
-    font-size: 0.8125rem;
-    color: var(--ink-2);
-    text-align: right;
-  }
-
-  /* Flagged reading: the wash spans the full well width so the miss is
-     legible at a glance, not just in the number. */
-  .field-row.is-flagged {
-    background: rgba(232, 186, 91, 0.07);
-    margin-inline: calc(-1 * var(--well-pad));
-    padding-inline: var(--well-pad);
-  }
-
-  .field-row.is-flagged .field-name {
-    color: var(--ink);
-  }
-
-  .field-row.is-flagged .bar-fill {
-    background: var(--signal-warn);
-    box-shadow: inset 0 1px 0 rgba(242, 248, 240, 0.28);
-  }
-
-  .field-row.is-flagged .field-value {
-    color: var(--signal-warn);
-    font-weight: 600;
-  }
-
-  /* ---------- Card 2: coaching queue ---------- */
-
-  .queue-row {
-    display: grid;
-    grid-template-columns: 24px minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 14px;
-    padding-block: 11px;
-    border-top: 1px solid var(--line);
-  }
-
-  .queue-row:first-child {
-    border-top: 0;
-  }
-
-  .queue-rank {
-    font-size: 0.75rem;
-    color: var(--ink-3);
-  }
-
-  .queue-body {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    min-width: 0;
-  }
-
-  .queue-who {
-    font-size: 0.9375rem;
-    font-weight: 560;
-    letter-spacing: -0.01em;
-  }
-
-  .queue-context {
-    font-size: 0.8125rem;
-    color: var(--ink-3);
-  }
-
-  .queue-score {
-    font-size: 0.875rem;
-    color: var(--ink-2);
-  }
-
-  .queue-row.is-flagged {
-    background: rgba(232, 186, 91, 0.07);
-    margin-inline: calc(-1 * var(--well-pad));
-    padding-inline: var(--well-pad);
-  }
-
-  .queue-row.is-flagged .queue-rank {
-    color: var(--signal-warn);
-  }
-
-  .queue-row.is-flagged .queue-score {
-    color: var(--signal-warn);
-    font-weight: 600;
-  }
-
-  /* ---------- Card 3: Voice of Customer themes ---------- */
-
-  .voc-frag > .mono-label {
-    display: block;
-    margin-bottom: 12px;
-  }
-
-  .chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 12px;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    background: var(--g-950);
-  }
-
-  .chip-name {
-    font-size: 0.8125rem;
-    color: var(--ink-2);
-  }
-
-  .chip-count {
-    font-size: 0.75rem;
-    color: var(--ink-3);
-  }
-
-  .chip.is-rising {
-    border-color: var(--line-strong);
-    background: var(--g-800);
-  }
-
-  .chip.is-rising .chip-name {
-    color: var(--ink);
-  }
-
-  .chip-tick {
-    width: 14px;
-    height: 14px;
-    flex: none;
-    color: var(--green);
-  }
-
-  /* ---------- Enterprise capability rail ---------- */
-
-  .rail {
-    margin-top: clamp(34px, 3.6vw, 52px);
-  }
-
-  .rail-title {
-    margin-bottom: 12px;
-    color: var(--ink-3);
-  }
-
-  .rail-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .rail-item {
-    display: grid;
-    grid-template-columns: 22px minmax(170px, 210px) minmax(0, 1fr);
-    align-items: center;
-    gap: 20px;
-    padding-block: 16px;
-    border-top: 1px solid var(--line);
-  }
-
-  .rail-glyph {
-    display: block;
-    color: var(--ink-3);
-  }
-
-  .rail-glyph svg {
-    width: 22px;
-    height: 22px;
-  }
-
-  .rail-name {
-    font-size: 0.9375rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    margin: 0;
-  }
-
-  .rail-copy {
-    font-size: 0.9375rem;
-    color: var(--ink-2);
-    line-height: 1.5;
-    max-width: 68ch;
-  }
-
-  /* ---------- Ungated sample analysis ---------- */
-
-  .sample {
-    margin-top: clamp(76px, 9vw, 136px);
-  }
-
-  .sample-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-bottom: clamp(26px, 3.2vw, 40px);
-  }
-
-  /* The stage. One light source for the whole fold, hung on the middle
-     panel: raw speech goes in dark, intelligence comes out lit. */
-  .flow {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
-    align-items: stretch;
-    /* Own stacking context so the bloom paints above the fold ground. */
-    isolation: isolate;
-    --bloom-x: 50%;
-    --bloom-y: 48%;
-    --bloom-w: 58%;
-    --bloom-h: 96%;
-    --bloom-alpha: 0.13;
-    --bloom-spread: clamp(56px, 8vw, 130px);
-  }
-
-  .flow-panel {
-    padding: clamp(18px, 1.8vw, 24px);
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-  }
-
-  .flow-title {
-    margin-bottom: 14px;
-    color: var(--ink-3);
-  }
-
-  /* Stage 1 — signal: quiet, nearly the room's own dark. */
-  .flow .flow-panel--signal {
-    background: var(--g-900);
-  }
-
-  /* Stage 2 — the transformation: taller, lit, edged in signal green. */
-  .flow .flow-panel--core {
-    --panel-pad: clamp(22px, 2.2vw, 30px);
-    position: relative;
-    z-index: 1;
-    padding: var(--panel-pad);
-    margin-block: calc(-1 * clamp(6px, 0.9vw, 14px));
-    border-color: var(--line-strong);
-    background-image: linear-gradient(
-      180deg,
-      rgba(143, 240, 180, 0.075),
-      transparent 160px
-    );
-    box-shadow: var(--shadow-raised), inset 0 1px 0 rgba(242, 248, 240, 0.1),
-      0 0 0 1px rgba(63, 224, 124, 0.13);
-  }
-
-  /* Stage 3 — action: resolved, settled one step below the light. */
-  .flow .flow-panel--action {
-    background: var(--g-850);
-    border-color: var(--line-strong);
-    box-shadow: var(--shadow-panel), inset 0 1px 0 rgba(242, 248, 240, 0.05);
-  }
-
-  /* Connectors carry the current: dim shaft, bright head. */
-  .flow-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-inline: clamp(8px, 1.4vw, 18px);
-    color: var(--green-soft);
-  }
-
-  .flow-arrow {
-    width: 44px;
-    height: 12px;
-  }
-
-  .arrow-shaft {
-    opacity: 0.42;
-  }
-
-  .arrow-head {
-    opacity: 0.9;
-  }
-
-  /* Panel 1 — captured speech */
-  .sig-meta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 12px;
-  }
-
-  .sig-speaker {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--ink-2);
-  }
-
-  .sig-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--green);
-    flex: none;
-  }
-
-  .sig-time {
-    font-size: 0.75rem;
-    color: var(--ink-3);
-  }
-
-  .sig-quote {
-    margin: 0;
-    padding-left: 16px;
-    border-left: 1px solid var(--line-strong);
-    font-size: 1.0625rem;
-    line-height: 1.55;
-    color: var(--ink);
-    text-wrap: pretty;
-  }
-
-  /* Panels 2 and 3 — structured fields */
-  .fields {
-    margin: 0;
-  }
-
-  .field {
-    padding-block: 12px;
-    border-top: 1px solid var(--line);
-  }
-
-  .field:first-child {
-    border-top: 0;
-    padding-top: 0;
-  }
-
-  .field:last-child {
-    padding-bottom: 0;
-  }
-
-  .field-key {
-    color: var(--ink-3);
-  }
-
-  .field-val {
-    margin: 6px 0 0;
-    font-size: 0.9375rem;
-    line-height: 1.45;
-    color: var(--ink);
-    display: flex;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .field-val--prose {
-    font-family: var(--font-display);
-    font-size: 0.9375rem;
-    line-height: 1.5;
-    align-items: start;
-    flex-wrap: nowrap;
-    color: var(--ink);
-  }
-
-  /* The one miss reads as a marked reading, not just tinted text. */
-  .field--warn .field-val {
-    display: inline-flex;
-    align-items: center;
-    color: var(--signal-warn);
-    background: rgba(232, 186, 91, 0.08);
-    border: 1px solid rgba(232, 186, 91, 0.22);
-    border-radius: var(--r-s);
-    padding: 5px 10px;
-    margin-left: -11px;
-  }
-
-  .warn-glyph {
-    width: 15px;
-    height: 15px;
-    flex: none;
-    color: var(--signal-warn);
-  }
-
-  .act-glyph {
-    width: 15px;
-    height: 15px;
-    flex: none;
-    margin-top: 3px;
-    color: var(--green-dim);
-  }
-
-  .meter {
-    display: inline-flex;
-    gap: 3px;
-    align-self: center;
-  }
-
-  .meter-seg {
-    width: 13px;
-    height: 5px;
-    border-radius: 1px;
-    background: var(--g-950);
-    border: 1px solid var(--line-strong);
-  }
-
-  .meter-seg.is-on {
-    background: var(--green-dim);
-    border-color: var(--green);
-    box-shadow: inset 0 1px 0 rgba(143, 240, 180, 0.35);
-  }
-
-  .meter-seg.is-miss {
-    background: rgba(232, 186, 91, 0.12);
-    border-color: var(--signal-warn);
-  }
-
-  .sample-cta {
-    margin-top: clamp(26px, 3vw, 38px);
-  }
-
-  /* ---------- Responsive ---------- */
-
-  @media (max-width: 1000px) {
-    .card--a,
-    .card--b,
-    .card--voc {
-      grid-column: span 12;
-    }
-
-    .outcomes-grid .card--voc {
-      grid-template-columns: minmax(0, 1fr);
-      align-items: start;
-    }
-  }
+  /* section glow */
+  .glowsec { position: relative; overflow: hidden; }
+  .secglow { position: absolute; width: 720px; height: 620px; border-radius: 50%; pointer-events: none; z-index: 0;
+    background: radial-gradient(circle, var(--green-glow), transparent 66%); filter: blur(30px); opacity: .9; }
+  .secglow--tr { right: -14%; top: -18%; }
+  .secglow--bl { left: -16%; bottom: -22%; }
+  .glowsec .shell { position: relative; z-index: 1; }
+
+  .iconh { width: 54px; height: 54px; border-radius: 16px; display: grid; place-items: center; color: var(--green-text);
+    background: color-mix(in srgb, var(--green) 12%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--green) 26%, transparent);
+    box-shadow: 0 14px 30px -14px var(--green-glow), inset 0 1px 0 rgba(255,255,255,.35); }
+  .iconh :global(svg) { width: 26px; height: 26px; }
+
+  /* Outcomes — copy + list on the left, management-view visual on the right */
+  .out__grid { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
+  .out__copy { max-width: 560px; }
+  .olist { margin-top: clamp(24px, 3vw, 38px); display: grid; gap: clamp(18px, 2.2vw, 26px); }
+  .oitem { display: flex; gap: 16px; align-items: flex-start; }
+  .oitem__n { font-size: 1.15rem; font-weight: 500; letter-spacing: -0.015em; }
+  .oitem--lg .oitem__n { font-size: clamp(1.3rem, 1.7vw, 1.55rem); }
+  .oitem__c { margin-top: 5px; color: var(--ink-2); font-size: .95rem; line-height: 1.5; }
+  .oitem:not(.oitem--lg) .oitem__c { font-size: .9rem; }
+  .iconh--sm { width: 46px; height: 46px; border-radius: 13px; flex: none; }
+  .iconh--sm :global(svg) { width: 22px; height: 22px; }
+  .oitem:not(.oitem--lg) .iconh--sm { width: 40px; height: 40px; }
+
+  /* management-view product visual (a real "screen", dark in both themes) */
+  .mgmt { position: relative; background: var(--bubble); border-radius: var(--r-l); padding: clamp(24px, 2.4vw, 32px); color: var(--bubble-ink); box-shadow: var(--shadow-3); border: 1px solid color-mix(in srgb, var(--green) 14%, transparent); }
+  .mgmt::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 1px; border-radius: var(--r-l) var(--r-l) 0 0; background: linear-gradient(90deg, transparent, rgba(0,223,121,.4), transparent); }
+  .mgmt__cap { display: flex; align-items: center; gap: 9px; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--bubble-ink-2); margin-bottom: 22px; }
+  .mgmt__tagr { margin-left: auto; color: var(--bubble-ink-2); }
+  .mgmt__metric { display: flex; align-items: baseline; gap: 18px; padding-bottom: 22px; margin-bottom: 20px; border-bottom: 1px solid var(--inset-line); }
+  .mgmt__big { font-size: clamp(2.8rem, 4vw, 3.6rem); font-weight: 600; color: var(--green); letter-spacing: -0.03em; line-height: .9; }
+  .mgmt__ml { color: var(--bubble-ink); font-size: 1rem; font-weight: 500; }
+  .mgmt__ml em { display: block; font-style: normal; color: var(--bubble-ink-2); font-size: .82rem; margin-top: 5px; font-weight: 400; }
+  .mgmt__block { margin-top: 18px; }
+  .mgmt__lbl { display: block; font-size: .66rem; letter-spacing: .06em; text-transform: uppercase; color: var(--bubble-ink-2); margin-bottom: 12px; }
+  .mgmt__row { display: flex; align-items: center; gap: 12px; padding: 6px 0; font-size: .96rem; color: var(--bubble-ink); }
+  .mgmt__rk { width: 24px; height: 24px; border-radius: 50%; background: rgba(0,223,121,.16); color: var(--green); display: grid; place-items: center; font-size: .66rem; font-weight: 700; flex: none; }
+  .mgmt__row em { margin-left: auto; font-style: normal; color: var(--bubble-ink-2); font-size: .82rem; }
+  .mgmt__tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .mt { background: var(--inset-2); border: 1px solid var(--inset-line); border-radius: var(--r-pill); padding: 8px 14px; font-size: .86rem; color: var(--bubble-ink); }
+  .mt--up { background: var(--green); color: var(--green-ink); border-color: transparent; font-weight: 500; }
+
+  /* Capabilities — premium tiles, 2×2, with depth + hover glow */
+  .capsfold__head { margin-bottom: clamp(32px, 4vw, 52px); }
+  .caps { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 1.6vw, 22px); }
+  .cap { position: relative; display: flex; gap: 22px; align-items: flex-start; padding: clamp(24px, 2.4vw, 34px);
+    border-radius: var(--r-l); border: 1px solid var(--hair); box-shadow: var(--shadow-2); overflow: hidden;
+    background: linear-gradient(158deg, color-mix(in srgb, var(--green) 6%, var(--surface)), var(--surface) 72%);
+    transition: transform .25s var(--ease), border-color .25s var(--ease), box-shadow .25s var(--ease); }
+  .cap::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(0,223,121,.35), transparent); }
+  .cap::after { content: ""; position: absolute; right: -30%; top: -60%; width: 60%; height: 140%; border-radius: 50%;
+    background: radial-gradient(circle, var(--green-glow), transparent 70%); opacity: 0; transition: opacity .3s var(--ease); pointer-events: none; }
+  .cap:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--green) 34%, var(--hair)); box-shadow: var(--shadow-3); }
+  .cap:hover::after { opacity: .8; }
+  .cap .iconh { flex: none; width: 56px; height: 56px; border-radius: 16px; }
+  .cap .iconh :global(svg) { width: 27px; height: 27px; }
+  .cap__body { position: relative; z-index: 1; }
+  .cap__n { font-size: clamp(1.2rem, 1.55vw, 1.5rem); font-weight: 500; letter-spacing: -0.018em; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .cap__num { font-size: .78rem; font-weight: 600; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .cap__c { margin-top: 12px; color: var(--ink-2); font-size: .98rem; line-height: 1.55; }
+
+  /* Sample — product-grade */
+  .sample__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: clamp(24px, 3vw, 40px); }
+  .sample__h { margin-top: 0; }
+  .sample__desc { margin-top: 16px; max-width: 52ch; color: var(--ink-2); font-size: clamp(1.02rem, 1.15vw, 1.15rem); line-height: 1.5; }
+  .analysis { display: grid; grid-template-columns: 1fr auto 1.15fr; align-items: center; gap: clamp(16px, 2vw, 32px); }
+  .analysis__in { background: var(--bubble); border-radius: 24px 24px 8px 24px; padding: 28px; color: var(--bubble-ink); box-shadow: var(--shadow-3); position: relative; }
+  .analysis__in::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 1px 0 rgba(255,255,255,.06); pointer-events: none; }
+  .analysis__cap { font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--bubble-ink-2); display: inline-flex; align-items: center; gap: 8px; }
+  .analysis__quote { margin-top: 16px; font-size: 1.32rem; line-height: 1.4; color: var(--bubble-ink); }
+  .analysis__who { margin-top: 16px; display: block; color: var(--bubble-ink-2); font-size: .84rem; }
+  .analysis__flow { display: flex; flex-direction: column; gap: 6px; align-items: center; }
+  .analysis__flow span { width: 34px; height: 3px; border-radius: 3px; background: linear-gradient(90deg, var(--green-dim, var(--green)), var(--green)); opacity: .85; }
+  .analysis__flow span:nth-child(2) { width: 24px; opacity: .55; }
+  .analysis__flow span:nth-child(3) { width: 30px; opacity: .7; }
+  /* scan the conversation, then print the results point by point */
+  .analysis__in { overflow: hidden; }
+  .scanbeam { position: absolute; left: 0; right: 0; top: -52px; height: 52px; pointer-events: none; opacity: 0; z-index: 3; border-radius: 4px;
+    background: linear-gradient(180deg, rgba(0,223,121,0), rgba(0,223,121,.10) 62%, rgba(0,223,121,.22));
+    border-bottom: 2px solid rgba(0,223,121,.9); box-shadow: 0 12px 26px -6px var(--green-glow); }
+  .is-scanning .scanbeam { animation: scanUpDown 4s ease-in-out; }
+  @keyframes scanUpDown {
+    0%   { top: -52px; opacity: 0; }
+    8%   { opacity: 1; }
+    46%  { top: 100%; opacity: 1; }
+    54%  { top: 100%; opacity: 1; }
+    92%  { top: -52px; opacity: 1; }
+    100% { top: -52px; opacity: 0; }
+  }
+
+  .analysis__out { position: relative; display: grid; gap: 4px; }
+  .afield { position: relative; display: grid; gap: 4px; padding: 14px 0 14px 28px; }
+  .afield__node { position: absolute; left: 0; top: 20px; width: 12px; height: 12px; border-radius: 50%;
+    background: var(--green); box-shadow: 0 0 0 4px var(--ground); transition: background .35s var(--ease), box-shadow .35s var(--ease); }
+  .afield--miss .afield__node { background: #e0a13a; }
+  .afield__k { font-size: .72rem; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-3); }
+  .afield__v { font-size: 1.05rem; color: var(--ink); }
+  .afield--miss .afield__v { color: #c88a1e; }
+
+  /* armed by JS: nodes idle, results hidden until a thread derives them */
+  .is-armed .afield__node { background: var(--inset-line); box-shadow: 0 0 0 4px var(--ground); }
+  .is-armed .afield.is-done .afield__node { background: var(--green); box-shadow: 0 0 0 4px var(--ground), 0 0 12px 2px var(--green-glow); }
+  .is-armed .afield--miss.is-done .afield__node { background: #e0a13a; box-shadow: 0 0 0 4px var(--ground), 0 0 12px 2px rgba(224,161,58,.55); }
+  .is-armed .afield__k, .is-armed .afield__v { opacity: 0; }
+  .is-armed .afield.is-done .afield__k { animation: fieldReveal .5s var(--ease) forwards; }
+  .is-armed .afield.is-done .afield__v { animation: fieldReveal .55s var(--ease) .1s forwards; }
+  @keyframes fieldReveal { from { opacity: 0; clip-path: inset(0 100% 0 0); transform: translateY(2px); } to { opacity: 1; clip-path: inset(0 0 0 0); transform: none; } }
 
   @media (max-width: 900px) {
-    .flow {
-      grid-template-columns: minmax(0, 1fr);
-      /* Stacked: the light still sits on the middle stage. */
-      --bloom-y: 50%;
-      --bloom-w: 100%;
-      --bloom-h: 26%;
-      --bloom-spread: 48px;
-    }
-
-    .flow .flow-panel--core {
-      margin-block: 0;
-    }
-
-    .flow-link {
-      padding: 18px 0;
-    }
-
-    .flow-arrow {
-      transform: rotate(90deg);
-    }
+    .out__grid { grid-template-columns: 1fr; gap: 32px; }
+    .caps { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .analysis { grid-template-columns: 1fr; }
+    .analysis__flow { flex-direction: row; margin: 4px 0; }
+    .analysis__in { border-radius: 22px; }
   }
-
-  @media (max-width: 760px) {
-    .rail-item {
-      grid-template-columns: 22px minmax(0, 1fr);
-      align-items: start;
-      gap: 8px 16px;
-    }
-
-    .rail-copy {
-      grid-column: 2;
-    }
-
-    .field-row {
-      grid-template-columns: minmax(0, 1fr) 56px 42px;
-      gap: 10px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .field-row {
-      grid-template-columns: minmax(0, 1fr) 42px;
-    }
-
-    .field-row .bar {
-      display: none;
-    }
-  }
+  @media (max-width: 560px) { .caps { grid-template-columns: 1fr; } }
 </style>
+
+<script>
+  // Sample analysis — scan the conversation, then print the results point by point.
+  const el = document.querySelector<HTMLElement>('[data-analysis]');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (el && !reduced) {
+    const analysis = el.closest<HTMLElement>('.analysis')!;
+    const convo = analysis.querySelector<HTMLElement>('[data-convo]')!;
+    const fields = Array.from(el.querySelectorAll<HTMLElement>('.afield'));
+    const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+    el.classList.add('is-armed');
+    let visible = false, looping = false;
+
+    const pass = async () => {
+      // reset
+      fields.forEach((f) => f.classList.remove('is-done'));
+      convo.classList.remove('is-scanning');
+      void convo.offsetWidth; // restart the scan animation cleanly
+      await wait(350);
+      // 1) scan the conversation — slower, sweeping down and back up (4s)
+      convo.classList.add('is-scanning');
+      // 2) once the beam reaches the bottom (~45% of the 4s scan), start listing the
+      //    points — the beam keeps sweeping back up while they print.
+      await wait(1850);
+      for (let i = 0; i < fields.length && visible; i++) {
+        fields[i].classList.add('is-done');
+        await wait(520);
+      }
+      await wait(5000); // keep all points listed for ~5s
+    };
+
+    const loop = async () => {
+      if (looping) return; looping = true;
+      while (visible) {
+        await pass();
+        if (!visible) break;
+        el.style.transition = 'opacity .45s'; el.style.opacity = '0';
+        await wait(470);
+        el.style.opacity = ''; el.style.transition = '';
+        await wait(160);
+      }
+      looping = false;
+    };
+
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { visible = e.isIntersecting; if (visible) loop(); }),
+      { threshold: 0.35 }
+    );
+    io.observe(el);
+  }
+</script>

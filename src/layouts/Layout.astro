@@ -1,16 +1,14 @@
 ---
-import '@fontsource-variable/schibsted-grotesk';
-import '@fontsource-variable/spline-sans-mono';
+import '@fontsource-variable/outfit';
 import '../styles/global.css';
 
 interface Props {
   title?: string;
   description?: string;
 }
-
 const {
-  title = 'NeoCore for Enterprise — Make frontline sales conversations visible, measurable and actionable',
-  description = 'Measure pitch adherence, identify coaching priorities and hear the Voice of Customer — across teams, regions and languages. Talk to our enterprise team.',
+  title = 'NeoCore for Enterprise · Make frontline sales conversations visible, measurable and actionable',
+  description = 'Measure pitch adherence, identify coaching priorities and hear the Voice of Customer, across teams, regions and languages. Talk to our enterprise team.',
 } = Astro.props;
 ---
 
@@ -24,48 +22,68 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#ebebeb" />
     <script is:inline>
-      document.documentElement.classList.add('js');
+      // No-flash theme: localStorage → system preference → light
+      (function () {
+        try {
+          var t = localStorage.getItem('neo-theme');
+          if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', t);
+        } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
+        document.documentElement.classList.add('js');
+      })();
     </script>
   </head>
   <body>
     <!--
-    THESIS: This page sells the intelligence layer, not the gadget: management
-    visibility rendered as a working instrument panel. It refuses the AI-startup
-    default — neon-glow hero, device beauty shot, equal icon-card features.
-    OWN-WORLD: Layered evergreen grounds (#060f0a to #133023) under hairline
-    #1e3d2c structure; bright #3fe07c reserved for action and live data; white
-    Schibsted Grotesk headlines; Spline Sans Mono for measured values; motion is
-    one restrained signal-flow reveal, nothing scattered.
-    STORY: A sales-excellence leader sees frontline conversations become
-    adherence, coaching and Voice-of-Customer intelligence, trusts it is
-    enterprise-safe, and books a conversation with the enterprise team.
-    FIRST VIEWPORT: Sticky nav; 45/55 split — eyebrow, headline, description,
-    primary CTA and proof line left; an "Illustrative view" adherence dashboard
-    right, fed by a small Neo One capture signal entering from the left edge.
-    FORM: Brief-pinned direction — the NeoSapien enterprise visual system and a
-    mandated seven-fold structure from the client brief; pinned brief beats the
-    roll, so no concept seed was drawn. seed: brief-pinned.
+    THESIS: The NeoCore enterprise page lives inside NeoSapien's own brand world
+    (neosapien.ai): soft light ground, mint-gradient cards, dark rounded product
+    "screens", brand green as the one accent. It sells the intelligence, not a
+    device, and refuses data-table dashboards — every reading is a friendly card.
+    OWN-WORLD: Light ground #ebebeb (or dark #0a0f0c), Outfit type (light display
+    weights with bold emphasis words), floating white pill nav, dark pill buttons
+    with green text (green fill in dark theme), mint→white gradient cards holding
+    dark rounded insets with green-checked rows. One brand green #00df79 throughout.
+    STORY: A sales-excellence leader sees one field conversation become adherence,
+    coaching and Voice-of-Customer intelligence, trusts it is enterprise-safe, and
+    books a conversation with the enterprise team.
+    FIRST VIEWPORT: Floating pill nav (with light/dark toggle); left — eyebrow chip,
+    light-weight headline with bold emphasis, lede, dark pill CTA, proof chips;
+    right — a mint gradient card with a dark inset showing conversation→intelligence.
+    FORM: NeoSapien brand-matched, user-directed (rejected the dark-transit world);
+    two themes, brand green the constant. seed: brand-matched (neosapien.ai).
     FINISH: unreviewed and undocumented is unfinished; this build ends with the
     finish review, the verdict, and DESIGN.md
     -->
     <a class="skip-link" href="#main">Skip to content</a>
     <slot />
     <script>
-      // ---- Analytics: declarative event hooks (brief §5) ----
-      // Elements opt in with data-evt="event_name" (clicks) or
-      // data-evt-view="event_name" (first scroll into view).
       declare global {
         interface Window {
           dataLayer: Record<string, unknown>[];
           neoTrack: (event: string, detail?: Record<string, unknown>) => void;
         }
       }
-      window.dataLayer = window.dataLayer || [];
-      window.neoTrack = (event, detail = {}) => {
-        window.dataLayer.push({ event, ...detail, ts: Date.now() });
+      // ---- Theme toggle ----
+      const root = document.documentElement;
+      const setTheme = (t: string) => {
+        root.setAttribute('data-theme', t);
+        try { localStorage.setItem('neo-theme', t); } catch {}
+        document.querySelectorAll<HTMLElement>('[data-theme-toggle]').forEach((b) =>
+          b.setAttribute('aria-pressed', String(t === 'dark'))
+        );
       };
+      document.querySelectorAll<HTMLElement>('[data-theme-toggle]').forEach((btn) => {
+        btn.setAttribute('aria-pressed', String(root.getAttribute('data-theme') === 'dark'));
+        btn.addEventListener('click', () =>
+          setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark')
+        );
+      });
 
+      // ---- Analytics (brief §5): data-evt (click) / data-evt-view (first view) ----
+      window.dataLayer = window.dataLayer || [];
+      window.neoTrack = (event, detail = {}) => window.dataLayer.push({ event, ...detail, ts: Date.now() });
       document.addEventListener('click', (e) => {
         const el = (e.target as HTMLElement).closest<HTMLElement>('[data-evt]');
         if (el) window.neoTrack(el.dataset.evt!, { source: el.dataset.evtSource || undefined });
@@ -73,35 +91,28 @@ const {
 
       if ('IntersectionObserver' in window) {
         const seen = new WeakSet<Element>();
-        const viewObserver = new IntersectionObserver(
-          (entries) => {
-            for (const entry of entries) {
-              if (entry.isIntersecting && !seen.has(entry.target)) {
-                seen.add(entry.target);
-                window.neoTrack((entry.target as HTMLElement).dataset.evtView!);
-                viewObserver.unobserve(entry.target);
-              }
-            }
-          },
-          { threshold: 0.4 }
-        );
-        document.querySelectorAll<HTMLElement>('[data-evt-view]').forEach((el) => viewObserver.observe(el));
+        const viewObs = new IntersectionObserver((entries) => {
+          for (const en of entries) if (en.isIntersecting && !seen.has(en.target)) {
+            seen.add(en.target); window.neoTrack((en.target as HTMLElement).dataset.evtView!); viewObs.unobserve(en.target);
+          }
+        }, { threshold: 0.4 });
+        document.querySelectorAll<HTMLElement>('[data-evt-view]').forEach((el) => viewObs.observe(el));
 
-        // ---- Reveal: the one entrance grammar (one entrance per fold) ----
-        const revealObserver = new IntersectionObserver(
-          (entries) => {
-            for (const entry of entries) {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('is-in');
-                revealObserver.unobserve(entry.target);
-              }
-            }
-          },
-          { rootMargin: '0px 0px -8% 0px', threshold: 0.12 }
-        );
-        document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+        const revObs = new IntersectionObserver((entries) => {
+          for (const en of entries) if (en.isIntersecting) { en.target.classList.add('is-in'); revObs.unobserve(en.target); }
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+        document.querySelectorAll('.reveal, .mark').forEach((el) => revObs.observe(el));
       } else {
-        document.querySelectorAll('.reveal').forEach((el) => el.classList.add('is-in'));
+        document.querySelectorAll('.reveal, .mark').forEach((el) => el.classList.add('is-in'));
+      }
+
+      // ---- Mobile nav drawer ----
+      const navT = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');
+      const navD = document.querySelector<HTMLElement>('[data-nav-drawer]');
+      if (navT && navD) {
+        const set = (o: boolean) => { navT.setAttribute('aria-expanded', String(o)); navD.hidden = !o; };
+        navT.addEventListener('click', () => set(navT.getAttribute('aria-expanded') !== 'true'));
+        navD.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('a')) set(false); });
       }
     </script>
   </body>

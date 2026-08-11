@@ -1,319 +1,64 @@
 ---
-// Fold 7 — Enterprise pilot and final CTA. The page's last beat.
-// The five steps are a rail, not five marketing cards: hairline track,
-// mono step numbers, tight copy, machined nodes that brighten toward a
-// closed terminal. Horizontal on desktop, vertical timeline on mobile.
-// Then a long silence, and the page lands on its one green field — the
-// only region the accent owns, and the only place ambient green light is
-// earned: the field casts a bloom into the dark room around it, which is
-// what makes the arrival read as the destination rather than a block.
-
 const steps = [
-  {
-    n: '1',
-    name: 'Align',
-    copy: 'Select the team, region, use case and success measures.',
-  },
-  {
-    n: '2',
-    name: 'Configure',
-    copy: 'Add products, brands, competitors, terminology and adherence fields.',
-  },
-  {
-    n: '3',
-    name: 'Deploy',
-    copy: 'Set up Neo One capture, NeoCore access and required integrations.',
-  },
-  {
-    n: '4',
-    name: 'Measure',
-    copy: 'Track utilization, pitch adherence, coaching priorities and Voice of Customer themes.',
-  },
-  {
-    n: '5',
-    name: 'Review',
-    copy: 'Assess results, integration requirements and the broader rollout plan.',
-  },
+  { n: 'Align', d: 'Select the team, region, use case and success measures.' },
+  { n: 'Configure', d: 'Add products, brands, competitors, terminology and adherence fields.' },
+  { n: 'Deploy', d: 'Set up Neo One capture, NeoCore access and required integrations.' },
+  { n: 'Measure', d: 'Track utilization, pitch adherence, coaching priorities and Voice of Customer themes.' },
+  { n: 'Review', d: 'Assess results, integration requirements and the broader rollout plan.' },
 ];
 ---
 
 <section id="pilot" class="fold pilot">
-  <div class="container">
+  <div class="shell">
     <div class="fold-head reveal">
-      <h2 class="display-l">Start with a focused enterprise pilot.</h2>
-      <p class="lede">
-        Choose one team, define the conversations and outcomes that matter, and
-        validate NeoCore against your field reality.
-      </p>
+      <h2 class="h2">Start with a <span class="b">focused enterprise pilot.</span></h2>
+      <p class="lede">Choose one team, define the conversations and outcomes that matter, and validate NeoCore against your field reality.</p>
     </div>
 
-    <ol class="rail" role="list">
-      {
-        steps.map((step, i) => (
-          <li class="rail__step">
-            <span class="rail__num">{step.n}</span>
-            <span class="rail__track" aria-hidden="true">
-              <span class="rail__node" />
-              <span class="rail__line" />
-            </span>
-            <h3 class="rail__name">{step.name}</h3>
-            <p class="rail__copy">{step.copy}</p>
-          </li>
-        ))
-      }
+    <ol class="pflow reveal" aria-label="Five-step enterprise pilot">
+      <div class="pflow__line" aria-hidden="true"></div>
+      {steps.map((s, i) => (
+        <li class="pstep">
+          <span class="node pnode" aria-hidden="true"></span>
+          <span class="pstep__i">Step {String(i + 1).padStart(2, '0')}</span>
+          <h3 class="pstep__n">{s.n}</h3>
+          <p class="pstep__d">{s.d}</p>
+        </li>
+      ))}
     </ol>
 
-    <div
-      class="panel panel--raised cta-panel bloom"
-      data-evt-view="final_cta_view"
-    >
-      <p class="cta-panel__line">
-        We will scope the team, workflows, languages, integrations and success
-        measures with you.
-      </p>
-      <button
-        class="btn btn--primary"
-        data-open-form
-        data-evt="final_cta_click"
-        data-evt-source="final-cta"
-      >
-        Talk to our enterprise team
+    <div class="terminus reveal">
+      <div class="terminus__glow" aria-hidden="true"></div>
+      <div class="terminus__text">
+        <h3 class="terminus__h">Talk to our enterprise team.</h3>
+        <p class="terminus__sub">We will scope the team, workflows, languages, integrations and success measures with you.</p>
+      </div>
+      <button type="button" class="pill pill-lg terminus__cta" data-lead-open data-evt="pilot_cta_click" data-evt-source="pilot">
+        Talk to our enterprise team <span class="ico" aria-hidden="true">→</span>
       </button>
     </div>
   </div>
 </section>
 
 <style>
-  .pilot {
-    background: var(--g-950);
-    /* The fold owns its own light layer: the CTA panel's bloom sits at
-       z-index -1, so this fold must be the stacking context it resolves
-       against — otherwise the section ground paints over it. */
-    isolation: isolate;
-  }
+  .pflow { position: relative; list-style: none; margin-top: 20px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
+  .pflow__line { position: absolute; top: 7px; left: 7px; right: 7px; height: 2px; background: repeating-linear-gradient(90deg, var(--hair) 0 7px, transparent 7px 14px); }
+  .pstep { padding-right: 14px; }
+  .pnode { display: block; margin-bottom: 22px; }
+  .pstep__i { font-size: .78rem; font-weight: 600; color: var(--green-text); }
+  .pstep__n { font-size: 1.2rem; font-weight: 500; margin-top: 2px; }
+  .pstep__d { margin-top: 10px; color: var(--ink-2); font-size: .9rem; line-height: 1.45; }
 
-  /* ---------- Five-step rail ----------
-     Mobile first: a vertical timeline. The node interrupts a hairline
-     track that runs continuously through the sequence. */
+  .terminus { position: relative; overflow: hidden; margin-top: 76px; background: var(--green); border-radius: var(--r-l); padding: clamp(32px, 4.5vw, 60px); display: grid; grid-template-columns: 1fr auto; align-items: center; gap: clamp(24px, 3vw, 48px); box-shadow: var(--shadow-3); }
+  .terminus__glow { position: absolute; right: -6%; top: -40%; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.35), transparent 65%); pointer-events: none; }
+  .terminus__text { position: relative; }
+  .terminus__h { color: var(--green-ink); font-size: clamp(1.9rem, 3.2vw, 2.8rem); font-weight: 600; letter-spacing: -0.025em; }
+  .terminus__sub { color: color-mix(in srgb, var(--green-ink) 74%, transparent); margin-top: 12px; font-size: 1.08rem; line-height: 1.5; max-width: 50ch; }
+  .terminus__cta { position: relative; background: var(--green-ink); color: var(--green); flex: none; }
+  .terminus__cta .ico { background: var(--green); color: var(--green-ink); }
+  .terminus__cta:hover { background: #071f12; }
 
-  .rail {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-  }
-
-  .rail__step {
-    display: grid;
-    grid-template-columns: 12px minmax(0, 1fr);
-    column-gap: 18px;
-    grid-template-areas:
-      'track num'
-      'track name'
-      'track copy';
-  }
-
-  .rail__num {
-    grid-area: num;
-    font-family: var(--font-mono);
-    font-variant-numeric: tabular-nums;
-    font-size: 0.75rem;
-    font-weight: 500;
-    line-height: 1;
-    letter-spacing: 0.08em;
-    color: var(--ink-3);
-  }
-
-  .rail__track {
-    grid-area: track;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .rail__node {
-    flex: none;
-    width: 10px;
-    height: 10px;
-    border: 1px solid var(--line-control);
-    border-radius: 2px;
-    background: var(--g-950);
-  }
-
-  /* The sequence terminates — the last node is closed, not open, and wears
-     a collar so the eye stops there before the long drop to the close. */
-  .rail__step:last-child .rail__node {
-    background: var(--ink-3);
-    border-color: var(--ink-3);
-    box-shadow: 0 0 0 3px rgba(127, 163, 139, 0.15);
-  }
-
-  /* Each segment brightens into the node it feeds — the rail pulls forward. */
-  .rail__line {
-    flex: 1 1 auto;
-    width: 1px;
-    margin-block: 5px;
-    background: linear-gradient(180deg, var(--line), var(--line-strong));
-  }
-
-  .rail__step:last-child .rail__line {
-    display: none;
-  }
-
-  .rail__name {
-    grid-area: name;
-    margin-top: 10px;
-    font-size: 1.1875rem;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    font-weight: 660;
-    color: var(--ink);
-  }
-
-  .rail__copy {
-    grid-area: copy;
-    margin-top: 7px;
-    margin-bottom: clamp(28px, 5.4vw, 40px);
-    font-size: 0.9375rem;
-    line-height: 1.6;
-    color: var(--ink-2);
-    max-width: 46ch;
-  }
-
-  .rail__step:last-child .rail__copy {
-    margin-bottom: 0;
-  }
-
-  /* ---------- Final CTA ----------
-     The one place the accent owns a region, reached after the fold's
-     longest silence. The field is lit from above and casts a bloom into
-     the dark room; the button flips dark so the commitment reads as a
-     control, not a badge. */
-
-  .cta-panel {
-    margin-top: clamp(88px, 12vw, 168px);
-    padding: clamp(44px, 6.4vw, 88px) clamp(28px, 5.6vw, 80px);
-    border-color: var(--green-dim);
-    display: grid;
-    gap: clamp(32px, 4vw, 60px);
-    align-items: center;
-
-    /* The green field's own light, thrown wide and low into the dark. */
-    --bloom-spread: clamp(90px, 13vw, 200px);
-    --bloom-w: 78%;
-    --bloom-h: 64%;
-    --bloom-y: 54%;
-    --bloom-alpha: 0.16;
-  }
-
-  /* Keep the light inside its own fold: it may wash up into the rail's dark
-     ground, but it must not cross the footer's hairline. */
-  .panel--raised.cta-panel::before {
-    inset: calc(-1 * var(--bloom-spread)) calc(-1 * var(--bloom-spread))
-      calc(-1 * clamp(40px, 6vw, 96px));
-  }
-
-  /* Beats .panel--raised regardless of stylesheet order: the raised
-     catch-light is tuned for dark grounds and vanishes on green. */
-  .panel--raised.cta-panel {
-    background-color: var(--green);
-    background-image: linear-gradient(
-      180deg,
-      rgba(143, 240, 180, 0.5),
-      rgba(143, 240, 180, 0) 62%
-    );
-    box-shadow:
-      0 44px 110px -44px rgba(2, 8, 5, 0.85),
-      0 20px 44px -26px rgba(63, 224, 124, 0.34),
-      inset 0 1px 0 rgba(242, 248, 240, 0.34);
-  }
-
-  .cta-panel__line {
-    font-size: clamp(1.5rem, 2.9vw, 2.375rem);
-    line-height: 1.14;
-    letter-spacing: -0.025em;
-    font-weight: 660;
-    color: var(--green-ink);
-    max-width: 26ch;
-    text-wrap: balance;
-  }
-
-  .cta-panel .btn--primary {
-    width: 100%;
-    background: var(--green-ink);
-    color: var(--ink);
-    border-color: var(--green-ink);
-    font-weight: 620;
-    letter-spacing: -0.012em;
-    box-shadow:
-      0 18px 36px -16px rgba(5, 19, 11, 0.7),
-      inset 0 1px 0 rgba(242, 248, 240, 0.11);
-  }
-
-  .cta-panel .btn--primary:hover {
-    background: var(--g-800);
-    border-color: var(--g-800);
-    box-shadow:
-      0 22px 44px -16px rgba(5, 19, 11, 0.8),
-      inset 0 1px 0 rgba(242, 248, 240, 0.16);
-  }
-
-  /* The global focus ring is green — invisible on a green ground. */
-  .cta-panel :focus-visible {
-    outline-color: var(--green-ink);
-    outline-offset: 3px;
-  }
-
-  /* ---------- Desktop: the rail turns horizontal ---------- */
-
-  @media (min-width: 880px) {
-    .rail {
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-    }
-
-    .rail__step {
-      display: block;
-    }
-
-    .rail__num {
-      margin-bottom: 15px;
-    }
-
-    .rail__track {
-      flex-direction: row;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .rail__line {
-      width: auto;
-      height: 1px;
-      margin-block: 0;
-      margin-inline: 9px;
-      background: linear-gradient(90deg, var(--line), var(--line-strong));
-    }
-
-    .rail__name {
-      margin-top: 0;
-      font-size: 1.25rem;
-      padding-inline-end: clamp(20px, 2.6vw, 36px);
-    }
-
-    .rail__copy {
-      margin-top: 8px;
-      margin-bottom: 0;
-      padding-inline-end: clamp(20px, 2.6vw, 36px);
-      max-width: none;
-    }
-
-    .cta-panel {
-      grid-template-columns: minmax(0, 1fr) auto;
-    }
-
-    .cta-panel .btn--primary {
-      width: auto;
-      padding: 21px 40px;
-      font-size: 1.125rem;
-    }
-  }
+  @media (max-width: 980px) { .pflow { grid-template-columns: 1fr 1fr 1fr; gap: 28px 18px; } .pflow__line { display: none; } .pnode { margin-bottom: 12px; } }
+  @media (max-width: 760px) { .terminus { grid-template-columns: 1fr; } .terminus__cta { width: 100%; justify-content: space-between; } }
+  @media (max-width: 520px) { .pflow { grid-template-columns: 1fr 1fr; } }
 </style>

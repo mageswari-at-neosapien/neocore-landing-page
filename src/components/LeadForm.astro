@@ -1,809 +1,183 @@
 ---
-// Qualification form (brief §3) — one dialog, opened by every
-// [data-open-form] trigger on the page. Single column, five visible fields,
-// inline validation, then a same-tab handoff to the 30-minute enterprise
-// Calendly with name/email prefilled.
-const countryCodes = [
-  { code: '+91', label: '+91 India' },
-  { code: '+1', label: '+1 US / Canada' },
-  { code: '+44', label: '+44 United Kingdom' },
-  { code: '+971', label: '+971 UAE' },
-  { code: '+65', label: '+65 Singapore' },
-  { code: '+61', label: '+61 Australia' },
-  { code: '+49', label: '+49 Germany' },
-  { code: '+33', label: '+33 France' },
-  { code: '+31', label: '+31 Netherlands' },
-  { code: '+81', label: '+81 Japan' },
-  { code: '+86', label: '+86 China' },
-  { code: '+60', label: '+60 Malaysia' },
-  { code: '+62', label: '+62 Indonesia' },
-  { code: '+966', label: '+966 Saudi Arabia' },
-  { code: '+27', label: '+27 South Africa' },
-  { code: '+55', label: '+55 Brazil' },
-  { code: '+52', label: '+52 Mexico' },
-];
-
-const deviceRanges = ['Not sure yet', '1–49', '50–99', '100–249', '250+'];
+const CALENDLY = 'https://calendly.com/enterprise-neosapien/30min';
 ---
 
-<dialog class="lead-dialog" id="lead-dialog" aria-labelledby="lead-title">
-  <div class="lead-panel panel panel--raised">
-    <button type="button" class="lead-close" aria-label="Close" data-lead-close>
-      <svg
-        viewBox="0 0 24 24"
-        width="18"
-        height="18"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        aria-hidden="true"
-      >
-        <path d="M6.5 6.5l11 11"></path>
-        <path d="M17.5 6.5l-11 11"></path>
-      </svg>
+<dialog class="lead" id="lead-dialog" aria-labelledby="lead-title" data-calendly={CALENDLY}>
+  <div class="lead__panel">
+    <button type="button" class="lead__close" data-lead-close aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
     </button>
 
-    <div class="lead-body" data-lead-body>
-      <h2 class="display-m" id="lead-title">Tell us about your frontline team.</h2>
-      <p class="lead-sub">
-        Share a few details, then pick a 30-minute slot with our enterprise team.
-      </p>
+    <div data-lead-form-view>
+      <span class="tag">Enterprise team</span>
+      <h2 id="lead-title" class="lead__title">Tell us about your frontline team.</h2>
+      <form class="lead__form" novalidate data-lead-form>
+        <input type="hidden" name="cta_source" data-cta-source />
+        <input type="hidden" name="page_section" data-page-section />
+        <input type="hidden" name="campaign" data-campaign />
+        <input type="hidden" name="referrer" data-referrer />
 
-      <p class="lead-banner" data-lead-banner hidden role="alert"></p>
-
-      <form class="lead-form" data-lead-form novalidate>
         <div class="field">
-          <label class="field__label" for="lead-name">Name</label>
-          <input
-            id="lead-name"
-            name="name"
-            type="text"
-            autocomplete="name"
-            required
-            aria-describedby="lead-name-error"
-            data-validate="name"
-          />
-          <p class="field__error" id="lead-name-error" hidden></p>
+          <label for="lf-name">Name</label>
+          <input id="lf-name" name="name" type="text" autocomplete="name" required />
+          <p class="field__err" data-err-for="name" hidden></p>
         </div>
-
         <div class="field">
-          <label class="field__label" for="lead-org">Organization</label>
-          <input
-            id="lead-org"
-            name="organization"
-            type="text"
-            autocomplete="organization"
-            required
-            aria-describedby="lead-org-error"
-            data-validate="organization"
-          />
-          <p class="field__error" id="lead-org-error" hidden></p>
+          <label for="lf-org">Organization</label>
+          <input id="lf-org" name="organization" type="text" autocomplete="organization" required />
+          <p class="field__err" data-err-for="organization" hidden></p>
         </div>
-
         <div class="field">
-          <label class="field__label" for="lead-email">Official work email</label>
-          <input
-            id="lead-email"
-            name="email"
-            type="email"
-            autocomplete="email"
-            required
-            aria-describedby="lead-email-help lead-email-notice lead-email-error"
-            data-validate="email"
-          />
-          <p class="field__help" id="lead-email-help">Please use your organization email.</p>
-          <p class="field__notice" id="lead-email-notice" hidden>
-            Please use your organization email if you have one.
-          </p>
-          <p class="field__error" id="lead-email-error" hidden></p>
+          <label for="lf-email">Official work email</label>
+          <p class="field__help">Please use your organization email.</p>
+          <input id="lf-email" name="email" type="email" autocomplete="email" inputmode="email" required />
+          <p class="field__note" data-note-for="email" hidden></p>
+          <p class="field__err" data-err-for="email" hidden></p>
         </div>
-
         <div class="field">
-          <label class="field__label" for="lead-phone">Phone number</label>
-          <div class="phone-row">
-            <div class="select-wrap select-wrap--code">
-              <label class="visually-hidden" for="lead-phone-code">Country calling code</label>
-              <select id="lead-phone-code" name="phone_country_code">
-                {countryCodes.map((c) => <option value={c.code}>{c.label}</option>)}
-              </select>
-              <svg
-                class="select-chev"
-                viewBox="0 0 24 24"
-                width="16"
-                height="16"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M6 9.5l6 5.5 6-5.5"></path>
-              </svg>
-            </div>
-            <input
-              id="lead-phone"
-              name="phone"
-              type="tel"
-              inputmode="tel"
-              autocomplete="tel-national"
-              required
-              aria-describedby="lead-phone-error"
-              data-validate="phone"
-            />
-          </div>
-          <p class="field__error" id="lead-phone-error" hidden></p>
+          <label for="lf-phone">Phone number</label>
+          <input id="lf-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required />
+          <p class="field__err" data-err-for="phone" hidden></p>
         </div>
-
         <div class="field">
-          <label class="field__label" for="lead-devices">
-            Approximate device requirement
-            <span class="field__optional">Optional</span>
-          </label>
-          <div class="select-wrap">
-            <select id="lead-devices" name="device_requirement">
-              {deviceRanges.map((r) => <option value={r}>{r}</option>)}
+          <label for="lf-devices">Approximate device requirement <span class="field__opt">Optional</span></label>
+          <div class="selwrap">
+            <select id="lf-devices" name="devices">
+              <option value="">Not sure yet</option>
+              <option value="1-49">1–49</option>
+              <option value="50-99">50–99</option>
+              <option value="100-249">100–249</option>
+              <option value="250+">250+</option>
             </select>
-            <svg
-              class="select-chev"
-              viewBox="0 0 24 24"
-              width="16"
-              height="16"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M6 9.5l6 5.5 6-5.5"></path>
-            </svg>
+            <svg class="selchev" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
         </div>
 
-        <!-- Attribution — never shown, filled from the trigger and the URL. -->
-        <input type="hidden" name="cta_source" data-hidden-field="cta_source" />
-        <input type="hidden" name="page_section" data-hidden-field="page_section" />
-        <input type="hidden" name="utm_source" data-hidden-field="utm_source" />
-        <input type="hidden" name="utm_medium" data-hidden-field="utm_medium" />
-        <input type="hidden" name="utm_campaign" data-hidden-field="utm_campaign" />
-        <input type="hidden" name="utm_term" data-hidden-field="utm_term" />
-        <input type="hidden" name="utm_content" data-hidden-field="utm_content" />
-        <input type="hidden" name="ref" data-hidden-field="ref" />
-        <input type="hidden" name="referrer" data-hidden-field="referrer" />
-        <input type="hidden" name="page_url" data-hidden-field="page_url" />
-
-        <!-- Consent wording is placeholder: final privacy copy and Privacy
-             Policy URL are awaited from NeoSapien before launch. -->
-        <p class="lead-consent">
-          We use these details only to arrange and prepare for that conversation.
-        </p>
-
-        <button type="submit" class="btn btn--primary lead-submit" data-lead-submit>
-          Continue to scheduling
-        </button>
+        <p class="lead__banner" data-lead-banner hidden></p>
+        <button type="submit" class="pill lead__submit" data-lead-submit>Talk to our enterprise team <span class="ico" aria-hidden="true">→</span></button>
+        <p class="lead__legal muted">We save your details so we can follow up even if you don’t complete the booking.</p>
       </form>
     </div>
 
-    <div class="lead-success" data-lead-success hidden role="status" aria-live="polite">
-      <svg
-        class="lead-success__mark"
-        viewBox="0 0 24 24"
-        width="28"
-        height="28"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
-      >
-        <circle cx="12" cy="12" r="9"></circle>
-        <path d="M8 12.4l2.6 2.6L16 9.6"></path>
-      </svg>
-      <h3 class="display-m" tabindex="-1" data-lead-success-head>
-        Thank you — taking you to scheduling…
-      </h3>
-      <p class="lead-sub">
-        Your details are with our enterprise team. We are opening the 30-minute booking page in
-        this tab.
-      </p>
-      <p class="lead-fallback">
-        If it does not open,
-        <a class="text-link" href="https://calendly.com/enterprise-neosapien/30min" data-lead-calendly>
-          open the scheduling page
-        </a>.
-      </p>
+    <div class="lead__success" data-lead-success hidden>
+      <span class="lead__check" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 26 26"><path d="M6 13.5l4.5 4.5L20 8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <h2 class="lead__title">You’re on the list.</h2>
+      <p class="muted">Redirecting you to book a 30-minute conversation with the enterprise team…</p>
+      <a class="tlink" data-lead-calendly href={CALENDLY}>Continue to booking</a>
     </div>
   </div>
 </dialog>
 
 <style>
-  .lead-dialog {
-    width: min(560px, calc(100vw - 24px));
-    max-width: none;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    color: var(--ink);
-    margin: auto;
-  }
+  .lead { border: none; padding: 0; background: transparent; max-width: min(540px, 100vw - 24px); width: 100%; color: var(--ink); }
+  .lead::backdrop { background: rgba(10, 20, 14, 0.5); backdrop-filter: blur(3px); }
+  .lead[open] { animation: leadIn .24s var(--ease); }
+  @keyframes leadIn { from { opacity: 0; transform: translateY(10px); } }
+  @media (prefers-reduced-motion: reduce) { .lead[open] { animation: none; } }
 
-  .lead-dialog::backdrop {
-    background: rgba(2, 8, 5, 0.74);
-  }
+  .lead__panel { position: relative; background: var(--surface); border: 1px solid var(--hair); border-radius: var(--r-l); padding: clamp(24px, 4vw, 36px); box-shadow: var(--shadow-3); max-height: calc(100dvh - 32px); overflow-y: auto; }
+  .lead__close { position: absolute; top: 18px; right: 18px; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--hair); color: var(--ink-2); }
+  .lead__close:hover { color: var(--ink); }
+  .lead__title { font-size: 1.6rem; font-weight: 500; margin-top: 14px; letter-spacing: -0.02em; }
+  .lead__form { margin-top: 22px; display: grid; gap: 16px; }
 
-  .lead-panel {
-    position: relative;
-    padding: clamp(24px, 4vw, 36px);
-    max-height: calc(100vh - 32px);
-    max-height: calc(100dvh - 32px);
-    overflow-y: auto;
-    border-radius: var(--r-l);
-  }
+  .field { display: grid; gap: 6px; }
+  .field label { font-size: .92rem; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+  .field__opt { font-size: .68rem; color: var(--ink-3); border: 1px solid var(--hair); border-radius: var(--r-pill); padding: 2px 9px; text-transform: uppercase; letter-spacing: .06em; }
+  .field__help { font-size: .84rem; color: var(--ink-3); margin: -2px 0 2px; }
+  .field input, .selwrap select { width: 100%; background: var(--surface-2); color: var(--ink); border: 1px solid var(--hair); border-radius: 12px; padding: 13px 15px; font-size: 1rem; transition: border-color .16s var(--ease), box-shadow .16s var(--ease); }
+  .field input:focus, .selwrap select:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px var(--green-glow); }
+  .field input[aria-invalid="true"] { border-color: #e0634e; }
+  .field__err { font-size: .84rem; color: #e0634e; }
+  .field__note { font-size: .84rem; color: #c88a1e; }
+  .selwrap { position: relative; }
+  .selwrap select { appearance: none; -webkit-appearance: none; cursor: pointer; }
+  .selchev { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: var(--ink-3); pointer-events: none; }
 
-  .lead-dialog[open] .lead-panel {
-    animation: lead-rise 0.24s var(--ease-out) both;
-  }
+  .lead__banner { font-size: .9rem; color: #c0402c; background: rgba(224,99,78,.1); border: 1px solid rgba(224,99,78,.4); border-radius: 12px; padding: 11px 14px; }
+  .lead__submit { width: 100%; justify-content: center; margin-top: 4px; }
+  .lead__submit[aria-busy="true"] { opacity: .6; pointer-events: none; }
+  .lead__legal { font-size: .82rem; line-height: 1.45; }
 
-  @keyframes lead-rise {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .lead-dialog[open] .lead-panel {
-      animation: none;
-    }
-  }
-
-  .lead-close {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    padding: 0;
-    background: transparent;
-    border: 1px solid var(--line);
-    border-radius: var(--r-s);
-    color: var(--ink-2);
-    cursor: pointer;
-    transition: color 0.15s ease, border-color 0.15s ease;
-  }
-
-  .lead-close:hover {
-    color: var(--ink);
-    border-color: var(--line-strong);
-  }
-
-  #lead-title {
-    padding-right: 44px;
-  }
-
-  .lead-sub {
-    margin-top: 12px;
-    color: var(--ink-2);
-    font-size: 0.9375rem;
-    line-height: 1.5;
-  }
-
-  /* ---- Form ---- */
-
-  .lead-form {
-    display: grid;
-    gap: 18px;
-    margin-top: 26px;
-  }
-
-  .field {
-    display: grid;
-    gap: 6px;
-  }
-
-  .field__label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.875rem;
-    font-weight: 560;
-    color: var(--ink);
-  }
-
-  .field__optional {
-    font-family: var(--font-mono);
-    font-size: 0.625rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    padding: 2px 7px;
-  }
-
-  .lead-panel input[type='text'],
-  .lead-panel input[type='email'],
-  .lead-panel input[type='tel'],
-  .lead-panel select {
-    width: 100%;
-    background: var(--g-950);
-    border: 1px solid var(--line-control);
-    border-radius: var(--r-s);
-    color: var(--ink);
-    font: inherit;
-    font-size: 0.9375rem;
-    padding: 11px 13px;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
-  }
-
-  .lead-panel select {
-    appearance: none;
-    padding-right: 34px;
-    cursor: pointer;
-  }
-
-  .lead-panel input::placeholder {
-    color: var(--ink-3);
-  }
-
-  .lead-panel input:focus,
-  .lead-panel select:focus {
-    outline: none;
-    border-color: var(--green);
-    box-shadow: 0 0 0 3px var(--green-glow);
-  }
-
-  .lead-panel input:focus-visible,
-  .lead-panel select:focus-visible {
-    outline: 2px solid var(--green);
-    outline-offset: 2px;
-  }
-
-  .lead-panel input[aria-invalid='true'] {
-    border-color: var(--signal-alert);
-  }
-
-  .select-wrap {
-    position: relative;
-    display: block;
-  }
-
-  .select-wrap--code {
-    flex: none;
-    width: 140px;
-  }
-
-  .select-chev {
-    position: absolute;
-    top: 50%;
-    right: 11px;
-    transform: translateY(-50%);
-    color: var(--ink-3);
-    pointer-events: none;
-  }
-
-  .phone-row {
-    display: flex;
-    gap: 10px;
-  }
-
-  .phone-row input {
-    flex: 1 1 auto;
-    min-width: 0;
-  }
-
-  .field__help,
-  .field__notice,
-  .field__error {
-    font-size: 0.8125rem;
-    line-height: 1.45;
-  }
-
-  .field__help {
-    color: var(--ink-3);
-  }
-
-  .field__notice {
-    color: var(--signal-warn);
-  }
-
-  .field__error {
-    color: var(--signal-alert);
-  }
-
-  .lead-consent {
-    font-size: 0.8125rem;
-    line-height: 1.55;
-    color: var(--ink-2);
-    border-top: 1px solid var(--line);
-    padding-top: 16px;
-  }
-
-  .lead-banner {
-    margin-top: 20px;
-    padding: 12px 14px;
-    border: 1px solid var(--signal-alert);
-    border-radius: var(--r-s);
-    background: var(--g-850);
-    color: var(--ink);
-    font-size: 0.875rem;
-    line-height: 1.5;
-  }
-
-  .lead-submit {
-    width: 100%;
-    margin-top: 2px;
-  }
-
-  .lead-submit[disabled] {
-    opacity: 0.62;
-    cursor: progress;
-  }
-
-  /* ---- Success ---- */
-
-  .lead-success__mark {
-    color: var(--green);
-    margin-bottom: 16px;
-  }
-
-  .lead-success h3 {
-    outline-offset: 6px;
-  }
-
-  .lead-fallback {
-    margin-top: 18px;
-    font-size: 0.875rem;
-    color: var(--ink-2);
-  }
-
-  @media (max-width: 420px) {
-    .phone-row {
-      gap: 8px;
-    }
-
-    .select-wrap--code {
-      width: 118px;
-    }
-  }
+  .lead__success { text-align: center; padding: 16px 8px 8px; display: grid; gap: 12px; justify-items: center; }
+  .lead__check { width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; background: var(--green); color: var(--green-ink); }
 </style>
 
 <script>
-  // TODO: CRM / form endpoint is pending from NeoSapien (brief §6 handoff:
-  // "CRM or form endpoint and field mapping"). Set this to the POST URL when
-  // it lands. While it is empty the submission is treated as successful and
-  // the lead is pushed to window.dataLayer so no enquiry is lost in staging.
-  const FORM_ENDPOINT = '';
+  const dialog = document.getElementById('lead-dialog') as HTMLDialogElement | null;
+  if (dialog) {
+    const CAL = dialog.dataset.calendly!;
+    const form = dialog.querySelector<HTMLFormElement>('[data-lead-form]')!;
+    const formView = dialog.querySelector<HTMLElement>('[data-lead-form-view]')!;
+    const successView = dialog.querySelector<HTMLElement>('[data-lead-success]')!;
+    const banner = dialog.querySelector<HTMLElement>('[data-lead-banner]')!;
+    const submitBtn = dialog.querySelector<HTMLButtonElement>('[data-lead-submit]')!;
+    const emailNote = form.querySelector<HTMLElement>('[data-note-for="email"]')!;
+    let started = false;
+    const track = (e: string, d: Record<string, unknown> = {}) => window.neoTrack?.(e, d);
+    const PUBLIC = ['gmail.com','yahoo.com','yahoo.co.in','outlook.com','hotmail.com','live.com','icloud.com','proton.me','protonmail.com','rediffmail.com'];
 
-  const CALENDLY_URL = 'https://calendly.com/enterprise-neosapien/30min';
-  const REDIRECT_DELAY = 1200;
-
-  const dialog = document.querySelector<HTMLDialogElement>('#lead-dialog');
-  const form = document.querySelector<HTMLFormElement>('[data-lead-form]');
-  const formView = document.querySelector<HTMLElement>('[data-lead-body]');
-  const success = document.querySelector<HTMLElement>('[data-lead-success]');
-  const successHead = document.querySelector<HTMLElement>('[data-lead-success-head]');
-  const banner = document.querySelector<HTMLElement>('[data-lead-banner]');
-  const submitBtn = document.querySelector<HTMLButtonElement>('[data-lead-submit]');
-  const calendlyLink = document.querySelector<HTMLAnchorElement>('[data-lead-calendly]');
-
-  if (dialog && form && formView && success && banner && submitBtn) {
-    type Win = {
-      neoTrack?: (event: string, detail?: Record<string, unknown>) => void;
-      dataLayer?: Record<string, unknown>[];
+    const setError = (name: string, msg: string | null) => {
+      const input = form.querySelector<HTMLElement>(`[name="${name}"]`);
+      const err = form.querySelector<HTMLElement>(`[data-err-for="${name}"]`);
+      if (input) input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+      if (err) { err.textContent = msg || ''; err.hidden = !msg; }
     };
-    const w = window as unknown as Win;
-    const track = (event: string, detail: Record<string, unknown> = {}) => {
-      w.neoTrack?.(event, detail);
-    };
-
-    const PUBLIC_DOMAINS = [
-      'gmail.com',
-      'googlemail.com',
-      'yahoo.com',
-      'yahoo.co.in',
-      'outlook.com',
-      'hotmail.com',
-      'live.com',
-      'icloud.com',
-      'aol.com',
-      'proton.me',
-      'protonmail.com',
-      'rediffmail.com',
-      'zoho.com',
-      'mail.com',
-      'yandex.com',
-      'qq.com',
-    ];
-
-    let lastTrigger: HTMLElement | null = null;
-    let startFired = false;
-    let publicPrompted = false;
-    let submitting = false;
-
-    /* ---------- helpers ---------- */
-
-    const fieldOf = (name: string) =>
-      form.querySelector<HTMLInputElement>(`[data-validate="${name}"]`);
-
-    const errorOf = (input: HTMLInputElement) => {
-      const id = input.getAttribute('id');
-      return id ? document.querySelector<HTMLElement>(`#${id}-error`) : null;
-    };
-
-    const showError = (input: HTMLInputElement, message: string) => {
-      const el = errorOf(input);
-      if (el) {
-        el.textContent = message;
-        el.hidden = false;
-      }
-      input.setAttribute('aria-invalid', 'true');
-    };
-
-    const clearError = (input: HTMLInputElement) => {
-      const el = errorOf(input);
-      if (el) {
-        el.textContent = '';
-        el.hidden = true;
-      }
-      input.removeAttribute('aria-invalid');
-    };
-
-    // Returns an error message, or '' when the value is acceptable.
-    const problemWith = (name: string, value: string): string => {
-      const v = value.trim();
-      if (name === 'name') {
-        if (!v) return 'Enter your name so we know who we are speaking with.';
-        if (v.length < 2) return 'Enter your full name — at least two characters.';
-        return '';
-      }
-      if (name === 'organization') {
-        if (!v) return 'Enter the organization you work for.';
-        return '';
-      }
-      if (name === 'email') {
-        if (!v) return 'Enter your work email so we can send the invite.';
-        if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(v))
-          return 'That email address is not complete. Use the form name@company.com.';
-        return '';
-      }
-      if (name === 'phone') {
-        const digits = v.replace(/[^\d]/g, '');
-        if (!digits) return 'Enter a phone number we can reach you on.';
-        if (digits.length < 7 || digits.length > 15)
-          return 'Enter a phone number of 7 to 15 digits, without the country code.';
-        return '';
-      }
-      return '';
-    };
-
-    // Public inbox: prompt once, never block (brief §3 "Form behavior").
-    const checkEmailDomain = (value: string) => {
-      const notice = document.querySelector<HTMLElement>('#lead-email-notice');
-      if (!notice) return;
-      const domain = value.trim().toLowerCase().split('@')[1] || '';
-      if (!publicPrompted && domain && PUBLIC_DOMAINS.indexOf(domain) !== -1) {
-        notice.hidden = false;
-        publicPrompted = true;
-      }
-    };
-
-    const validateField = (input: HTMLInputElement, report: boolean): boolean => {
-      const name = input.dataset.validate || '';
-      const message = problemWith(name, input.value);
-      if (message) {
-        if (report) showError(input, message);
-        return false;
-      }
-      clearError(input);
-      return true;
-    };
-
-    /* ---------- attribution ---------- */
-
-    const setHidden = (key: string, value: string) => {
-      const el = form.querySelector<HTMLInputElement>(`[data-hidden-field="${key}"]`);
-      if (el) el.value = value;
-    };
-
-    const fillCampaignFields = () => {
-      let params: URLSearchParams;
-      try {
-        params = new URLSearchParams(window.location.search);
-      } catch {
-        return;
-      }
-      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'ref'].forEach(
-        (key) => setHidden(key, params.get(key) || '')
-      );
-      setHidden('referrer', document.referrer || '');
-      setHidden('page_url', window.location.href);
-    };
-
-    fillCampaignFields();
-
-    /* ---------- open / close ---------- */
-
-    const resetToForm = () => {
-      formView.hidden = false;
-      success.hidden = true;
-      banner.hidden = true;
-      banner.textContent = '';
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Continue to scheduling';
-      submitting = false;
-    };
-
-    const openDialog = (trigger: HTMLElement | null) => {
-      lastTrigger = trigger;
-      setHidden('cta_source', trigger?.dataset.evtSource || 'unknown');
-      const section =
-        trigger?.dataset.pageSection ||
-        trigger?.closest<HTMLElement>('section[id], [data-section]')?.id ||
-        'page';
-      setHidden('page_section', section);
-      resetToForm();
-      if (typeof dialog.showModal === 'function' && !dialog.open) {
-        dialog.showModal();
-      } else {
-        dialog.setAttribute('open', '');
-      }
-      document.body.style.overflow = 'hidden';
-      window.requestAnimationFrame(() => fieldOf('name')?.focus());
-    };
-
-    document.addEventListener('click', (e) => {
-      const trigger = (e.target as HTMLElement | null)?.closest<HTMLElement>('[data-open-form]');
-      if (!trigger) return;
-      e.preventDefault();
-      openDialog(trigger);
-    });
-
-    document.querySelector<HTMLButtonElement>('[data-lead-close]')?.addEventListener('click', () => {
-      dialog.close();
-    });
-
-    // Clicking the backdrop targets the dialog element itself.
-    dialog.addEventListener('click', (e) => {
-      if (e.target === dialog) dialog.close();
-    });
-
-    dialog.addEventListener('close', () => {
-      document.body.style.overflow = '';
-      lastTrigger?.focus();
-    });
-
-    /* ---------- validation wiring ---------- */
-
-    form.addEventListener(
-      'focusin',
-      () => {
-        if (!startFired) {
-          startFired = true;
-          track('form_start');
-        }
-      },
-      true
-    );
-
-    form.querySelectorAll<HTMLInputElement>('[data-validate]').forEach((input) => {
-      input.addEventListener('blur', () => {
-        const ok = validateField(input, true);
-        if (ok && input.dataset.validate === 'email') checkEmailDomain(input.value);
-      });
-      input.addEventListener('input', () => {
-        if (input.getAttribute('aria-invalid') === 'true') validateField(input, true);
-      });
-    });
-
-    /* ---------- submission ---------- */
-
-    const buildPayload = () => {
+    const validate = () => {
+      let ok = true;
       const data = new FormData(form);
-      const payload: Record<string, string> = {};
-      data.forEach((value, key) => {
-        payload[key] = typeof value === 'string' ? value.trim() : '';
-      });
-      payload.phone_e164_hint = `${payload.phone_country_code || ''}${(payload.phone || '').replace(
-        /[^\d]/g,
-        ''
-      )}`;
-      payload.submitted_at = new Date().toISOString();
-      return payload;
+      const req: [string, string][] = [['name','Please enter your name.'],['organization','Please enter your organization.'],['email','Please enter your work email.'],['phone','Please enter your phone number.']];
+      for (const [n, m] of req) { if (!String(data.get(n) || '').trim()) { setError(n, m); ok = false; } else setError(n, null); }
+      const email = String(data.get('email') || '').trim();
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setError('email', 'Please enter a valid email address.'); ok = false; }
+      const phone = String(data.get('phone') || '').replace(/[^\d]/g, '');
+      if (phone && phone.length < 7) { setError('phone', 'Please enter a valid phone number.'); ok = false; }
+      const domain = email.split('@')[1]?.toLowerCase();
+      emailNote.hidden = !(domain && PUBLIC.includes(domain));
+      if (domain && PUBLIC.includes(domain)) emailNote.textContent = 'That looks like a personal email. A work email helps us route you faster; you can still continue.';
+      return ok;
     };
-
-    const calendlyWithPrefill = (name: string, email: string) => {
-      const qs = new URLSearchParams({ name, email });
-      return `${CALENDLY_URL}?${qs.toString()}`;
+    const open = (source: string, section: string) => {
+      (form.querySelector('[data-cta-source]') as HTMLInputElement).value = source;
+      (form.querySelector('[data-page-section]') as HTMLInputElement).value = section;
+      const params = new URLSearchParams(location.search);
+      (form.querySelector('[data-campaign]') as HTMLInputElement).value = params.get('utm_campaign') || params.get('campaign') || '';
+      (form.querySelector('[data-referrer]') as HTMLInputElement).value = document.referrer || '';
+      formView.hidden = false; successView.hidden = true; banner.hidden = true;
+      if (typeof dialog.showModal === 'function') dialog.showModal(); else dialog.setAttribute('open','');
+      if (!started) { started = true; track('form_start', { source }); }
+      setTimeout(() => form.querySelector<HTMLInputElement>('#lf-name')?.focus(), 60);
     };
-
-    const failSubmission = () => {
-      banner.textContent =
-        'We could not send your details just now. Check your connection and select Continue to scheduling again — nothing has been submitted yet.';
-      banner.hidden = false;
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Continue to scheduling';
-      submitting = false;
-      banner.scrollIntoView({ block: 'nearest' });
-    };
-
-    const succeed = (payload: Record<string, string>) => {
-      const target = calendlyWithPrefill(payload.name || '', payload.email || '');
-      if (calendlyLink) calendlyLink.href = target;
-      formView.hidden = true;
-      success.hidden = false;
-      successHead?.focus();
-      track('form_submit', {
-        source: payload.cta_source || undefined,
-        section: payload.page_section || undefined,
-      });
-      track('calendly_redirect', { destination: CALENDLY_URL });
-      window.setTimeout(() => {
-        window.location.href = target;
-      }, REDIRECT_DELAY);
-    };
-
-    form.addEventListener('submit', (e) => {
+    document.addEventListener('click', (e) => {
+      const opener = (e.target as HTMLElement).closest<HTMLElement>('[data-lead-open]');
+      if (opener) { e.preventDefault(); open(opener.dataset.evtSource || 'unknown', opener.closest('section')?.id || 'page'); }
+      if ((e.target as HTMLElement).closest('[data-lead-close]')) dialog.close();
+    });
+    dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
+    form.addEventListener('blur', (e) => { if ((e.target as HTMLElement).matches('input')) validate(); }, true);
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      if (submitting) return;
-
-      const inputs = Array.from(form.querySelectorAll<HTMLInputElement>('[data-validate]'));
-      const invalid: HTMLInputElement[] = [];
-      for (const input of inputs) {
-        if (!validateField(input, true)) {
-          track('form_validation_failure', { field: input.name });
-          invalid.push(input);
-        }
+      if (!validate()) { track('form_validation_failure'); return; }
+      submitBtn.setAttribute('aria-busy', 'true'); banner.hidden = true;
+      const payload = Object.fromEntries(new FormData(form).entries());
+      try {
+        const endpoint = (window as any).NEO_LEAD_ENDPOINT as string | undefined;
+        if (endpoint) {
+          const res = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+          if (!res.ok) throw new Error('save_failed');
+        } else { console.warn('[NeoCore] NEO_LEAD_ENDPOINT not configured; lead not persisted.', payload); }
+        track('form_submission', { source: payload.cta_source });
+        formView.hidden = true; successView.hidden = false;
+        const url = new URL(CAL);
+        if (payload.cta_source) url.searchParams.set('utm_source', String(payload.cta_source));
+        (successView.querySelector('[data-lead-calendly]') as HTMLAnchorElement).href = url.toString();
+        track('calendly_redirect', { source: payload.cta_source });
+        setTimeout(() => { location.href = url.toString(); }, 1400);
+      } catch {
+        submitBtn.removeAttribute('aria-busy');
+        banner.hidden = false;
+        banner.textContent = 'We couldn’t save your details just now. Please try again; you won’t be redirected until this succeeds.';
       }
-
-      const emailInput = fieldOf('email');
-      if (emailInput) checkEmailDomain(emailInput.value);
-
-      if (invalid.length > 0) {
-        invalid[0].focus();
-        return;
-      }
-
-      submitting = true;
-      banner.hidden = true;
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending…';
-
-      const payload = buildPayload();
-
-      if (!FORM_ENDPOINT) {
-        // No CRM endpoint yet: hand the lead to the data layer and continue.
-        w.dataLayer = w.dataLayer || [];
-        w.dataLayer.push({ event: 'lead_captured', lead: payload, ts: Date.now() });
-        succeed(payload);
-        return;
-      }
-
-      fetch(FORM_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
-        .then((res) => {
-          if (!res.ok) throw new Error(`Lead endpoint responded ${res.status}`);
-          w.dataLayer = w.dataLayer || [];
-          w.dataLayer.push({ event: 'lead_captured', lead: payload, ts: Date.now() });
-          succeed(payload);
-        })
-        .catch(() => {
-          failSubmission();
-        });
     });
   }
 </script>
