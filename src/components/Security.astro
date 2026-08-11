@@ -82,12 +82,8 @@ const stages = ['Capture', 'Encrypted', 'Process', 'Redact PII', 'Deliver'];
   .redact__body { background: var(--inset); border-radius: var(--r-m); padding: 20px; }
   .redact__lbl { font-size: .64rem; letter-spacing: .06em; text-transform: uppercase; color: var(--bubble-ink-2); }
   .redact__line { margin-top: 12px; font-size: 1.12rem; line-height: 1.55; color: var(--bubble-ink); }
-  .pii { position: relative; display: inline-block; transition: color .2s var(--ease); }
-  .pii::after { content: ""; position: absolute; left: -4px; right: -4px; top: -1px; bottom: -1px; border-radius: 4px;
-    background: #26332b; box-shadow: inset 3px 0 0 var(--green); transform: scaleX(0); transform-origin: left;
-    transition: transform .5s cubic-bezier(.4,.7,.35,1); }
-  .is-redacted .pii { color: transparent; }
-  .is-redacted .pii::after { transform: scaleX(1); }
+  .pii { display: inline-block; transition: filter .5s cubic-bezier(.4,.7,.35,1); }
+  .is-redacted .pii { filter: blur(6px); user-select: none; }
   .redact__stamp { display: inline-flex; align-items: center; gap: 9px; margin-top: 18px; font-size: .84rem; color: var(--green);
     opacity: 0; transform: translateY(4px); transition: opacity .4s var(--ease) .35s, transform .4s var(--ease) .35s; }
   .is-redacted .redact__stamp { opacity: 1; transform: none; }
