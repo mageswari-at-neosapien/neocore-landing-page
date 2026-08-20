@@ -1,48 +1,89 @@
 ---
-// Fold 5 — Enterprise data, security & integrations.
-// "Redaction in action": prove PII redaction rather than just claim it.
-const proof = [
+// Fold 6 — Data security & privacy, two balanced columns.
+// Left: data security proof points + ISO badge. Right: privacy proof points + data-lifecycle graphic.
+const dataSecurity = [
   'ISO 27001 certified',
-  'No audio storage by default',
-  'No training on customer data',
+  'Encrypted transfer and processing',
   'India-resident servers',
-  'Configurable PII redaction',
-  'Role-based access',
-  'APIs and MCP',
+  'Role-based access controls',
+  'Configurable permissions for teams, regions and management levels',
 ];
-const stages = ['Capture', 'Encrypted', 'Process', 'Redact PII', 'Deliver'];
+const privacy = [
+  'Raw audio is not retained by default',
+  'Audio is deleted after processing',
+  'Configurable PII and sensitive-information redaction',
+  'Customer data is not used to train NeoCore’s models',
+  'Managers receive only the information permitted for their role',
+];
+// Privacy graphic — "redaction in action": PII blurs, raw audio is deleted, only structured intelligence remains.
+const stages = ['Capture', 'Encrypted', 'PII redacted', 'Audio deleted', 'Insights'];
+const finalIntel = ['Adherence insights', 'Coaching priorities', 'Voice of Customer'];
 ---
 
 <section id="security" class="fold sec glowsec">
   <span class="secglow" aria-hidden="true"></span>
-  <div class="shell sec__grid">
-    <div class="sec__copy reveal">
-      <h2 class="h2">Enterprise-ready <span class="b">by design.</span></h2>
-      <p class="lede">NeoCore combines configurable intelligence with the security, data controls and integrations required for enterprise deployment.</p>
-      <ul class="prooflist" aria-label="Security and data proof points">
-        {proof.map((p) => (
-          <li class="proof"><span class="proof__ck" aria-hidden="true">✓</span>{p}</li>
-        ))}
-      </ul>
+  <div class="shell">
+    <div class="sec__head reveal">
+      <h2 class="h2">Your conversation data stays <span class="b">protected and under your control.</span></h2>
+      <p class="lede">NeoCore provides enterprise-grade safeguards across the data lifecycle, from encrypted processing to controlled access, configurable redaction and audio deletion.</p>
     </div>
 
-    <div class="sec__view reveal">
-      <div class="redact" data-redact>
+    <div class="sec__cols reveal">
+      <!-- Column 1 — Data security -->
+      <div class="seccol">
+        <div class="seccol__top">
+          <div>
+            <span class="tag">Data security</span>
+            <h3 class="seccol__h">Enterprise-grade data protection</h3>
+          </div>
+          <span class="iso" role="img" aria-label="ISO 27001 certified">
+            <span class="iso__k">ISO 27001</span><span class="iso__s">Certified</span>
+          </span>
+        </div>
+        <ul class="prooflist" aria-label="Data security proof points">
+          {dataSecurity.map((p) => (
+            <li class="proof"><span class="proof__ck" aria-hidden="true">✓</span>{p}</li>
+          ))}
+        </ul>
+        <p class="seccol__copy">Control who can access conversations, structured signals and aggregated insights based on their role and organizational scope.</p>
+      </div>
+
+      <!-- Column 2 — Privacy -->
+      <div class="seccol">
+        <div class="seccol__top">
+          <div>
+            <span class="tag">Privacy</span>
+            <h3 class="seccol__h">Privacy built into the data lifecycle</h3>
+          </div>
+        </div>
+        <ul class="prooflist" aria-label="Privacy proof points">
+          {privacy.map((p) => (
+            <li class="proof"><span class="proof__ck" aria-hidden="true">✓</span>{p}</li>
+          ))}
+        </ul>
+        <p class="seccol__copy">NeoCore can redact personally identifiable or sensitive information before structured insights are made available to authorized users.</p>
+      </div>
+
+      <!-- Column 3 — Secure processing (redaction in action) -->
+      <div class="redact" data-redact aria-label="Redaction in action: personal details blur, raw audio is deleted, and only role-appropriate intelligence remains.">
         <div class="redact__head">
           <span class="redact__cap"><span class="live" aria-hidden="true"></span>Secure processing</span>
-          <span class="iso" role="img" aria-label="ISO 27001 certified — official badge to be supplied"><span class="iso__k">ISO 27001</span><span class="iso__s">Certified</span></span>
         </div>
-
         <ol class="redact__flow" aria-hidden="true">
           {stages.map((s, i) => (
             <li class="rf" class:list={[{ 'rf--guard': i === 3 }]}><span class="rf__dot"></span><span class="rf__t">{s}</span></li>
           ))}
         </ol>
-
         <div class="redact__body">
           <span class="redact__lbl">Captured transcript</span>
           <p class="redact__line">Rep <span class="pii">Priya Sharma</span> reached the retailer on <span class="pii">+91 98••• ••21</span> to walk through the Q3 scheme and the approved margin comparison.</p>
-          <div class="redact__stamp"><span class="redact__ck">✓</span>PII redacted · India-resident servers · no audio stored</div>
+          <div class="redact__stamp"><span class="redact__ck">✓</span>Raw audio deleted · PII redacted · no audio stored</div>
+        </div>
+        <div class="redact__intel">
+          <span class="redact__il">Only structured intelligence remains</span>
+          <div class="redact__chips">
+            {finalIntel.map((c) => <span class="rchip">{c}</span>)}
+          </div>
         </div>
       </div>
     </div>
@@ -55,70 +96,81 @@ const stages = ['Capture', 'Encrypted', 'Process', 'Redact PII', 'Deliver'];
     background: radial-gradient(circle, var(--green-glow), transparent 66%); filter: blur(34px); }
   .glowsec .shell { position: relative; z-index: 1; }
 
-  .sec__grid { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
-  .sec__copy { max-width: 520px; }
-  .prooflist { list-style: none; margin-top: clamp(28px, 3vw, 40px); display: grid; grid-template-columns: 1fr 1fr; gap: 14px 24px; }
-  .proof { display: inline-flex; align-items: center; gap: 11px; font-size: 1rem; font-weight: 500; color: var(--ink); }
-  .proof__ck { width: 22px; height: 22px; border-radius: 50%; background: var(--green); color: var(--green-ink); display: grid; place-items: center; font-size: .68rem; font-weight: 800; flex: none; }
+  .sec__head { max-width: 820px; }
+  .sec__head .lede { margin-top: 18px; }
 
-  /* the redaction panel — a dark "screen" in both themes */
-  .redact { position: relative; background: var(--bubble); border-radius: var(--r-l); padding: clamp(22px, 2.2vw, 30px); color: var(--bubble-ink); box-shadow: var(--shadow-3); border: 1px solid color-mix(in srgb, var(--green) 14%, transparent); }
+  .sec__cols { margin-top: clamp(32px, 4vw, 52px); display: grid; grid-template-columns: 1fr 1fr 1fr; gap: clamp(16px, 2vw, 24px); align-items: stretch; }
+  .seccol { background: var(--surface); border: 1px solid var(--hair); border-radius: var(--r-l); padding: clamp(22px, 2.2vw, 30px); box-shadow: var(--shadow-1); height: 100%; }
+  .seccol__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
+  .seccol__h { font-size: clamp(1.3rem, 1.9vw, 1.6rem); font-weight: 500; letter-spacing: -0.02em; margin-top: 10px; }
+  .iso { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 14px; border-radius: 10px; border: 1.5px solid var(--green); flex: none; }
+  .iso__k { font-weight: 600; font-size: .82rem; color: var(--ink); }
+  .iso__s { color: var(--green-text); font-size: .62rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; }
+
+  .prooflist { list-style: none; display: grid; gap: 13px; }
+  .proof { display: inline-flex; align-items: flex-start; gap: 11px; font-size: 1rem; font-weight: 500; color: var(--ink); line-height: 1.4; }
+  .proof__ck { width: 22px; height: 22px; border-radius: 50%; background: var(--green); color: var(--green-ink); display: grid; place-items: center; font-size: .68rem; font-weight: 800; flex: none; margin-top: 1px; }
+  .seccol__copy { margin-top: 20px; color: var(--ink-2); font-size: .95rem; line-height: 1.5; }
+
+  /* Column 3 — "redaction in action" (dark product screen, loops) */
+  .redact { position: relative; height: 100%; display: flex; flex-direction: column; background: var(--bubble); border-radius: var(--r-l); padding: clamp(20px, 2.2vw, 28px); color: var(--bubble-ink); box-shadow: var(--shadow-3); border: 1px solid color-mix(in srgb, var(--green) 14%, transparent); }
   .redact::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 1px; border-radius: var(--r-l) var(--r-l) 0 0; background: linear-gradient(90deg, transparent, rgba(0,223,121,.4), transparent); }
-  .redact__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 22px; }
+  .redact__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
   .redact__cap { display: inline-flex; align-items: center; gap: 9px; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--bubble-ink-2); }
-  .iso { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 14px; border-radius: 10px; border: 1.5px solid var(--green); }
-  .iso__k { font-weight: 600; font-size: .82rem; }
-  .iso__s { color: var(--green); font-size: .62rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; }
-
-  .redact__flow { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 24px; }
-  .rf { display: flex; align-items: center; gap: 8px; font-size: .68rem; letter-spacing: .03em; text-transform: uppercase; color: var(--bubble-ink-2); }
-  .rf:not(:last-child)::after { content: ""; width: 14px; height: 1px; background: var(--inset-line); margin-left: 2px; }
-  .rf__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--inset-line); flex: none; }
-  .rf--guard { color: var(--green); }
+  .redact__flow { list-style: none; display: flex; align-items: center; justify-content: flex-start; gap: 7px 12px; margin-bottom: 18px; flex-wrap: wrap; }
+  .rf { display: flex; align-items: center; gap: 7px; font-size: .62rem; letter-spacing: .03em; text-transform: uppercase; color: var(--bubble-ink-2); }
+  .rf__dot { width: 8px; height: 8px; border-radius: 50%; background: color-mix(in srgb, var(--bubble-ink-2) 40%, transparent); flex: none; }
+  .rf--guard { color: var(--green); font-weight: 600; }
   .rf--guard .rf__dot { background: var(--green); box-shadow: 0 0 0 3px var(--green-glow); }
-  .is-redacting .rf--guard .rf__dot { animation: rfPulse 1s ease-in-out infinite; }
+  @media (prefers-reduced-motion: no-preference) {
+    .is-redacting .rf--guard .rf__dot { animation: rfPulse 1s ease-in-out infinite; }
+  }
   @keyframes rfPulse { 0%,100% { box-shadow: 0 0 0 3px var(--green-glow); } 50% { box-shadow: 0 0 0 8px rgba(0,223,121,0); } }
-
-  .redact__body { background: var(--inset); border-radius: var(--r-m); padding: 20px; }
+  .redact__body { background: var(--bubble-2); border-radius: var(--r-m); padding: 18px; }
   .redact__lbl { font-size: .64rem; letter-spacing: .06em; text-transform: uppercase; color: var(--bubble-ink-2); }
-  .redact__line { margin-top: 12px; font-size: 1.12rem; line-height: 1.55; color: var(--bubble-ink); }
+  .redact__line { margin-top: 11px; font-size: 1.02rem; line-height: 1.55; color: var(--bubble-ink); }
   .pii { display: inline-block; transition: filter .5s cubic-bezier(.4,.7,.35,1); }
   .is-redacted .pii { filter: blur(6px); user-select: none; }
-  .redact__stamp { display: inline-flex; align-items: center; gap: 9px; margin-top: 18px; font-size: .84rem; color: var(--green);
+  .redact__stamp { display: inline-flex; align-items: center; gap: 9px; margin-top: 16px; font-size: .82rem; color: var(--green);
     opacity: 0; transform: translateY(4px); transition: opacity .4s var(--ease) .35s, transform .4s var(--ease) .35s; }
   .is-redacted .redact__stamp { opacity: 1; transform: none; }
   .redact__ck { width: 20px; height: 20px; border-radius: 50%; background: var(--green); color: var(--green-ink); display: grid; place-items: center; font-size: .62rem; font-weight: 800; flex: none; }
+  .redact__intel { margin-top: auto; padding-top: 16px; border-top: 1px solid color-mix(in srgb, var(--bubble-ink-2) 20%, transparent); opacity: .4; transition: opacity .5s var(--ease) .5s; }
+  .redact__body { margin-bottom: 18px; }
+  .is-redacted .redact__intel { opacity: 1; }
+  .redact__il { display: block; font-size: .62rem; letter-spacing: .06em; text-transform: uppercase; color: var(--bubble-ink-2); margin-bottom: 10px; }
+  .redact__chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .rchip { font-size: .82rem; font-weight: 500; color: var(--bubble-ink); background: color-mix(in srgb, var(--green) 12%, transparent); border: 1px solid color-mix(in srgb, var(--green) 30%, transparent); border-radius: var(--r-pill); padding: 6px 13px; }
 
-  @media (max-width: 940px) {
-    .sec__grid { grid-template-columns: 1fr; gap: 36px; }
-    .sec__copy { max-width: none; }
+  @media (max-width: 1040px) {
+    .sec__cols { grid-template-columns: 1fr; }
+    .redact { max-width: 640px; }
   }
-  @media (max-width: 520px) { .prooflist { grid-template-columns: 1fr; } .redact__flow { flex-wrap: wrap; } }
 </style>
 
 <script>
-  // Redaction demo — loops while in view: highlight the redact stage, black out the PII, stamp it.
+  // "Redaction in action": pulse the redact stage, blur the PII, delete the audio, then reveal the structured intelligence. Loops while in view.
   const el = document.querySelector<HTMLElement>('[data-redact]');
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (el && !reduced) {
-    const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
-    let visible = false, looping = false;
-    const loop = async () => {
-      if (looping) return; looping = true;
-      while (visible) {
-        el.classList.remove('is-redacted');
-        el.classList.add('is-redacting');
-        await wait(1100);            // the redact stage pulses (analysing)
-        el.classList.add('is-redacted');  // bars slide over the PII, stamp appears
-        await wait(4200);            // hold the redacted, secured state
-        if (!visible) break;
-      }
-      looping = false;
-    };
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { visible = e.isIntersecting; if (visible) loop(); }),
-      { threshold: 0.35 }
-    );
-    io.observe(el);
+  if (el) {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) {
+      el.classList.add('is-redacted');
+    } else {
+      const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+      let visible = false, looping = false;
+      const loop = async () => {
+        if (looping) return; looping = true;
+        while (visible) {
+          el.classList.remove('is-redacted');
+          el.classList.add('is-redacting');
+          await wait(1100);
+          if (!visible) break;
+          el.classList.add('is-redacted');
+          await wait(4200);
+        }
+        looping = false;
+      };
+      new IntersectionObserver((entries) => entries.forEach((e) => { visible = e.isIntersecting; if (visible) loop(); }), { threshold: 0.3 }).observe(el);
+    }
   }
 </script>

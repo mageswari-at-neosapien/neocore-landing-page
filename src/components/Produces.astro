@@ -1,0 +1,55 @@
+---
+// "See what NeoCore produces" — dashboards. Placed after Security (below Why NeoCore).
+// Awaiting real enterprise screenshots: NeoCore data dashboard + Panasonic insights dashboard.
+---
+
+<section id="produces" class="fold producesfold glowsec">
+  <span class="secglow secglow--bl" aria-hidden="true"></span>
+  <div class="shell">
+    <div class="produces reveal">
+      <div class="produces__head">
+        <div>
+          <h2 class="h2 produces__h">See what NeoCore <span class="b">produces.</span></h2>
+          <p class="produces__desc">Frontline conversations become management dashboards: pitch adherence, coaching priorities and Voice of Customer, ready to act on.</p>
+        </div>
+        <button type="button" class="ghost produces__demo" data-lead-open data-evt="tailored_demo_click" data-evt-source="produces">See a tailored demo</button>
+      </div>
+
+      <div class="dashes">
+        <figure class="dash">
+          <div class="dash__bar"><span></span><span></span><span></span><em>NeoCore Dashboard</em></div>
+          <div class="dash__screen"><span class="dash__ph">Data dashboard screenshot to be added</span></div>
+        </figure>
+        <figure class="dash">
+          <div class="dash__bar"><span></span><span></span><span></span><em>Insights Dashboard · Panasonic</em></div>
+          <div class="dash__screen"><span class="dash__ph">Insights dashboard screenshot to be added</span></div>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .glowsec { position: relative; overflow: hidden; }
+  .secglow { position: absolute; width: 720px; height: 620px; border-radius: 50%; pointer-events: none; z-index: 0;
+    background: radial-gradient(circle, var(--green-glow), transparent 66%); filter: blur(30px); opacity: .9; }
+  .secglow--bl { left: -16%; bottom: -22%; }
+  .glowsec .shell { position: relative; z-index: 1; }
+
+  .produces__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: clamp(24px, 3vw, 40px); }
+  .produces__h { margin-top: 0; }
+  .produces__desc { margin-top: 16px; max-width: 54ch; color: var(--ink-2); font-size: clamp(1.02rem, 1.15vw, 1.15rem); line-height: 1.5; }
+  .dashes { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(18px, 2.4vw, 32px); }
+  .dash { margin: 0; background: var(--bubble); border-radius: var(--r-l); overflow: hidden; box-shadow: var(--shadow-3); border: 1px solid color-mix(in srgb, var(--green) 14%, transparent); }
+  .dash__bar { display: flex; align-items: center; gap: 7px; padding: 13px 16px; border-bottom: 1px solid color-mix(in srgb, var(--bubble-ink-2) 20%, transparent); }
+  .dash__bar span { width: 9px; height: 9px; border-radius: 50%; background: color-mix(in srgb, var(--bubble-ink-2) 45%, transparent); }
+  .dash__bar em { margin-left: 10px; font-style: normal; font-size: .72rem; letter-spacing: .05em; text-transform: uppercase; color: var(--bubble-ink-2); }
+  .dash__screen { min-height: 260px; display: grid; place-items: center; padding: 24px;
+    background:
+      linear-gradient(color-mix(in srgb, var(--green) 5%, transparent) 1px, transparent 1px) 0 0 / 100% 34px,
+      linear-gradient(90deg, color-mix(in srgb, var(--green) 5%, transparent) 1px, transparent 1px) 0 0 / 34px 100%; }
+  .dash__ph { font-size: .86rem; color: var(--bubble-ink-2); text-align: center; max-width: 22ch; line-height: 1.5;
+    border: 1px dashed color-mix(in srgb, var(--bubble-ink-2) 40%, transparent); border-radius: var(--r-m); padding: 16px 20px; }
+
+  @media (max-width: 900px) { .dashes { grid-template-columns: 1fr; } }
+</style>

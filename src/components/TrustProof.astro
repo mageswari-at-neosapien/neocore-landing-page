@@ -1,57 +1,63 @@
 ---
-const logos = [
-  { f: 'diageo', n: 'Diageo' }, { f: 'p-and-g', n: 'P&G', pilot: true },
-  { f: 'itc-limited', n: 'ITC Limited', pilot: true }, { f: 'eureka-forbes', n: 'Eureka Forbes' },
-  { f: 'panasonic', n: 'Panasonic', pilot: true }, { f: 'mamaearth', n: 'Mamaearth', pilot: true },
-  { f: 'page-industries-limited', n: 'Page Industries Limited' }, { f: 'ather', n: 'Ather' },
-  { f: 'mahindra-rise', n: 'Mahindra Rise' }, { f: 'honda', n: 'Honda', pilot: true },
-  { f: 'shriram-properties', n: 'Shriram Properties', pilot: true }, { f: 'homelane', n: 'HomeLane', pilot: true },
-  { f: 'the-souled-store', n: 'The Souled Store' }, { f: 'sony-entertainment-television', n: 'Sony Entertainment Television' },
-  { f: 'specsmakers', n: 'Specsmakers' }, { f: 'big-fm', n: 'BIG FM' },
-  { f: 'zee-entertainment-enterprises', n: 'Zee Entertainment Enterprises', pilot: true },
-  { f: 'government-of-andhra-pradesh', n: 'Government of Andhra Pradesh', pilot: true },
-  { f: 'uttar-pradesh-police', n: 'Uttar Pradesh Police' }, { f: 'bodycraft', n: 'Bodycraft' },
-  { f: 'emirates', n: 'Emirates' }, { f: 'larsen-and-toubro', n: 'Larsen & Toubro' },
-  { f: 'matrix-life-science', n: 'Matrix Life Science', pilot: true }, { f: 'acko', n: 'ACKO', pilot: true },
-  { f: 'om-logistics-supply-chain', n: 'OM Logistics Supply Chain', pilot: true },
-  { f: 'hindustan-petroleum', n: 'Hindustan Petroleum' },
-  { f: 'christ-deemed-to-be-university', n: 'CHRIST (Deemed to be University)' },
+// Fold 2 — "Live with industry leaders": logos grouped into industry cards,
+// each card runs a subtle marquee of its brand logos inside. Reuses existing assets.
+const sectors = [
+  { label: 'CPG / Durables', logos: [
+    { f: 'diageo', n: 'Diageo' }, { f: 'p-and-g', n: 'P&G' }, { f: 'itc-limited', n: 'ITC Limited' },
+    { f: 'eureka-forbes', n: 'Eureka Forbes' }, { f: 'lt-foods', n: 'LT Foods' }, { f: 'panasonic', n: 'Panasonic' },
+    { f: 'mamaearth', n: 'Mamaearth' },
+  ] },
+  { label: 'Automotive', logos: [
+    { f: 'ather', n: 'Ather' }, { f: 'mahindra-rise', n: 'Mahindra' }, { f: 'bridgestone', n: 'Bridgestone' }, { f: 'honda', n: 'Honda' },
+  ] },
+  { label: 'Real Estate', logos: [
+    { f: 'shriram-properties', n: 'Shriram Properties' }, { f: 'homelane', n: 'HomeLane' },
+  ] },
+  { label: 'Healthcare / Pharma', logos: [
+    { f: 'superhealth', n: 'SuperHealth' }, { f: 'matrix-life-science', n: 'Matrix Life Science' },
+    { f: 'acko', n: 'ACKO' }, { f: 'cipla', n: 'Cipla' },
+  ] },
+  { label: 'Retail / Media', logos: [
+    { f: 'sony-entertainment-television', n: 'Sony Entertainment Television' }, { f: 'big-fm', n: 'BIG FM' },
+    { f: 'zee-entertainment-enterprises', n: 'Zee' }, { f: 'the-souled-store', n: 'The Souled Store' },
+  ] },
+  { label: 'Financial Services / Public Sector', logos: [
+    { f: 'mindgate', n: 'Mindgate' }, { f: 'one-percent-club', n: '1% Club' },
+    { f: 'government-of-andhra-pradesh', n: 'Government of Andhra Pradesh' }, { f: 'uttar-pradesh-police', n: 'Uttar Pradesh Police' },
+    { f: 'larsen-and-toubro', n: 'Larsen & Toubro' }, { f: 'hindustan-petroleum', n: 'Hindustan Petroleum' },
+  ] },
 ];
-const rowA = logos.slice(0, 14);
-const rowB = logos.slice(14);
 const outcomes = [
-  { fig: '70%+', desc: 'Utilization reported for the always-on option' },
-  { fig: '+15%', desc: 'Increase in lines per store in a leading FMCG rollout' },
-  { fig: '+20%', desc: 'Increase in sales per store in the same rollout' },
+  { fig: '1000+', desc: 'Devices deployed' },
+  { fig: '70%', desc: 'Daily active users in our largest rollout' },
+  { fig: '+20%', desc: 'Increase in sales productivity' },
 ];
 ---
 
 <section class="fold trust">
   <div class="shell">
     <div class="fold-head reveal">
-      <h2 class="h2">Engagement with leaders <span class="b">across sectors</span></h2>
-      <p class="lede">Across CPG and durables, automotive, real estate, retail and media, public sector and more. <span class="muted">Plus a growing clientele of 25+ SMBs.</span></p>
+      <h2 class="h2">Live with <span class="b">industry leaders</span></h2>
     </div>
-  </div>
 
-  <div class="marquee reveal" aria-label="Organizations engaged across sectors">
-    <div class="mrow">
-      <div class="mtrack">
-        {[...rowA, ...rowA].map((l) => (
-          <span class="ml"><img src={`/logos/${l.f}.png`} alt={l.n} loading="lazy" decoding="async" width="120" height="40" /></span>
-        ))}
-      </div>
+    <div class="lgrid reveal">
+      {sectors.map((s, i) => (
+        <div class="lcard">
+          <span class="lcard__label">{s.label}</span>
+          <div class="lcard__marq">
+            <div class="lcard__track" class:list={[{ 'lcard__track--rev': i % 2 === 1 }]} style={`--n:${s.logos.length}`}>
+              {[...s.logos, ...s.logos].map((l) => (
+                <span class="lchip"><img src={`/logos/${l.f}.png`} alt={l.n} loading="lazy" decoding="async" width="120" height="40" /></span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
-    <div class="mrow">
-      <div class="mtrack mtrack--rev">
-        {[...rowB, ...rowB].map((l) => (
-          <span class="ml"><img src={`/logos/${l.f}.png`} alt={l.n} loading="lazy" decoding="async" width="120" height="40" /></span>
-        ))}
-      </div>
-    </div>
-  </div>
 
-  <div class="shell">
+    <div class="trust__stathead reveal">
+      <h3 class="h3 trust__stath">Outcomes from live enterprise rollouts.</h3>
+    </div>
     <div class="stats reveal">
       {outcomes.map((o) => (
         <div class="stat">
@@ -64,26 +70,42 @@ const outcomes = [
 </section>
 
 <style>
-  .trust .fold-head { margin-bottom: 44px; }
-  .marquee { position: relative; display: flex; flex-direction: column; gap: 18px; margin-bottom: 64px;
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
-    mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
-  .mrow { overflow: hidden; height: 60px; }
-  .mtrack { display: flex; flex-flow: row nowrap; align-items: center; gap: 40px; width: max-content; }
-  @media (prefers-reduced-motion: no-preference) {
-    .mtrack { animation: marq 64s linear infinite; }
-    .mtrack--rev { animation-direction: reverse; }
-    .marquee:hover .mtrack { animation-play-state: paused; }
-  }
-  @keyframes marq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-  /* full-colour logos, no boxes, moving */
-  .ml { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 144px; height: 56px; padding: 8px 18px; }
-  .ml img { width: auto; height: auto; max-height: 34px; max-width: 100%; object-fit: contain; }
+  .trust .fold-head { margin-bottom: 36px; }
 
+  /* industry cards — flex so partial last row centers (no lone stretched card) */
+  .lgrid { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+  .lcard { position: relative; flex: 0 1 calc(33.333% - 10px); min-width: 288px; background: var(--bubble); border: 1px solid color-mix(in srgb, var(--green) 16%, transparent); border-radius: var(--r-m); padding: 16px 0 18px; overflow: hidden; box-shadow: var(--shadow-2); }
+  .lcard::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 1px; border-radius: var(--r-m) var(--r-m) 0 0; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--green) 55%, transparent), transparent); }
+  .lcard__label { display: block; text-align: center; font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--bubble-ink-2); padding: 0 16px 13px; margin-bottom: 6px; border-bottom: 1px solid color-mix(in srgb, var(--bubble-ink-2) 18%, transparent); }
+
+  /* subtle marquee inside each card */
+  .lcard__marq { overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+  .lcard__track { display: flex; flex-flow: row nowrap; align-items: center; gap: 34px; width: max-content; padding: 10px 22px; }
+  @media (prefers-reduced-motion: no-preference) {
+    /* duration scales with logo count → every card scrolls at the same visual speed */
+    .lcard__track { animation: lmarq calc(var(--n, 5) * 2.2s) linear infinite; }
+    .lcard__track--rev { animation-direction: reverse; }
+    .lcard:hover .lcard__track { animation-play-state: paused; }
+  }
+  @keyframes lmarq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .lchip { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; height: 48px; }
+  .lchip img { width: auto; height: auto; max-height: 34px; max-width: 132px; object-fit: contain; }
+
+  /* outcomes */
+  .trust__stathead { margin-top: clamp(48px, 6vw, 72px); margin-bottom: clamp(24px, 3vw, 34px); }
+  .trust__stath { color: var(--ink); white-space: nowrap; }
+  @media (max-width: 620px) { .trust__stath { white-space: normal; } }
   .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 5vw, 72px); }
   .stat__fig { font-size: clamp(3.6rem, 7vw, 6rem); font-weight: 500; letter-spacing: -0.04em; color: var(--green-text); line-height: .9; }
   .stat__desc { margin-top: 16px; color: var(--ink-2); font-size: 1.08rem; line-height: 1.4; max-width: 24ch; }
-  .stats__foot { margin-top: 40px; font-size: .9rem; }
 
-  @media (max-width: 720px) { .stats { grid-template-columns: 1fr; gap: 40px; } }
+  @media (max-width: 720px) {
+    .trust .fold-head { text-align: center; }
+    .trust__stathead { text-align: center; }
+    .stats { grid-template-columns: 1fr; gap: 40px; justify-items: center; text-align: center; }
+    .stat { display: flex; flex-direction: column; align-items: center; }
+    .stat__desc { max-width: 28ch; }
+  }
 </style>
