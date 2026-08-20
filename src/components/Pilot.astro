@@ -1,64 +1,31 @@
 ---
-const steps = [
-  { n: 'Align', d: 'Select the team, region, use case and success measures.' },
-  { n: 'Configure', d: 'Add products, brands, competitors, terminology and adherence fields.' },
-  { n: 'Deploy', d: 'Set up Neo One capture, NeoCore access and required integrations.' },
-  { n: 'Measure', d: 'Track utilization, pitch adherence, coaching priorities and Voice of Customer themes.' },
-  { n: 'Review', d: 'Assess results, integration requirements and the broader rollout plan.' },
-];
+// Closing CTA. (The step-by-step pilot fold was removed per review.)
 ---
 
 <section id="pilot" class="fold pilot">
   <div class="shell">
-    <div class="fold-head reveal">
-      <h2 class="h2">Start with a <span class="b">focused enterprise pilot.</span></h2>
-      <p class="lede">Choose one team, define the conversations and outcomes that matter, and validate NeoCore against your field reality.</p>
-    </div>
-
-    <ol class="pflow reveal" aria-label="Five-step enterprise pilot">
-      <div class="pflow__line" aria-hidden="true"></div>
-      {steps.map((s, i) => (
-        <li class="pstep">
-          <span class="node pnode" aria-hidden="true"></span>
-          <span class="pstep__i">Step {String(i + 1).padStart(2, '0')}</span>
-          <h3 class="pstep__n">{s.n}</h3>
-          <p class="pstep__d">{s.d}</p>
-        </li>
-      ))}
-    </ol>
-
     <div class="terminus reveal">
       <div class="terminus__glow" aria-hidden="true"></div>
       <div class="terminus__text">
-        <h3 class="terminus__h">Talk to our enterprise team.</h3>
-        <p class="terminus__sub">We will scope the team, workflows, languages, integrations and success measures with you.</p>
+        <h2 class="terminus__h">See NeoCore on your own conversations.</h2>
+        <p class="terminus__sub">Book a demo and we will scope the team, workflows, languages, integrations and success measures with you.</p>
       </div>
       <button type="button" class="pill pill-lg terminus__cta" data-lead-open data-evt="pilot_cta_click" data-evt-source="pilot">
-        Talk to our enterprise team <span class="ico" aria-hidden="true">→</span>
+        Book a demo <span class="ico" aria-hidden="true">→</span>
       </button>
     </div>
   </div>
 </section>
 
 <style>
-  .pflow { position: relative; list-style: none; margin-top: 20px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
-  .pflow__line { position: absolute; top: 7px; left: 7px; right: 7px; height: 2px; background: repeating-linear-gradient(90deg, var(--hair) 0 7px, transparent 7px 14px); }
-  .pstep { padding-right: 14px; }
-  .pnode { display: block; margin-bottom: 22px; }
-  .pstep__i { font-size: .78rem; font-weight: 600; color: var(--green-text); }
-  .pstep__n { font-size: 1.2rem; font-weight: 500; margin-top: 2px; }
-  .pstep__d { margin-top: 10px; color: var(--ink-2); font-size: .9rem; line-height: 1.45; }
-
-  .terminus { position: relative; overflow: hidden; margin-top: 76px; background: var(--green); border-radius: var(--r-l); padding: clamp(32px, 4.5vw, 60px); display: grid; grid-template-columns: 1fr auto; align-items: center; gap: clamp(24px, 3vw, 48px); box-shadow: var(--shadow-3); }
-  .terminus__glow { position: absolute; right: -6%; top: -40%; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.35), transparent 65%); pointer-events: none; }
+  /* dimmed closing CTA — dark accent-tinted card, not a bright fill */
+  .terminus { position: relative; overflow: hidden; background: linear-gradient(135deg, color-mix(in srgb, var(--green) 16%, var(--bubble)), var(--bubble) 72%); border: 1px solid color-mix(in srgb, var(--green) 26%, transparent); border-radius: var(--r-l); padding: clamp(32px, 4.5vw, 60px); display: grid; grid-template-columns: 1fr auto; align-items: center; gap: clamp(24px, 3vw, 48px); box-shadow: var(--shadow-3); }
+  .terminus__glow { position: absolute; right: -6%; top: -40%; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, var(--green-glow), transparent 65%); pointer-events: none; }
   .terminus__text { position: relative; }
-  .terminus__h { color: var(--green-ink); font-size: clamp(1.9rem, 3.2vw, 2.8rem); font-weight: 600; letter-spacing: -0.025em; }
-  .terminus__sub { color: color-mix(in srgb, var(--green-ink) 74%, transparent); margin-top: 12px; font-size: 1.08rem; line-height: 1.5; max-width: 50ch; }
-  .terminus__cta { position: relative; background: var(--green-ink); color: var(--green); flex: none; }
-  .terminus__cta .ico { background: var(--green); color: var(--green-ink); }
-  .terminus__cta:hover { background: #071f12; }
+  .terminus__h { color: var(--bubble-ink); font-size: clamp(1.9rem, 3.2vw, 2.8rem); font-weight: 600; letter-spacing: -0.025em; }
+  .terminus__sub { color: var(--bubble-ink-2); margin-top: 12px; font-size: 1.08rem; line-height: 1.5; max-width: 50ch; }
+  .terminus__cta { position: relative; background: var(--btn-bg); color: var(--btn-text); flex: none; }
+  .terminus__cta .ico { background: var(--btn-ico-bg); color: var(--btn-ico-ink); }
 
-  @media (max-width: 980px) { .pflow { grid-template-columns: 1fr 1fr 1fr; gap: 28px 18px; } .pflow__line { display: none; } .pnode { margin-bottom: 12px; } }
   @media (max-width: 760px) { .terminus { grid-template-columns: 1fr; } .terminus__cta { width: 100%; justify-content: space-between; } }
-  @media (max-width: 520px) { .pflow { grid-template-columns: 1fr 1fr; } }
 </style>

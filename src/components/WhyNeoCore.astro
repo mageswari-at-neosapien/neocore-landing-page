@@ -1,0 +1,135 @@
+---
+// "Why NeoCore" — capability list (left) + NeoCore vs Plaud NotePin comparison table (right).
+const caps = [
+  { n: 'Breakthrough technology', c: 'Multilingual processing, speaker attribution, emotion capture and processing in under two minutes.', icon: 'spark' },
+  { n: 'Tailored to your needs', c: 'Tune NeoCore for local brands, products, competitors, industry terminology and regional sales language.', icon: 'tune' },
+  { n: 'Built for adoption', c: 'Friction-light capture minimizes additional administrative work for frontline teams.', icon: 'adopt' },
+  { n: 'API-first', c: 'Connect NeoCore intelligence with CRM, BI and enterprise workflows through APIs and MCP.', icon: 'api' },
+];
+// Comparison table — from the deck: NeoCore vs Plaud NotePin.
+const compareGroups = [
+  { cat: 'Accuracy', rows: [
+    { f: 'Indic language coverage', neo: '40+', neoWin: true, other: '14' },
+    { f: 'Diarization accuracy', neo: '85%+', other: 'Not published', na: true },
+    { f: 'Latency', neo: '<2 mins', other: 'Not published', na: true },
+  ] },
+  { cat: 'Reliability', rows: [
+    { f: 'Battery life', neo: '17 hr cont.', other: '~20 hr cont.' },
+    { f: 'Warranty', neo: '1 yr (add-on)', other: '1 yr' },
+  ] },
+  { cat: 'Data security', rows: [
+    { f: 'Certifications', neo: 'ISO 27001', other: 'ISO / SOC 2 / HIPAA', otherWin: true },
+    { f: 'Trains on user data', neo: 'No', other: 'Not published', na: true },
+  ] },
+  { cat: 'Support', rows: [
+    { f: 'Software support', neo: '100% dedicated', neoWin: true, other: 'Standard business tier' },
+    { f: 'Hardware support', neo: 'Local · 1-wk SLA', neoWin: true, other: 'Import only' },
+  ] },
+];
+const icons: Record<string, string> = {
+  spark: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3c.7 4.6 2 5.9 6.5 6.5C14 10.1 12.7 11.4 12 16c-.7-4.6-2-5.9-6.5-6.5C10 8.9 11.3 7.6 12 3z"/></svg>',
+  tune: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 7h5M12 7h9M3 12h13M20 12h1M3 17h8M15 17h6"/><circle cx="10" cy="7" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="13" cy="17" r="2"/></svg>',
+  adopt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c0-3 2.5-5.2 5.5-5.2S14.5 16 14.5 19"/><path d="M15.8 5.6a3 3 0 0 1 0 5.6M17.4 13.9c2.2.6 3.8 2.5 3.8 4.9"/></svg>',
+  api: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 7.5 4.5 12l4 4.5M15.5 7.5l4 4.5-4 4.5M13.5 5l-3 14"/></svg>',
+};
+---
+
+<section id="why-neocore" class="fold whyfold glowsec">
+  <span class="secglow secglow--bl" aria-hidden="true"></span>
+  <div class="shell why__grid">
+    <div class="why__copy reveal">
+      <h2 class="h2">Why <span class="b">NeoCore.</span></h2>
+      <p class="lede">The breakthrough technology, tuning, adoption and integrations enterprise deployment needs, with intelligence no notes app or call recorder can produce.</p>
+      <ul class="whylist">
+        {caps.map((c) => (
+          <li class="wrow">
+            <span class="iconh iconh--sm" aria-hidden="true" set:html={icons[c.icon]} />
+            <div class="wrow__body">
+              <h3 class="wrow__n">{c.n}</h3>
+              <p class="wrow__c">{c.c}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="why__view reveal">
+      <div class="cmp">
+        <p class="cmp__eyebrow">Competitive with global best in class</p>
+        <div class="cmp__head">
+          <span class="cmp__fh" aria-hidden="true"></span>
+          <span class="cmp__ch cmp__ch--us">NeoCore</span>
+          <span class="cmp__ch cmp__ch--them">Plaud NotePin</span>
+        </div>
+        {compareGroups.map((g) => (
+          <div class="cmp__group">
+            <div class="cmp__cat">{g.cat}</div>
+            {g.rows.map((r) => (
+              <div class="cmp__row">
+                <span class="cmp__f">{r.f}</span>
+                <span class="cmp__cell cmp__cell--us">
+                  <span class="cmp__v">{r.neo}</span>{r.neoWin && <span class="cmp__ck" aria-label="Advantage">✓</span>}
+                </span>
+                <span class="cmp__cell">
+                  <span class="cmp__v" class:list={[{ 'cmp__v--na': r.na }]}>{r.other}</span>{r.otherWin && <span class="cmp__ck cmp__ck--them" aria-label="Advantage">✓</span>}
+                </span>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .glowsec { position: relative; overflow: hidden; }
+  .secglow { position: absolute; width: 720px; height: 620px; border-radius: 50%; pointer-events: none; z-index: 0;
+    background: radial-gradient(circle, var(--green-glow), transparent 66%); filter: blur(30px); opacity: .9; }
+  .secglow--bl { left: -16%; bottom: -22%; }
+  .glowsec .shell { position: relative; z-index: 1; }
+
+  .iconh { width: 54px; height: 54px; border-radius: 16px; display: grid; place-items: center; color: var(--green-text);
+    background: color-mix(in srgb, var(--green) 12%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--green) 26%, transparent);
+    box-shadow: 0 14px 30px -14px var(--green-glow), inset 0 1px 0 rgba(255,255,255,.35); }
+  .iconh :global(svg) { width: 26px; height: 26px; }
+  .iconh--sm { width: 46px; height: 46px; border-radius: 13px; flex: none; }
+  .iconh--sm :global(svg) { width: 22px; height: 22px; }
+
+  /* Why NeoCore — capability list on the left, comparison table on the right */
+  .why__grid { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: clamp(32px, 5vw, 64px); align-items: center; }
+  .why__grid > * { min-width: 0; }
+  .why__copy { max-width: 520px; }
+  .whylist { list-style: none; margin-top: clamp(24px, 3vw, 36px); display: grid; gap: clamp(16px, 2vw, 22px); }
+  .wrow { display: flex; gap: 15px; align-items: flex-start; }
+  .wrow .iconh--sm { width: 42px; height: 42px; flex: none; }
+  .wrow__n { font-size: 1.12rem; font-weight: 500; letter-spacing: -0.015em; }
+  .wrow__c { margin-top: 4px; color: var(--ink-2); font-size: .9rem; line-height: 1.45; }
+
+  /* comparison table — NeoCore vs Plaud NotePin — dark (deck style) */
+  .cmp { position: relative; background: var(--bubble); border: 1px solid color-mix(in srgb, var(--green) 20%, transparent); border-radius: var(--r-l); padding: clamp(18px, 2vw, 28px); box-shadow: var(--shadow-3); overflow-x: auto; }
+  .cmp::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 1px; border-radius: var(--r-l) var(--r-l) 0 0; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--green) 45%, transparent), transparent); }
+  .cmp__eyebrow { text-align: center; font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; color: var(--bubble-ink-2); margin-bottom: 16px; }
+  .cmp__head, .cmp__row { display: grid; grid-template-columns: minmax(130px, 1.7fr) 1fr 1fr; column-gap: 10px; align-items: center; min-width: 400px; }
+  .cmp__ch { text-align: center; font-weight: 700; font-size: .9rem; padding: 10px 8px; border-radius: 10px; }
+  .cmp__ch--us { background: var(--green); color: var(--green-ink); }
+  .cmp__ch--them { background: var(--bubble-2); color: var(--bubble-ink); border: 1px solid color-mix(in srgb, var(--bubble-ink-2) 24%, transparent); }
+  .cmp__cat { font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; color: var(--bubble-ink-2); padding: 15px 0 3px; }
+  .cmp__f { font-size: .88rem; color: var(--bubble-ink); line-height: 1.25; }
+  .cmp__cell { display: inline-flex; align-items: center; justify-content: center; gap: 6px; text-align: center; font-size: .88rem; color: var(--bubble-ink-2); padding: 11px 6px; }
+  .cmp__cell--us { background: color-mix(in srgb, var(--green) 13%, transparent); }
+  .cmp__cell--us .cmp__v { color: var(--green); font-weight: 700; }
+  .cmp__v--na { font-style: italic; color: var(--bubble-ink-2); }
+  .cmp__ck { color: var(--green); font-weight: 800; font-size: .84rem; }
+  .cmp__ck--them { color: var(--bubble-ink-2); }
+
+  @media (max-width: 900px) { .why__grid { grid-template-columns: 1fr; gap: 32px; } }
+  @media (max-width: 520px) {
+    .cmp { padding: 16px 14px; }
+    .cmp__head, .cmp__row { min-width: 0; grid-template-columns: minmax(0, 1.5fr) 1fr 1fr; column-gap: 6px; }
+    .cmp__f { font-size: .8rem; }
+    .cmp__cell { font-size: .8rem; padding: 9px 3px; gap: 4px; }
+    .cmp__ch { font-size: .78rem; padding: 8px 4px; }
+  }
+</style>

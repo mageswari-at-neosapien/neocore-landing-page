@@ -5,7 +5,6 @@
 <section id="top" class="hero">
   <div class="shell hero__grid">
     <div class="hero__copy reveal">
-      <span class="eyebrow">NeoCore for Enterprise</span>
       <h1 class="display hero__h">
         Make frontline sales conversations
         <span class="mark">visible<svg viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path d="M3 8 C 50 2, 150 2, 197 7"/></svg></span>,
@@ -17,31 +16,14 @@
       </p>
       <div class="hero__cta">
         <button type="button" class="pill pill-lg" data-lead-open data-evt="hero_cta_click" data-evt-source="hero">
-          Talk to our enterprise team <span class="ico" aria-hidden="true">→</span>
+          Book a demo <span class="ico" aria-hidden="true">→</span>
         </button>
-        <a href="#sample-analysis" class="tlink" data-evt="sample_analysis_link" data-evt-source="hero">See a sample analysis</a>
       </div>
-      <ul class="hero__proof">
-        <li>100+ languages</li>
-        <li>Under 2-minute processing</li>
-        <li>ISO 27001 certified</li>
-      </ul>
     </div>
 
-    <div class="stage reveal" aria-label="Illustrative: a field conversation becoming management intelligence">
-      <svg class="thread stage__thread" viewBox="0 0 520 540" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M300 150 C 430 150, 360 120, 486 98" />
-        <path d="M335 215 C 445 245, 385 285, 466 305" />
-        <path d="M300 265 C 430 375, 360 470, 486 484" />
-      </svg>
-      <div class="bubble stage__bubble">
-        <div class="bubble__cap"><span class="live" aria-hidden="true"></span>Captured by Neo One · live</div>
-        <p class="bubble__text">“Brand X offers a better margin. I’ll stock it <b>if your scheme improves.</b>”</p>
-        <p class="bubble__who">Retailer · West region</p>
-      </div>
-      <div class="tagf stage__t1"><span class="ck">✓</span><span><b>Pitch adherence</b><em>4 / 5</em></span></div>
-      <div class="tagf stage__t2"><span class="ck">✓</span><span><b>Coaching</b><em>Margin objection</em></span></div>
-      <div class="tagf stage__t3"><span class="ck">✓</span><span><b>Voice of Customer</b><em>Competitor margin</em></span></div>
+    <div class="stage reveal" aria-label="The NeoSapien Neo One device, a wearable pendant that captures frontline conversations, shown in graphite and gold">
+      <span class="prod__glow" aria-hidden="true"></span>
+      <img class="prod__img" src="/neo1-necklace.webp" alt="The NeoSapien Neo One device, a wearable pendant that captures frontline conversations" width="1242" height="1560" fetchpriority="high" decoding="async" />
     </div>
   </div>
 </section>
@@ -52,31 +34,26 @@
   .hero__h { margin-top: 18px; max-width: 14ch; font-size: clamp(2.5rem, 4.4vw, 4rem); }
   .hero__lede { margin-top: 20px; }
   .hero__cta { display: flex; align-items: center; gap: 26px; margin-top: 28px; flex-wrap: wrap; }
-  .hero__proof { display: flex; gap: 26px; margin-top: 28px; list-style: none; flex-wrap: wrap; color: var(--ink-3); font-size: .95rem; font-weight: 500; }
-  .hero__proof li { display: inline-flex; align-items: center; gap: 9px; }
-  .hero__proof li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
 
-  .stage { position: relative; height: 540px; }
-  .stage__thread { position: absolute; inset: 0; overflow: visible; pointer-events: none; }
-  .stage__bubble { position: absolute; left: 0; top: 44px; width: 74%; z-index: 2; }
-  .stage .tagf { position: absolute; z-index: 3; }
-  @media (prefers-reduced-motion: no-preference) { .stage .tagf { animation: float 5.5s ease-in-out infinite; } }
-  @keyframes float { 50% { transform: translateY(-8px); } }
-  .stage__t1 { top: 66px; right: 1%; animation-delay: .1s; }
-  .stage__t2 { top: 262px; right: 8%; animation-delay: .7s; }
-  .stage__t3 { top: 452px; right: 0; animation-delay: 1.3s; }
+  .stage { position: relative; height: 560px; }
+  .prod__glow { position: absolute; left: 40%; top: 42%; transform: translate(-50%, -50%); width: 92%; aspect-ratio: 1; border-radius: 50%; z-index: 0;
+    background: radial-gradient(circle, var(--green-glow), transparent 60%); filter: blur(26px); }
+  .prod__img { position: absolute; inset: 0; margin: auto; height: 100%; width: 100%; object-fit: contain; object-position: center; z-index: 1;
+    filter: drop-shadow(0 30px 44px rgba(0,0,0,.28)); will-change: transform; }
+  /* gentle suspended float + soft glow breathing */
+  @media (prefers-reduced-motion: no-preference) {
+    .prod__img { animation: heroFloat 7s ease-in-out infinite; }
+    .prod__glow { animation: heroGlow 7s ease-in-out infinite; }
+  }
+  @keyframes heroFloat { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-14px) rotate(-1.6deg); } }
+  @keyframes heroGlow { 0%, 100% { opacity: .75; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.07); } }
 
   @media (max-width: 980px) {
     .hero__grid { grid-template-columns: 1fr; gap: 24px; }
-    .stage { height: 460px; margin-top: 8px; }
-    .stage__bubble { width: 80%; }
-    .stage__t3 { top: 400px; }
+    .stage { height: 440px; margin-top: 8px; }
   }
   @media (max-width: 560px) {
-    .stage { height: 430px; }
-    .stage__bubble { width: 92%; }
-    .stage .tagf { padding: 10px 14px 10px 11px; }
-    .stage__t1 { right: 0; top: 40px; } .stage__t2 { top: 250px; right: 4%; } .stage__t3 { top: 380px; }
+    .stage { height: 380px; }
     .pill-lg { width: 100%; justify-content: space-between; }
   }
 </style>

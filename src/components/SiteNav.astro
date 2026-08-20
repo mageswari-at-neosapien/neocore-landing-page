@@ -1,8 +1,8 @@
 ---
 const links = [
-  { href: '#how-it-works', label: 'How it works' },
-  { href: '#outcomes', label: 'Outcomes' },
+  { href: '#why-neocore', label: 'Why NeoCore' },
   { href: '#security', label: 'Security' },
+  { href: '#industries', label: 'Industries' },
   { href: '#faq', label: 'FAQ' },
 ];
 import BrandLogo from './BrandLogo.astro';
@@ -14,6 +14,7 @@ const themes = [
   { id: 'peach', label: 'Peach', ground: '#fbeee4', accent: '#ef6b3d' },
   { id: 'butter', label: 'Butter', ground: '#f6f0e2', accent: '#e0932a' },
   { id: 'editorial', label: 'Editorial', ground: '#f4efe6', accent: '#d63423' },
+  { id: 'yoyo', label: 'Yoyo', ground: '#010101', accent: '#2dd4bf' },
   { id: 'dark', label: 'Midnight', ground: '#080c0a', accent: '#00df79' },
 ];
 ---
@@ -41,7 +42,7 @@ const themes = [
           ))}
         </div>
       </div>
-      <a href="#pilot" class="pill nav__cta" data-lead-open data-evt="nav_cta_click" data-evt-source="nav">Talk to our enterprise team <span class="ico" aria-hidden="true">→</span></a>
+      <a href="#pilot" class="pill nav__cta" data-lead-open data-evt="nav_cta_click" data-evt-source="nav">Book a demo <span class="ico" aria-hidden="true">→</span></a>
       <button type="button" class="nav__toggle" data-nav-toggle aria-expanded="false" aria-controls="nav-drawer" aria-label="Open sections menu">
         <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 5h12M3 9h12M3 13h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
       </button>
@@ -50,7 +51,7 @@ const themes = [
   <div class="nav__drawer" id="nav-drawer" data-nav-drawer hidden>
     <div class="shell nav__drawer-in">
       {links.map((l) => <a href={l.href} class="nav__drawer-link">{l.label}</a>)}
-      <a href="#pilot" class="pill nav__drawer-cta" data-lead-open data-evt="nav_cta_click" data-evt-source="nav-mobile">Talk to our enterprise team <span class="ico" aria-hidden="true">→</span></a>
+      <a href="#pilot" class="pill nav__drawer-cta" data-lead-open data-evt="nav_cta_click" data-evt-source="nav-mobile">Book a demo <span class="ico" aria-hidden="true">→</span></a>
     </div>
   </div>
 </header>

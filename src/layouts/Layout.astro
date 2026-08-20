@@ -24,11 +24,10 @@ const {
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#ebebeb" />
     <script is:inline>
-      // No-flash theme: localStorage → system preference → light
+      // No-flash theme: explicit user choice (localStorage) → Daylight default
       (function () {
         try {
-          var t = localStorage.getItem('neo-theme');
-          if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          var t = localStorage.getItem('neo-theme') || 'light';
           document.documentElement.setAttribute('data-theme', t);
         } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
         document.documentElement.classList.add('js');
