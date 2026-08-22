@@ -1,0 +1,221 @@
+---
+// NeoCore product dashboard — auto-switches Dashboard <-> Memories. Aggregate/synthetic data, no PII.
+const kpis = [
+  { l: 'Active users', v: 312, suf: '/ 410', sub: 'active this week', d: '11', dir: 'up' },
+  { l: 'Memories captured', v: 128, sub: 'this week', d: '8%', dir: 'up' },
+  { l: 'Time used / user', v: 42, suf: 'min', sub: 'average per day', d: '4 min', dir: 'up' },
+  { l: 'Avg conversation', vs: '7m 40s', sub: 'per conversation', d: '22s', dir: 'down' },
+];
+const attention = [
+  { n: 'Haven’t used Neo this week', v: 14, k: 'r' },
+  { n: 'Below 30 min/day', v: 23, k: 'a' },
+  { n: 'Help requests to triage', v: 2, k: 'g' },
+];
+const trend = 'M0,45 C40,55 60,62 120,64 C180,66 200,40 260,34 C320,29 360,30 420,29 C450,29 470,29 480,28';
+const usage = [{ n: 'End users', p: 76, sub: '310 of 402' }, { n: 'Tenant managers', p: 58, sub: '4 of 6' }];
+const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const memories = [
+  { t: 'Cold-chain audit — Chennai DC', d: 'Operations', r: 'Tamil Nadu', m: '24 min' },
+  { t: 'Distributor visit — Nashik route', d: 'Field sales', r: 'Maharashtra', m: '12 min' },
+  { t: 'Retailer onboarding — Pune camp', d: 'Field sales', r: 'Maharashtra', m: '15 min' },
+  { t: 'Quarter-end claims review', d: 'Trade marketing', r: 'Delhi NCR', m: '14 min' },
+  { t: 'Stock reconciliation call', d: 'Operations', r: 'West Bengal', m: '9 min' },
+];
+const wave = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 12h.01M8 8.5v7M12 5v14M16 8v8M20 11v2"/></svg>';
+---
+
+<figure class="frame" data-ncdash>
+  <div class="frame__bar"><span class="tl"></span><span class="tl"></span><span class="tl"></span><em>NeoCore · Dashboard</em>
+    <div class="tabs" role="tablist">
+      <button type="button" class="tb is-on" data-tab="0">Dashboard</button>
+      <button type="button" class="tb" data-tab="1">Memories</button>
+      <span class="tabs__ink"></span>
+    </div>
+  </div>
+
+  <div class="screen">
+    <!-- Dashboard -->
+    <div class="view is-on" data-view="0">
+      <div class="kpis">
+        {kpis.map((k) => (
+          <div class="kpi">
+            <span class="kpi__l">{k.l}</span>
+            <span class="kpi__v">{k.vs ? <b>{k.vs}</b> : <b data-count={k.v}>0</b>}{k.suf && <i>{k.suf}</i>}</span>
+            <span class="kpi__sub">{k.sub}</span>
+            <span class:list={["pill", k.dir]}>{k.dir === 'up' ? '↗' : '↘'} {k.d}</span>
+          </div>
+        ))}
+      </div>
+      <div class="ncgrid">
+        <section class="panel">
+          <div class="panel__hd"><div><span class="panel__t">Active users</span><span class="panel__sub">this week · trend</span></div></div>
+          <div class="chart">
+            <div class="yax"><span>300</span><span>200</span><span>100</span></div>
+            <svg viewBox="0 0 480 150" preserveAspectRatio="none" class="spark">
+              <defs><linearGradient id="ncpg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#12a066" stop-opacity=".22"/><stop offset="1" stop-color="#12a066" stop-opacity="0"/></linearGradient></defs>
+              <line x1="0" y1="20" x2="480" y2="20" class="gl" /><line x1="0" y1="70" x2="480" y2="70" class="gl" /><line x1="0" y1="120" x2="480" y2="120" class="gl" />
+              <path class="area" d={`${trend} L480,150 L0,150 Z`} fill="url(#ncpg)" />
+              <path class="line line--cur" d={trend} fill="none" />
+            </svg>
+            <span class="enddot"></span><span class="endtag">312</span>
+            <div class="xax">{days.map((d) => <span>{d}</span>)}</div>
+          </div>
+        </section>
+        <section class="panel ubox">
+          <div class="panel__hd"><div><span class="panel__t">Usage breakdown</span><span class="panel__sub">by role</span></div></div>
+          <div class="ubars">
+            {usage.map((u) => (
+              <div class="ubar">
+                <div class="ubar__top"><span>{u.n}<i>{u.sub}</i></span><b data-count={u.p} data-suf="%">0%</b></div>
+                <div class="ubar__track"><span class="ubar__fill" style={`--w:${u.p}%`}></span></div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+      <section class="panel attn">
+        <div class="panel__hd"><div><span class="panel__t">Needs attention</span><span class="panel__sub">this week</span></div></div>
+        <div class="attn__grid">
+          {attention.map((a) => (
+            <div class="attn__item"><span class:list={["attn__badge", `attn__badge--${a.k}`]}><b data-count={a.v}>0</b></span><span class="attn__n">{a.n}</span></div>
+          ))}
+        </div>
+      </section>
+    </div>
+
+    <!-- Memories -->
+    <div class="view" data-view="1">
+      <div class="mem__hd"><div><span class="panel__t">Memories</span><span class="panel__sub">this week · captured conversations</span></div><span class="mem__count">128 total</span></div>
+      <div class="memlist">
+        {memories.map((x) => (
+          <div class="memrow">
+            <span class="memav" aria-hidden="true" set:html={wave} />
+            <div class="memmain"><span class="memttl">{x.t}</span><span class="memsub">{x.d} · {x.r}</span></div>
+            <div class="memtags"><span class="memdur">{x.m}</span><span class="memdom">{x.d}</span></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</figure>
+
+<style>
+  .frame { --grn: #12a066; --grnd: #0b7146; --grnbg: #e9f7f0; --red: #d9736e; --redbg: #fdeeed; --amb: #cf9a45; --ambbg: #fbf3e3; --ink: #141d1a; --ink2: #5c6864; --ink3: #98a29d; --line: #e7eae8;
+    container-type: inline-size;
+    margin: 0; background: #fff; border-radius: 20px; overflow: hidden; border: 1px solid #e7eae8;
+    box-shadow: 0 2px 4px rgba(20,40,30,.03), 0 48px 92px -52px rgba(16,44,32,.5); height: 100%; display: flex; flex-direction: column; }
+  .frame__bar { display: flex; align-items: center; gap: 7px; padding: 13px 18px; background: var(--bubble); border-bottom: 1px solid color-mix(in srgb, var(--bubble-ink-2) 22%, transparent); }
+  .frame__bar .tl { width: 10px; height: 10px; border-radius: 50%; background: color-mix(in srgb, var(--bubble-ink-2) 55%, transparent); }
+  .frame__bar em { margin-left: 10px; font-style: normal; font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; color: var(--bubble-ink-2); font-weight: 500; }
+
+  .tabs { position: relative; margin-left: auto; display: flex; gap: 2px; background: color-mix(in srgb, var(--bubble-ink) 12%, transparent); border-radius: 10px; padding: 3px; }
+  .tb { position: relative; z-index: 1; appearance: none; border: 0; background: none; font: inherit; cursor: pointer; font-size: .74rem; font-weight: 500; color: var(--bubble-ink-2); padding: 6px 13px; border-radius: 8px; transition: color .25s; white-space: nowrap; }
+  .tb.is-on { color: var(--ink); }
+  .tabs__ink { position: absolute; z-index: 0; top: 3px; bottom: 3px; left: 3px; width: calc(50% - 3px); background: #fff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.25); transition: transform .35s cubic-bezier(.4,.1,.2,1); }
+  .tabs.t1 .tabs__ink { transform: translateX(100%); }
+
+  .screen { position: relative; flex: 1; min-height: 524px; background: #fbfcfb; padding: clamp(14px, 2vw, 18px); }
+  .view { position: absolute; inset: 0; padding: inherit; opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity .5s ease, transform .5s ease; }
+  .view.is-on { opacity: 1; transform: none; pointer-events: auto; }
+  @media (prefers-reduced-motion: reduce) { .view { transition: none; } }
+
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .kpi { display: flex; flex-direction: column; background: #fff; border: 1px solid #e7eae8; border-radius: 12px; padding: 8px 11px; box-shadow: 0 1px 2px rgba(20,40,30,.03); }
+  .kpi__l { font-size: .58rem; letter-spacing: .05em; text-transform: uppercase; font-weight: 700; color: var(--ink3); line-height: 1.3; min-height: 1.3em; }
+  .kpi__v { margin-top: 5px; font-size: 1.3rem; font-weight: 500; letter-spacing: -.02em; color: var(--ink); line-height: 1; }
+  .kpi__v i { font-style: normal; font-size: .72rem; font-weight: 500; color: var(--ink3); margin-left: 3px; }
+  .kpi__sub { margin-top: 6px; font-size: .66rem; line-height: 1.3; color: var(--ink2); }
+  .pill { align-self: flex-start; margin-top: 8px; font-size: .64rem; font-weight: 600; padding: 3px 8px; border-radius: 20px; white-space: nowrap; }
+  .pill.up { color: var(--grnd); background: var(--grnbg); }
+  .pill.down { color: var(--red); background: var(--redbg); }
+
+  .ncgrid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 8px; margin-top: 8px; align-items: start; }
+  .panel { background: #fff; border: 1px solid #e7eae8; border-radius: 13px; padding: 11px; box-shadow: 0 1px 2px rgba(20,40,30,.03); }
+  .panel__hd { margin-bottom: 10px; }
+  .panel__t { font-size: .9rem; font-weight: 600; color: var(--ink); }
+  .panel__sub { display: block; margin-top: 3px; font-size: .68rem; color: var(--ink3); }
+
+  .chart { position: relative; padding-left: 30px; }
+  .yax { position: absolute; left: 0; top: -4px; height: 54px; display: flex; flex-direction: column; justify-content: space-between; font-size: .56rem; color: var(--ink3); text-align: right; width: 24px; }
+  .spark { width: 100%; height: 54px; display: block; }
+  .gl { stroke: #e7eae8; stroke-width: 1; stroke-dasharray: 3 4; }
+  .area { opacity: 0; transition: opacity 1s ease .4s; }
+  .is-in .view.is-on .area { opacity: 1; }
+  .line--cur { stroke: #12a066; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 900; stroke-dashoffset: 900; transition: stroke-dashoffset 1.6s ease; }
+  .is-in .view.is-on .line--cur { stroke-dashoffset: 0; }
+  .enddot { position: absolute; top: 20px; right: 1px; width: 9px; height: 9px; border-radius: 50%; background: #12a066; box-shadow: 0 0 0 4px rgba(18,160,102,.18); opacity: 0; transition: opacity .4s ease 1.4s; }
+  .is-in .view.is-on .enddot { opacity: 1; }
+  .endtag { position: absolute; top: 0; right: 0; font-size: .62rem; font-weight: 600; color: var(--grnd); background: var(--grnbg); border-radius: 6px; padding: 2px 7px; opacity: 0; transition: opacity .4s ease 1.5s; }
+  .is-in .view.is-on .endtag { opacity: 1; }
+  .xax { display: flex; justify-content: space-between; margin-top: 8px; font-size: .56rem; color: var(--ink3); }
+
+  .ubars { display: grid; gap: 12px; }
+  .ubar__top { display: flex; justify-content: space-between; align-items: baseline; font-size: .78rem; color: var(--ink); margin-bottom: 6px; }
+  .ubar__top i { font-style: normal; font-size: .64rem; color: var(--ink3); margin-left: 7px; }
+  .ubar__top b { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .ubar__track { height: 8px; border-radius: 6px; background: color-mix(in srgb, var(--ink-3) 18%, transparent); overflow: hidden; }
+  .ubar__fill { display: block; height: 100%; width: 0; border-radius: 6px; background: linear-gradient(90deg, #12a066, #3fc78e); transition: width 1.1s cubic-bezier(.2,.7,.2,1) .25s; }
+  .is-in .view.is-on .ubar__fill { width: var(--w); }
+
+  .mem__hd { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+  .mem__count { font-size: .66rem; color: var(--ink3); background: #f1f4f2; border-radius: 20px; padding: 4px 10px; white-space: nowrap; }
+  .memlist { display: grid; gap: 6px; }
+  .memrow { display: grid; grid-template-columns: auto 1fr auto; gap: 11px; align-items: center; padding: 8px 12px; border-radius: 12px; background: #fff; border: 1px solid #e7eae8; box-shadow: 0 1px 2px rgba(20,40,30,.03); }
+  .memav { width: 28px; height: 28px; flex: none; border-radius: 9px; display: grid; place-items: center; color: var(--grn); background: var(--grnbg); }
+  .memav :global(svg) { width: 17px; height: 17px; }
+  .memmain { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .memttl { font-size: .88rem; color: var(--ink); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .memsub { font-size: .72rem; color: var(--ink3); }
+  .memtags { display: flex; align-items: center; gap: 8px; }
+  .memdur { font-size: .72rem; color: var(--ink3); font-variant-numeric: tabular-nums; }
+  .memdom { font-size: .66rem; color: var(--grnd); background: var(--grnbg); border: 1px solid color-mix(in srgb, var(--grn) 22%, transparent); border-radius: 20px; padding: 3px 9px; white-space: nowrap; }
+
+  .attn { margin-top: 8px; }
+  .attn__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .attn__item { display: flex; align-items: center; gap: 11px; }
+  .attn__badge { flex: none; min-width: 34px; height: 28px; padding: 0 8px; border-radius: 8px; display: grid; place-items: center; font-size: .92rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .attn__badge--r { color: var(--red); background: color-mix(in srgb, #d9736e 16%, transparent); }
+  .attn__badge--a { color: var(--amb); background: color-mix(in srgb, #cf9a45 16%, transparent); }
+  .attn__badge--g { color: #0b7146; background: var(--grnbg); }
+  .attn__n { font-size: .76rem; color: var(--ink2); line-height: 1.3; }
+
+  @container (max-width: 680px) { .kpis { grid-template-columns: 1fr 1fr; } }
+  @container (max-width: 460px) { .ncgrid { grid-template-columns: 1fr; } .attn__grid { grid-template-columns: 1fr; } .memtags .memdom { display: none; } }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-ncdash]').forEach((dash) => {
+    const tabsWrap = dash.querySelector<HTMLElement>('.tabs')!;
+    const tabs = Array.from(dash.querySelectorAll<HTMLElement>('.tb'));
+    const views = Array.from(dash.querySelectorAll<HTMLElement>('.view'));
+    let cur = 0, timer = 0, started = false;
+    const runCount = (el: HTMLElement) => {
+      const target = Number(el.getAttribute('data-count') || '0');
+      const suf = el.getAttribute('data-suf') || '';
+      const start = performance.now();
+      const tick = (now: number) => {
+        const p = Math.min(1, (now - start) / 1200);
+        el.textContent = String(Math.round(target * (1 - Math.pow(1 - p, 3)))) + suf;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    const countDash = () => dash.querySelectorAll<HTMLElement>('.view[data-view="0"] [data-count]').forEach(runCount);
+    const show = (i: number) => {
+      cur = i;
+      tabs.forEach((t, n) => t.classList.toggle('is-on', n === i));
+      tabsWrap.classList.toggle('t1', i === 1);
+      views.forEach((v, n) => v.classList.toggle('is-on', n === i));
+      if (i === 0) setTimeout(countDash, 180);
+    };
+    const cycle = () => { clearTimeout(timer); timer = window.setTimeout(() => { show(cur === 0 ? 1 : 0); cycle(); }, 5200); };
+    const go = (i: number) => { show(i); cycle(); };
+    tabs.forEach((t, i) => t.addEventListener('click', () => go(i)));
+    dash.addEventListener('mouseenter', () => clearTimeout(timer));
+    dash.addEventListener('mouseleave', cycle);
+    new IntersectionObserver((e, o) => {
+      if (!e[0].isIntersecting || started) return; started = true; o.disconnect();
+      dash.classList.add('is-in'); countDash(); cycle();
+    }, { threshold: 0.2 }).observe(dash);
+  });
+</script>

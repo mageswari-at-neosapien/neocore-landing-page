@@ -1,0 +1,206 @@
+---
+// NeoCore Sales Intelligence dashboard — auto-switches Usage statistics <-> Voice of Customer.
+// Real Panasonic figures from the client dashboard (client name kept out of the header).
+const kpis = [
+  { l: 'Active users', v: 55, suf: '/ 60', sub: 'salespeople active this week', d: '1.9%', dir: 'up', hl: true },
+  { l: 'Conversations captured', v: 558, fmt: 'int', sub: 'captured conversations this week', d: '27.2%', dir: 'down' },
+  { l: 'Avg usage per user', v: 17, suf: 'min', sub: 'recorded time per active salesperson', d: '0.5%', dir: 'down' },
+  { l: 'Avg conversation length', v: 8.4, suf: 'min', dec: true, sub: 'average length of one conversation', d: '0.5%', dir: 'down' },
+];
+const dates = ['15 Aug', '16', '17', '18', '19', '20', '21'];
+const lineCur = 'M0,27 C40,26 60,25 80,25 C120,26 130,27 160,27 C200,25 220,23 240,23 C280,24 300,25 320,25 C360,24 380,23 400,23 C440,24 460,25 480,25';
+const linePrev = 'M0,29 C40,29 60,28 80,28 C120,28 130,29 160,29 C200,29 220,28 240,28 C280,28 300,29 320,29 C360,29 380,30 400,30 C440,29 460,28 480,28';
+const kpc = [
+  { n: 'Features and technology', s: 3.4 }, { n: 'Financing and offers', s: 3.4 },
+  { n: 'Performance and durability', s: 3.4 }, { n: 'Product explanation', s: 3.4 },
+  { n: 'Purchase price / value', s: 3.4 }, { n: 'Warranty terms', s: 3.4 },
+  { n: 'Brand reputation and trust', s: -3.5 }, { n: 'After-sales service', s: -3.4 },
+  { n: 'Availability', s: -3.4 }, { n: 'Courtesy and attentiveness', s: -3.4 },
+  { n: 'Delivery and installation', s: -3.4 }, { n: 'Demo and trust', s: -3.4 },
+];
+const enablers = kpc.filter((f) => f.s >= 0);
+const barriers = kpc.filter((f) => f.s < 0);
+---
+
+<figure class="frame" data-dash>
+  <div class="frame__bar"><span class="tl"></span><span class="tl"></span><span class="tl"></span><em>NeoCore · Sales Intelligence</em>
+    <div class="tabs" role="tablist">
+      <button type="button" class="tb is-on" data-tab="0">Usage statistics</button>
+      <button type="button" class="tb" data-tab="1">Voice of Customer</button>
+      <span class="tabs__ink"></span>
+    </div>
+  </div>
+
+  <div class="screen">
+    <div class="view is-on" data-view="0">
+      <div class="kpis">
+        {kpis.map((k) => (
+          <div class:list={["kpi", { 'kpi--hl': k.hl }]}>
+            <span class="kpi__l">{k.l}</span>
+            <span class="kpi__v"><b data-count={k.v} data-fmt={k.fmt} data-dec={k.dec ? '1' : ''}>0</b>{k.suf && <i>{k.suf}</i>}</span>
+            <span class="kpi__sub">{k.sub}</span>
+            <span class:list={["pill", k.dir]}>{k.dir === 'up' ? '↗' : '↘'} {k.d} <span class="pill__x">vs prev week</span></span>
+          </div>
+        ))}
+      </div>
+      <section class="panel">
+        <div class="panel__hd">
+          <div><span class="panel__t">Active users by day</span><span class="panel__sub">2026-08-15 to 2026-08-22 · salespeople active per day</span></div>
+          <div class="seg"><button type="button" class="seg__b is-on">Line</button><button type="button" class="seg__b">Calendar</button></div>
+        </div>
+        <div class="chart">
+          <div class="yax"><span>60</span><span>40</span><span>20</span></div>
+          <svg viewBox="0 0 480 150" preserveAspectRatio="none" class="spark">
+            <defs><linearGradient id="ncdg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#12a066" stop-opacity=".22"/><stop offset="1" stop-color="#12a066" stop-opacity="0"/></linearGradient></defs>
+            <line x1="0" y1="14" x2="480" y2="14" class="gl" /><line x1="0" y1="59" x2="480" y2="59" class="gl" /><line x1="0" y1="105" x2="480" y2="105" class="gl" />
+            <path class="area" d={`${lineCur} L480,150 L0,150 Z`} fill="url(#ncdg)" />
+            <path class="line line--prev" d={linePrev} fill="none" />
+            <path class="line line--cur" d={lineCur} fill="none" />
+          </svg>
+          <span class="enddot"></span><span class="endtag">55</span>
+          <div class="xax">{dates.map((d) => <span>{d}</span>)}</div>
+        </div>
+        <div class="clegend"><span><i class="ln ln--g"></i>This week · 55</span><span><i class="ln ln--x"></i>Last week · 54</span></div>
+      </section>
+    </div>
+
+    <div class="view" data-view="1">
+      <div class="voc__hd">
+        <div><span class="voc__t">Voice of Customer by KPC</span><span class="voc__sub">positive and negative conversation shares per criterion</span></div>
+      </div>
+      <div class="voc__grid">
+        <div class="voccol voccol--g">
+          <div class="voccol__h"><span><i class="d d--g"></i>Enablers</span><b>{enablers.length}</b></div>
+          {enablers.map((f) => <div class="vrow2"><span class="vname">{f.n}</span><span class="vscore pos">+{f.s}</span></div>)}
+        </div>
+        <div class="voccol voccol--r">
+          <div class="voccol__h"><span><i class="d d--r"></i>Barriers</span><b>{barriers.length}</b></div>
+          {barriers.map((f) => <div class="vrow2"><span class="vname">{f.n}</span><span class="vscore neg">{f.s}</span></div>)}
+        </div>
+      </div>
+    </div>
+  </div>
+</figure>
+
+<style>
+  .frame { --grn: #12a066; --grnd: #0b7146; --grnbg: #e9f7f0; --red: #d9736e; --redbg: #fdeeed; --amb: #cf9a45; --ambbg: #fbf3e3; --ink: #141d1a; --ink2: #5c6864; --ink3: #98a29d; --line: #e7eae8;
+    container-type: inline-size;
+    margin: 0; background: #fff; border-radius: 20px; overflow: hidden; border: 1px solid #e7eae8;
+    box-shadow: 0 2px 4px rgba(20,40,30,.03), 0 48px 92px -52px rgba(16,44,32,.5); height: 100%; display: flex; flex-direction: column; }
+  .frame__bar { display: flex; align-items: center; gap: 7px; padding: 13px 18px; background: var(--bubble); border-bottom: 1px solid color-mix(in srgb, var(--bubble-ink-2) 22%, transparent); }
+  .frame__bar .tl { width: 10px; height: 10px; border-radius: 50%; background: color-mix(in srgb, var(--bubble-ink-2) 55%, transparent); }
+  .frame__bar em { margin-left: 10px; font-style: normal; font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; color: var(--bubble-ink-2); font-weight: 500; }
+
+  .tabs { position: relative; margin-left: auto; display: flex; gap: 2px; background: color-mix(in srgb, var(--bubble-ink) 12%, transparent); border-radius: 10px; padding: 3px; }
+  .tb { position: relative; z-index: 1; appearance: none; border: 0; background: none; font: inherit; cursor: pointer; font-size: .74rem; font-weight: 500; color: var(--bubble-ink-2); padding: 6px 13px; border-radius: 8px; transition: color .25s; white-space: nowrap; }
+  .tb.is-on { color: var(--ink); }
+  .tabs__ink { position: absolute; z-index: 0; top: 3px; bottom: 3px; left: 3px; width: calc(50% - 3px); background: #fff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.25); transition: transform .35s cubic-bezier(.4,.1,.2,1); }
+  .tabs.t1 .tabs__ink { transform: translateX(100%); }
+
+  .screen { position: relative; flex: 1; min-height: 524px; background: #fbfcfb; padding: clamp(14px, 2vw, 18px); }
+  .view { position: absolute; inset: 0; padding: inherit; opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity .5s ease, transform .5s ease; }
+  .view.is-on { opacity: 1; transform: none; pointer-events: auto; }
+  @media (prefers-reduced-motion: reduce) { .view { transition: none; } }
+
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .kpi { display: flex; flex-direction: column; background: #fff; border: 1px solid #e7eae8; border-radius: 12px; padding: 8px 11px; box-shadow: 0 1px 2px rgba(20,40,30,.03); }
+  .kpi--hl { border-color: color-mix(in srgb, var(--grn) 45%, #e7eae8); box-shadow: 0 0 0 3px var(--grnbg); }
+  .kpi__l { font-size: .58rem; letter-spacing: .05em; text-transform: uppercase; font-weight: 700; color: var(--ink3); line-height: 1.3; min-height: 1.3em; }
+  .kpi__v { margin-top: 5px; font-size: 1.3rem; font-weight: 500; letter-spacing: -.02em; color: var(--ink); line-height: 1; }
+  .kpi__v i { font-style: normal; font-size: .78rem; font-weight: 500; color: var(--ink3); margin-left: 3px; }
+  .kpi__sub { margin-top: 6px; font-size: .66rem; line-height: 1.3; color: var(--ink2); }
+  .pill { align-self: flex-start; margin-top: 8px; font-size: .66rem; font-weight: 600; padding: 3px 8px; border-radius: 20px; white-space: nowrap; }
+  .pill__x { font-weight: 500; opacity: .8; }
+  .pill.up { color: var(--grnd); background: var(--grnbg); }
+  .pill.down { color: var(--red); background: var(--redbg); }
+
+  .panel { margin-top: 10px; background: #fff; border: 1px solid #e7eae8; border-radius: 13px; padding: 11px; box-shadow: 0 1px 2px rgba(20,40,30,.03); }
+  .panel__hd { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+  .panel__t { font-size: .95rem; font-weight: 600; color: var(--ink); }
+  .panel__sub { display: block; margin-top: 3px; font-size: .7rem; color: var(--ink3); }
+  .seg { display: flex; gap: 2px; background: #e7eae8; border-radius: 8px; padding: 2px; flex: none; }
+  .seg__b { appearance: none; border: 0; background: none; font: inherit; font-size: .68rem; color: var(--ink2); padding: 4px 11px; border-radius: 6px; cursor: pointer; }
+  .seg__b.is-on { background: #fff; color: var(--ink); box-shadow: 0 1px 2px rgba(20,40,30,.1); }
+
+  .chart { position: relative; padding-left: 28px; }
+  .yax { position: absolute; left: 0; top: -4px; height: 90px; display: flex; flex-direction: column; justify-content: space-between; font-size: .56rem; color: var(--ink3); text-align: right; width: 22px; }
+  .spark { width: 100%; height: 90px; display: block; }
+  .gl { stroke: #e7eae8; stroke-width: 1; stroke-dasharray: 3 4; }
+  .area { opacity: 0; transition: opacity 1s ease .4s; }
+  .view.is-on .area { opacity: 1; }
+  .line { stroke-linecap: round; stroke-linejoin: round; }
+  .line--cur { stroke: #12a066; stroke-width: 2.5; stroke-dasharray: 900; stroke-dashoffset: 900; transition: stroke-dashoffset 1.6s ease; }
+  .view.is-on .line--cur { stroke-dashoffset: 0; }
+  .line--prev { stroke: color-mix(in srgb, var(--ink-3) 55%, transparent); stroke-width: 2; stroke-dasharray: 5 5; opacity: 0; transition: opacity .8s ease .4s; }
+  .view.is-on .line--prev { opacity: 1; }
+  .enddot { position: absolute; top: 21px; right: 1px; width: 9px; height: 9px; border-radius: 50%; background: #12a066; box-shadow: 0 0 0 4px rgba(18,160,102,.18); opacity: 0; transition: opacity .4s ease 1.4s; }
+  .view.is-on .enddot { opacity: 1; }
+  .endtag { position: absolute; top: 0; right: 0; font-size: .62rem; font-weight: 600; color: var(--grnd); background: var(--grnbg); border-radius: 6px; padding: 2px 7px; opacity: 0; transition: opacity .4s ease 1.5s; }
+  .view.is-on .endtag { opacity: 1; }
+  .xax { display: flex; justify-content: space-between; margin-top: 9px; font-size: .6rem; color: var(--ink3); }
+  .clegend { display: flex; gap: 18px; margin-top: 14px; font-size: .68rem; color: var(--ink2); }
+  .ln { display: inline-block; width: 14px; height: 3px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+  .ln--g { background: #12a066; } .ln--x { background: color-mix(in srgb, var(--ink-3) 55%, transparent); }
+
+  .voc__hd { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+  .voc__t { font-size: .98rem; font-weight: 600; color: var(--ink); }
+  .voc__sub { display: block; margin-top: 3px; font-size: .7rem; color: var(--ink3); }
+  .d--g { background: var(--grn); } .d--r { background: var(--red); }
+  .voc__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .voccol { border-radius: 14px; padding: 12px 14px; border: 1px solid; }
+  .voccol--g { background: color-mix(in srgb, var(--grn) 5%, #fff); border-color: color-mix(in srgb, var(--grn) 24%, #e7eae8); }
+  .voccol--r { background: color-mix(in srgb, var(--red) 5%, #fff); border-color: color-mix(in srgb, var(--red) 22%, #e7eae8); }
+  .voccol__h { display: flex; align-items: center; justify-content: space-between; font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; font-weight: 700; padding-bottom: 11px; margin-bottom: 4px; border-bottom: 1px solid; }
+  .voccol--g .voccol__h { color: var(--grnd); border-color: color-mix(in srgb, var(--grn) 20%, transparent); }
+  .voccol--r .voccol__h { color: var(--red); border-color: color-mix(in srgb, var(--red) 18%, transparent); }
+  .voccol__h span { display: inline-flex; align-items: center; }
+  .voccol__h i { width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+  .voccol__h b { font-size: .68rem; font-weight: 700; background: #fff; border: 1px solid #e7eae8; border-radius: 20px; padding: 1px 9px; color: var(--ink2); }
+  .vrow2 { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 6px 0; }
+  .vrow2 + .vrow2 { border-top: 1px solid color-mix(in srgb, var(--ink3) 14%, transparent); }
+  .vname { font-size: .85rem; color: var(--ink); }
+  .vscore { font-variant-numeric: tabular-nums; font-weight: 700; font-size: .8rem; padding: 3px 10px; border-radius: 20px; }
+  .vscore.pos { color: var(--grnd); background: var(--grnbg); }
+  .vscore.neg { color: var(--red); background: var(--redbg); }
+
+  @container (max-width: 680px) { .kpis { grid-template-columns: 1fr 1fr; } }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-dash]').forEach((dash) => {
+    const tabsWrap = dash.querySelector<HTMLElement>('.tabs')!;
+    const tabs = Array.from(dash.querySelectorAll<HTMLElement>('.tb'));
+    const views = Array.from(dash.querySelectorAll<HTMLElement>('.view'));
+    let cur = 0, timer = 0, started = false;
+    const runCount = (el: HTMLElement) => {
+      const target = Number(el.getAttribute('data-count') || '0');
+      const isInt = el.getAttribute('data-fmt') === 'int';
+      const dec = el.getAttribute('data-dec') === '1';
+      const start = performance.now();
+      const tick = (now: number) => {
+        const p = Math.min(1, (now - start) / 1100);
+        const v = target * (1 - Math.pow(1 - p, 3));
+        el.textContent = dec ? v.toFixed(1) : (isInt ? Math.round(v).toLocaleString() : String(Math.round(v)));
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    const countUsage = () => dash.querySelectorAll<HTMLElement>('.view[data-view="0"] [data-count]').forEach(runCount);
+    const show = (i: number) => {
+      cur = i;
+      tabs.forEach((t, n) => t.classList.toggle('is-on', n === i));
+      tabsWrap.classList.toggle('t1', i === 1);
+      views.forEach((v, n) => v.classList.toggle('is-on', n === i));
+      if (i === 0) setTimeout(countUsage, 180);
+    };
+    const cycle = () => { clearTimeout(timer); timer = window.setTimeout(() => { show(cur === 0 ? 1 : 0); cycle(); }, 5200); };
+    const go = (i: number) => { show(i); cycle(); };
+    tabs.forEach((t, i) => t.addEventListener('click', () => go(i)));
+    dash.addEventListener('mouseenter', () => clearTimeout(timer));
+    dash.addEventListener('mouseleave', cycle);
+    new IntersectionObserver((e, o) => {
+      if (!e[0].isIntersecting || started) return; started = true; o.disconnect();
+      countUsage(); cycle();
+    }, { threshold: 0.2 }).observe(dash);
+  });
+</script>
