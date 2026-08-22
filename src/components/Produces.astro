@@ -29,14 +29,14 @@ import NeoCoreProductDashboard from './NeoCoreProductDashboard.astro';
 </section>
 
 <style>
-  .producesfold { padding-block: clamp(30px, 4vw, 44px) 32px; }
+  .producesfold { padding-block: clamp(16px, 2.5vw, 30px) 18px; }
   .glowsec { position: relative; overflow: hidden; }
   .secglow { position: absolute; width: 720px; height: 620px; border-radius: 50%; pointer-events: none; z-index: 0;
     background: radial-gradient(circle, var(--green-glow), transparent 66%); filter: blur(30px); opacity: .9; }
   .secglow--bl { left: -16%; bottom: -22%; }
   .glowsec .shell { position: relative; z-index: 1; }
 
-  .produces__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: clamp(18px, 2vw, 26px); }
+  .produces__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: clamp(12px, 1.5vw, 18px); }
   .produces__h { margin-top: 0; }
   .produces__desc { margin-top: 12px; max-width: 54ch; color: var(--ink-2); font-size: clamp(.98rem, 1.1vw, 1.1rem); line-height: 1.45; }
   .dashes2 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 2vw, 24px); align-items: stretch; }

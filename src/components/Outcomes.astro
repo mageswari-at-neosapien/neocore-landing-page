@@ -128,8 +128,16 @@ const shots = ['panasonic-1', 'panasonic-4', 'panasonic-3'].map((f) => `/dashboa
     .out__grid { grid-template-columns: 1fr; gap: 32px; }
   }
   @media (max-width: 560px) {
-    .dashwrap { padding: 0; }
-    .lift { position: static; width: auto; margin-top: 12px; box-shadow: var(--shadow-1); transform: none !important; }
+    .dashwrap { padding: 18px 8px 26px; }
+    .lift { padding: 10px 12px; border-radius: 13px; transform: none !important; }
+    .lift__lbl { font-size: .56rem; margin-bottom: 5px; }
+    .lift--kpi { top: 6px; right: 0; width: 122px; }
+    .lift--kpi .lift__big { font-size: 1.35rem; }
+    .lift--kpi .lift__big i { font-size: .82rem; }
+    .lift--kpi .lift__delta { font-size: .66rem; margin-top: 5px; }
+    .lift--voc { bottom: 6px; left: 0; width: 176px; }
+    .lift--voc .lift__quote { font-size: .76rem; line-height: 1.35; }
+    .lift--voc .lift__meta { font-size: .64rem; margin-top: 7px; }
   }
 </style>
 
