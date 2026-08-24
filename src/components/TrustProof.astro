@@ -26,6 +26,10 @@ const sectors = [
     { f: 'government-of-andhra-pradesh', n: 'Government of Andhra Pradesh' }, { f: 'uttar-pradesh-police', n: 'Uttar Pradesh Police' },
     { f: 'larsen-and-toubro', n: 'Larsen & Toubro' }, { f: 'hindustan-petroleum', n: 'Hindustan Petroleum' },
   ] },
+  { label: 'Others', logos: [
+    { f: 'om-logistics-supply-chain', n: 'OM Logistics Supply Chain' }, { f: 'dcm-shriram', n: 'DCM Shriram' },
+    { f: 'christ-deemed-to-be-university', n: 'Christ (Deemed to be University)' },
+  ] },
 ];
 const outcomes = [
   { fig: '1000+', desc: 'Devices deployed' },
@@ -74,7 +78,7 @@ const outcomes = [
 
   /* industry cards — flex so partial last row centers (no lone stretched card) */
   .lgrid { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
-  .lcard { position: relative; flex: 0 1 calc(33.333% - 10px); min-width: 288px; background: var(--bubble); border: 1px solid color-mix(in srgb, var(--green) 16%, transparent); border-radius: var(--r-m); padding: 16px 0 18px; overflow: hidden; box-shadow: var(--shadow-2); }
+  .lcard { position: relative; flex: 0 1 calc(25% - 11px); min-width: 250px; background: var(--bubble); border: 1px solid color-mix(in srgb, var(--green) 16%, transparent); border-radius: var(--r-m); padding: 16px 0 18px; overflow: hidden; box-shadow: var(--shadow-2); }
   .lcard::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 1px; border-radius: var(--r-m) var(--r-m) 0 0; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--green) 55%, transparent), transparent); }
   .lcard__label { display: block; text-align: center; font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--bubble-ink-2); padding: 0 16px 13px; margin-bottom: 6px; border-bottom: 1px solid color-mix(in srgb, var(--bubble-ink-2) 18%, transparent); }
 
