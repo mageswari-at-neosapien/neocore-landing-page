@@ -62,8 +62,12 @@ const {
         interface Window {
           dataLayer: Record<string, unknown>[];
           neoTrack: (event: string, detail?: Record<string, unknown>) => void;
+          NEO_LEAD_ENDPOINT?: string;
         }
       }
+      // Lead form submissions (LeadForm.astro) POST to this endpoint — currently a Google
+      // Apps Script Web App that appends each lead as a row in a Sheet.
+      window.NEO_LEAD_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzqaQJQeVYOHs2Mz6p5SXbhDdjGYr_ji7vCvd8NqUEfOOIiSXCH4-0zaH1S6_4ZEGSraQ/exec';
       // ---- Theme menu (Daylight / Midnight / Slate / Sand) ----
       const root = document.documentElement;
       const themeMenu = document.querySelector<HTMLElement>('[data-theme-menu]');

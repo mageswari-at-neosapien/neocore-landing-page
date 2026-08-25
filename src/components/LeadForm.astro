@@ -165,9 +165,11 @@ const CALENDLY = 'https://calendly.com/enterprise-neosapien/30min';
       submitBtn.setAttribute('aria-busy', 'true'); banner.hidden = true;
       const payload = Object.fromEntries(new FormData(form).entries());
       try {
-        const endpoint = (window as any).NEO_LEAD_ENDPOINT as string | undefined;
+        const endpoint = window.NEO_LEAD_ENDPOINT;
         if (endpoint) {
-          const res = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+          // text/plain avoids a CORS preflight that Google Apps Script's web app doesn't
+          // handle — the body is still JSON, the script just reads it as raw text.
+          const res = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
           if (!res.ok) throw new Error('save_failed');
         } else { console.warn('[NeoCore] NEO_LEAD_ENDPOINT not configured; lead not persisted.', payload); }
         track('form_submission', { source: payload.cta_source });
