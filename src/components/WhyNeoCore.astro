@@ -14,8 +14,9 @@ const compareGroups = [
     { f: 'Latency', neo: '<2 mins', other: 'Not published', na: true },
   ] },
   { cat: 'Reliability', rows: [
-    { f: 'Battery life', neo: '17 hr cont.', other: '~20 hr cont.' },
-    { f: 'Warranty', neo: '1 yr (add-on)', other: '1 yr' },
+    { f: 'Battery life', neo: '20 hr', other: '20 hr' },
+    { f: 'Warranty', neo: '1 yr', other: '1 yr' },
+    { f: 'Pricing', neo: '–', other: '3x+' },
   ] },
   { cat: 'Data security', rows: [
     { f: 'Certifications', neo: 'ISO 27001', other: 'ISO / SOC 2 / HIPAA', otherWin: true },
@@ -59,7 +60,7 @@ const icons: Record<string, string> = {
         <div class="cmp__head">
           <span class="cmp__fh" aria-hidden="true"></span>
           <span class="cmp__ch cmp__ch--us">NeoCore</span>
-          <span class="cmp__ch cmp__ch--them">Plaud NotePin</span>
+          <span class="cmp__ch cmp__ch--them">Competition</span>
         </div>
         {compareGroups.map((g) => (
           <div class="cmp__group">

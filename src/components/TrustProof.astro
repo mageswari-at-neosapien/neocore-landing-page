@@ -1,36 +1,35 @@
 ---
-// Fold 2 — "Live with industry leaders": logos grouped into industry cards,
-// each card runs a subtle marquee of its brand logos inside. Reuses existing assets.
+// Fold 2 — "Live with industry leaders": a single continuous marquee of
+// colour client logos on a dark panel. Only logos marked as POC/pilot
+// (boxed in the reference deck) are shown here.
 const sectors = [
   { label: 'CPG / Durables', logos: [
-    { f: 'diageo', n: 'Diageo' }, { f: 'p-and-g', n: 'P&G' }, { f: 'itc-limited', n: 'ITC Limited' },
-    { f: 'eureka-forbes', n: 'Eureka Forbes' }, { f: 'lt-foods', n: 'LT Foods' }, { f: 'panasonic', n: 'Panasonic' },
-    { f: 'mamaearth', n: 'Mamaearth' },
-  ] },
-  { label: 'Automotive', logos: [
-    { f: 'ather', n: 'Ather' }, { f: 'mahindra-rise', n: 'Mahindra' }, { f: 'bridgestone', n: 'Bridgestone' }, { f: 'honda', n: 'Honda' },
-  ] },
-  { label: 'Real Estate', logos: [
-    { f: 'shriram-properties', n: 'Shriram Properties' }, { f: 'homelane', n: 'HomeLane' },
-  ] },
-  { label: 'Healthcare / Pharma', logos: [
-    { f: 'superhealth', n: 'SuperHealth' }, { f: 'matrix-life-science', n: 'Matrix Life Science' },
-    { f: 'acko', n: 'ACKO' }, { f: 'cipla', n: 'Cipla' },
+    { f: 'p-and-g11', n: 'P&G' }, { f: 'lt-foods', n: 'LT Foods' }, { f: 'panasonic', n: 'Panasonic' },
+    { f: 'mamaearth', n: 'Mamaearth' }, { f: 'itc', n: 'ITC Limited', big: true }, { f: 'eureka-forbes', n: 'Eureka Forbes', xl: true },
   ] },
   { label: 'Retail / Media', logos: [
-    { f: 'sony-entertainment-television', n: 'Sony Entertainment Television' }, { f: 'big-fm', n: 'BIG FM' },
-    { f: 'zee-entertainment-enterprises', n: 'Zee' }, { f: 'the-souled-store', n: 'The Souled Store' },
+    { f: 'zee-entertainment-enterprises', n: 'Zee' },
+  ] },
+  { label: 'Real Estate', logos: [
+    { f: 'shriram-properties', n: 'Shriram Properties' }, { f: 'homelane', n: 'HomeLane', big: true },
+  ] },
+  { label: 'Healthcare / Pharma', logos: [
+    { f: 'superhealth', n: 'SuperHealth' }, { f: 'matrix-life-science', n: 'Matrix Life Science', big: true },
+    { f: 'acko', n: 'ACKO' },
+  ] },
+  { label: 'Automotive', logos: [
+    { f: 'honda', n: 'Honda' },
   ] },
   { label: 'Financial Services / Public Sector', logos: [
-    { f: 'mindgate', n: 'Mindgate' }, { f: 'one-percent-club', n: '1% Club' },
-    { f: 'government-of-andhra-pradesh', n: 'Government of Andhra Pradesh' }, { f: 'uttar-pradesh-police', n: 'Uttar Pradesh Police' },
-    { f: 'larsen-and-toubro', n: 'Larsen & Toubro' }, { f: 'hindustan-petroleum', n: 'Hindustan Petroleum' },
+    { f: 'one-percent-club', n: '1% Club' }, { f: 'government-of-andhra-pradesh', n: 'Government of Andhra Pradesh' },
   ] },
   { label: 'Others', logos: [
-    { f: 'om-logistics-supply-chain', n: 'OM Logistics Supply Chain' }, { f: 'dcm-shriram', n: 'DCM Shriram' },
-    { f: 'christ-deemed-to-be-university', n: 'Christ (Deemed to be University)' },
+    { f: 'om-logistics-supply-chain', n: 'OM Logistics Supply Chain' },
   ] },
 ];
+const wall = sectors.flatMap((s) => s.logos);
+const mid = Math.ceil(wall.length / 2);
+const rows = [wall.slice(0, mid), wall.slice(mid)];
 const outcomes = [
   { fig: '1000+', desc: 'Devices deployed' },
   { fig: '70%', desc: 'Daily active users in our largest rollout' },
@@ -43,22 +42,23 @@ const outcomes = [
     <div class="fold-head reveal">
       <h2 class="h2">Live with <span class="b">industry leaders</span></h2>
     </div>
+  </div>
 
-    <div class="lgrid reveal">
-      {sectors.map((s, i) => (
-        <div class="lcard">
-          <span class="lcard__label">{s.label}</span>
-          <div class="lcard__marq">
-            <div class="lcard__track" class:list={[{ 'lcard__track--rev': i % 2 === 1 }]} style={`--n:${s.logos.length}`}>
-              {[...s.logos, ...s.logos].map((l) => (
-                <span class="lchip"><img src={`/logos/${l.f}.png`} alt={l.n} loading="lazy" decoding="async" width="120" height="40" /></span>
-              ))}
-            </div>
-          </div>
+  <div class="strip reveal">
+    {rows.map((row, ri) => (
+      <div class="strip__view">
+        <div class="strip__track" class:list={[{ 'strip__track--rev': ri === 1 }]} data-marquee>
+          {[...row, ...row].map((l, idx) => (
+            <span class="wchip" class:list={[{ 'wchip--lg': l.big, 'wchip--xl': l.xl }]} aria-hidden={idx >= row.length ? 'true' : undefined}>
+              <img src={`/logos/${l.f}.png`} alt={idx < row.length ? l.n : ''} loading="eager" decoding="async" width="140" height="48" />
+            </span>
+          ))}
         </div>
-      ))}
-    </div>
+      </div>
+    ))}
+  </div>
 
+  <div class="shell">
     <div class="trust__stathead reveal">
       <h3 class="h3 trust__stath">Outcomes from live enterprise rollouts.</h3>
     </div>
@@ -76,26 +76,32 @@ const outcomes = [
 <style>
   .trust .fold-head { margin-bottom: 36px; }
 
-  /* industry cards — flex so partial last row centers (no lone stretched card) */
-  .lgrid { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
-  .lcard { position: relative; flex: 0 1 calc(25% - 11px); min-width: 250px; background: var(--bubble); border: 1px solid color-mix(in srgb, var(--green) 16%, transparent); border-radius: var(--r-m); padding: 16px 0 18px; overflow: hidden; box-shadow: var(--shadow-2); }
-  .lcard::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 1px; border-radius: var(--r-m) var(--r-m) 0 0; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--green) 55%, transparent), transparent); }
-  .lcard__label { display: block; text-align: center; font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--bubble-ink-2); padding: 0 16px 13px; margin-bottom: 6px; border-bottom: 1px solid color-mix(in srgb, var(--bubble-ink-2) 18%, transparent); }
-
-  /* subtle marquee inside each card */
-  .lcard__marq { overflow: hidden;
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
-  .lcard__track { display: flex; flex-flow: row nowrap; align-items: center; gap: 34px; width: max-content; padding: 10px 22px; }
+  /* single continuous marquee — every logo, full colour, full-bleed dark panel */
+  .strip { position: relative; width: 100vw; margin-left: calc(50% - 50vw); background: linear-gradient(135deg, color-mix(in srgb, var(--bubble) 85%, var(--green) 15%), var(--bubble) 60%); border-block: 1px solid color-mix(in srgb, var(--green) 16%, transparent); padding: clamp(28px, 3.5vw, 40px) 0; box-shadow: var(--shadow-2); overflow: hidden; }
+  .strip::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 1px; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--green) 55%, transparent), transparent); }
+  .strip__view { overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); }
+  .strip__view + .strip__view { margin-top: clamp(20px, 2.6vw, 30px); }
+  .strip__track { display: flex; flex-flow: row nowrap; align-items: center; gap: 64px; width: max-content; padding: 0 32px; }
   @media (prefers-reduced-motion: no-preference) {
-    /* duration scales with logo count → every card scrolls at the same visual speed */
-    .lcard__track { animation: lmarq calc(var(--n, 5) * 2.2s) linear infinite; }
-    .lcard__track--rev { animation-direction: reverse; }
-    .lcard:hover .lcard__track { animation-play-state: paused; }
+    /* Animation only starts once JS has measured the exact one-set pixel width (.is-ready) —
+       starting immediately off a guessed 50% and correcting it later caused a restart-jump
+       whenever a late-loading logo (e.g. the oversized ones) changed the measured width. */
+    .strip__track.is-ready { animation: sstrip var(--dur, 30s) linear infinite; }
+    .strip__track--rev.is-ready { animation-direction: reverse; }
   }
-  @keyframes lmarq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-  .lchip { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; height: 48px; }
-  .lchip img { width: auto; height: auto; max-height: 34px; max-width: 132px; object-fit: contain; }
+  @media (prefers-reduced-motion: reduce) {
+    .strip__view { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
+    .strip__track [aria-hidden="true"] { display: none; }
+  }
+  @keyframes sstrip { from { transform: translateX(0); } to { transform: translateX(calc(-1 * var(--shift, 50%))); } }
+  .wchip { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; height: 48px; }
+  .wchip img { width: auto; height: auto; max-height: 44px; max-width: 168px; object-fit: contain; }
+  .wchip--lg { height: 72px; }
+  .wchip--lg img { max-height: 72px; max-width: 250px; }
+  .wchip--xl { height: 124px; }
+  .wchip--xl img { max-height: 124px; max-width: 380px; }
 
   /* outcomes */
   .trust__stathead { margin-top: clamp(48px, 6vw, 72px); margin-bottom: clamp(24px, 3vw, 34px); }
@@ -113,3 +119,38 @@ const outcomes = [
     .stat__desc { max-width: 28ch; }
   }
 </style>
+
+<script>
+  // Measure each marquee's true one-set width so the loop point is pixel-exact (no hitch
+  // at the seam), and derive a duration from a fixed px/sec so every row moves at the same
+  // speed regardless of how many logos or how wide they are. The animation only starts
+  // (.is-ready) once every logo in that row has finished loading — starting early off a
+  // guessed width and correcting --shift/--dur while the CSS animation was already running
+  // caused a visible restart-jump, worst on rows with the oversized logos.
+  const PX_PER_SEC = 70;
+  const measureTrack = (track: HTMLElement) => {
+    const chips = Array.from(track.children) as HTMLElement[];
+    const half = chips.length / 2;
+    if (!chips[half]) return;
+    const shift = chips[half].offsetLeft - chips[0].offsetLeft;
+    if (shift > 0) {
+      track.style.setProperty('--shift', `${shift}px`);
+      track.style.setProperty('--dur', `${shift / PX_PER_SEC}s`);
+    }
+  };
+  document.querySelectorAll<HTMLElement>('[data-marquee]').forEach((track) => {
+    const imgs = Array.from(track.querySelectorAll('img'));
+    const ready = imgs.map((img) => img.complete ? Promise.resolve() : new Promise<void>((res) => img.addEventListener('load', () => res(), { once: true })));
+    Promise.all(ready).then(() => {
+      measureTrack(track);
+      track.classList.add('is-ready');
+    });
+  });
+  let resizeTimer = 0;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(() => {
+      document.querySelectorAll<HTMLElement>('[data-marquee].is-ready').forEach(measureTrack);
+    }, 200);
+  });
+</script>

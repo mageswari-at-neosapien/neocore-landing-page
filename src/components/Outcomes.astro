@@ -33,8 +33,8 @@ const shots = ['panasonic-1', 'panasonic-4', 'panasonic-3'].map((f) => `/dashboa
       <h2 class="h2">Turn visibility into <span class="b">better frontline execution.</span></h2>
       <p class="lede">NeoCore makes conversations queryable and comparable, giving leaders the evidence to improve how teams sell and learn.</p>
       <ul class="olist">
-        {outcomes.map((o, i) => (
-          <li class="oitem" class:list={[{ 'oitem--lg': i < 2 }]}>
+        {outcomes.map((o) => (
+          <li class="oitem">
             <span class="iconh iconh--sm" aria-hidden="true" set:html={icons[o.icon]} />
             <div>
               <h3 class="oitem__n">{o.n}</h3>
@@ -90,13 +90,10 @@ const shots = ['panasonic-1', 'panasonic-4', 'panasonic-3'].map((f) => `/dashboa
   .out__copy { max-width: 560px; }
   .olist { margin-top: clamp(24px, 3vw, 38px); display: grid; gap: clamp(18px, 2.2vw, 26px); }
   .oitem { display: flex; gap: 16px; align-items: flex-start; }
-  .oitem__n { font-size: 1.15rem; font-weight: 500; letter-spacing: -0.015em; }
-  .oitem--lg .oitem__n { font-size: clamp(1.3rem, 1.7vw, 1.55rem); }
+  .oitem__n { font-size: clamp(1.3rem, 1.7vw, 1.55rem); font-weight: 500; letter-spacing: -0.015em; }
   .oitem__c { margin-top: 5px; color: var(--ink-2); font-size: .95rem; line-height: 1.5; }
-  .oitem:not(.oitem--lg) .oitem__c { font-size: .9rem; }
   .iconh--sm { width: 46px; height: 46px; border-radius: 13px; flex: none; }
   .iconh--sm :global(svg) { width: 22px; height: 22px; }
-  .oitem:not(.oitem--lg) .iconh--sm { width: 40px; height: 40px; }
 
   /* right-hand visual — live management dashboard with floating UI layers */
   .dashwrap { position: relative; padding: 30px 22px 44px; }
