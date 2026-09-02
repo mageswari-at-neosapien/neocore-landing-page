@@ -40,7 +40,7 @@ Enterprise deal shape: structured pilot (50–250 devices) → measured outcomes
 
 ## Capabilities and Constraints
 
-**Binding brief:** `B2B Landing page brief.md` (repo root), from NeoSapien's head of marketing — self-described single source of truth. Its final copy, fold structure (seven folds), CTA labels, logo rules, and claim rules are mandates, not suggestions. Key hard rules:
+**Binding brief:** `docs/b2b-landing-page-brief.md`, from NeoSapien's head of marketing — self-described single source of truth. Its final copy, fold structure (seven folds), CTA labels, logo rules, and claim rules are mandates, not suggestions. Key hard rules:
 
 - Primary CTA label is always **"Talk to our enterprise team"** → qualification form → redirect to Calendly (https://calendly.com/enterprise-neosapien/30min). Lead saved even if booking isn't completed.
 - **80/20 visual hierarchy**: NeoCore intelligence/dashboards ≥80% of solution visuals; Neo One ≤20%. No device-led heroes, no lifestyle/stock photography, no equal-sized feature-icon flows, no surveillance cues.
