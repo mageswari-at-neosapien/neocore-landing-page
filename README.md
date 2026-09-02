@@ -86,7 +86,7 @@ These are mandates from the brief, not suggestions:
 
 ## Deployment
 
-The production site is configured for `https://neosapien.xyz`
-(see [`astro.config.mjs`](astro.config.mjs)). Run `npm run build` and deploy the
-generated `dist/` directory to any static host. A preview build is live at
-`neocore-site.pages.dev` (Cloudflare Pages, direct upload).
+Set the production URL via the `site` option in [`astro.config.mjs`](astro.config.mjs)
+(currently a placeholder — replace `https://your-production-domain.example` with the
+real domain before launch). Run `npm run build` and deploy the generated `dist/` directory
+to any static host.
