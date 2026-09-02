@@ -1,0 +1,108 @@
+---
+import Layout from './Layout.astro';
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import LeadForm from '../components/LeadForm.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  eyebrow: string;
+  heading: string;
+  headingEmphasis?: string;
+  intro?: string;
+  fullTag?: string;
+  fullHeading?: string;
+  fullNote?: string;
+}
+const { title, description, eyebrow, heading, headingEmphasis, intro, fullTag = 'In full', fullHeading = 'Read the complete terms', fullNote } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <SiteNav />
+  <main id="main">
+    <article class="legal glowsec">
+      <span class="secglow" aria-hidden="true"></span>
+      <div class="shell reveal">
+        <div class="legal__hero">
+          <span class="eyebrow">{eyebrow}</span>
+          <h1 class="display legal__h">
+            {headingEmphasis ? <>{heading}{' '}<span class="b">{headingEmphasis}</span></> : heading}
+          </h1>
+          {intro && <p class="lede legal__lede">{intro}</p>}
+        </div>
+        <div class="legal__highlights">
+          <slot name="highlights" />
+        </div>
+      </div>
+      <div class="shell" id="full-text">
+        <div class="legal__full">
+          <div class="legal__fullhead">
+            <span class="tag">{fullTag}</span>
+            <h2 class="h3">{fullHeading}</h2>
+            {fullNote && <p class="legal__note">{fullNote}</p>}
+          </div>
+          <div class="legal__body">
+            <slot />
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+  <SiteFooter />
+  <LeadForm />
+</Layout>
+
+<style>
+  :global(html) { scroll-snap-type: none; }
+  .glowsec { position: relative; overflow: hidden; }
+  .secglow { position: absolute; right: -14%; top: -4%; width: 700px; height: 600px; border-radius: 50%; pointer-events: none; z-index: 0;
+    background: radial-gradient(circle, var(--green-glow), transparent 66%); filter: blur(34px); }
+  .glowsec .shell { position: relative; z-index: 1; }
+
+  .legal { padding-block: clamp(120px, 14vh, 168px) clamp(64px, 8vh, 96px); }
+
+  /* heading above, full-width grid below — same shape as the homepage Security fold */
+  .legal__hero { max-width: 900px; display: grid; gap: 18px; }
+  .legal__h { font-size: clamp(2.3rem, 4vw, 3.4rem); }
+  .legal__lede { max-width: 62ch; font-size: clamp(1.1rem, 1.5vw, 1.4rem); }
+  .legal__note { color: var(--ink-2); font-size: .95rem; line-height: 1.5; }
+  .legal__highlights { margin-top: clamp(36px, 5vw, 56px); }
+  .legal__highlights:empty { display: none; }
+
+  /* full-width — matches the hero/highlight cards, no separately-capped reading column */
+  .legal__full { margin-top: clamp(56px, 7vw, 88px); padding-top: clamp(40px, 5vw, 56px); border-top: 1px solid var(--hair); }
+  .legal__fullhead { display: grid; gap: 10px; margin-bottom: clamp(32px, 5vw, 48px); max-width: 640px; }
+  .legal__body { min-width: 0; }
+
+  .legal__body :global(section) { padding-block: 0; min-height: 0; scroll-snap-align: none; display: block; }
+  .legal__body :global(.lg-sec) { padding-block: clamp(32px, 4vw, 44px); border-top: 1px solid var(--hair); scroll-margin-top: 110px; }
+  .legal__body :global(.lg-sec:first-child) { border-top: none; padding-top: 0; }
+  .legal__body :global(.lg-h2) { font-size: clamp(1.35rem, 2vw, 1.7rem); font-weight: 500; letter-spacing: -0.015em; margin-bottom: 14px; }
+  .legal__body :global(.lg-num--title) { color: var(--green-text); margin-right: 4px; }
+  .legal__body :global(.lg-h3) { font-size: 1.08rem; font-weight: 600; margin: 20px 0 8px; color: var(--ink); }
+  .legal__body :global(.lg-p) { color: var(--ink-2); font-size: 1rem; line-height: 1.65; margin-bottom: 12px; max-width: 1100px; }
+  .legal__body :global(.lg-p:last-child) { margin-bottom: 0; }
+  .legal__body :global(.lg-num) { color: var(--green-text); font-weight: 600; font-variant-numeric: tabular-nums; margin-right: 6px; }
+  .legal__body :global(.lg-list) { list-style: none; display: grid; gap: 9px; margin: 4px 0 14px; padding-left: 0; max-width: 1100px; }
+  .legal__body :global(.lg-list li) { position: relative; padding-left: 22px; color: var(--ink-2); font-size: 1rem; line-height: 1.6; }
+  .legal__body :global(.lg-list li::before) { content: ""; position: absolute; left: 4px; top: 9px; width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+  .legal__body :global(.lg-table-wrap) { overflow-x: auto; margin: 8px 0 16px; border: 1px solid var(--hair); border-radius: var(--r-m); box-shadow: var(--shadow-1); }
+  .legal__body :global(.lg-table) { width: 100%; border-collapse: collapse; font-size: .94rem; }
+  .legal__body :global(.lg-table th) { text-align: left; background: var(--surface-2); color: var(--ink); font-weight: 600; padding: 10px 14px; border-bottom: 1px solid var(--hair); white-space: nowrap; }
+  .legal__body :global(.lg-table td) { padding: 10px 14px; border-bottom: 1px solid var(--hair); color: var(--ink-2); vertical-align: top; }
+  .legal__body :global(.lg-table tr:last-child td) { border-bottom: none; }
+  .legal__body :global(.lg-note) { color: var(--ink-2); font-size: 1rem; line-height: 1.65; margin-bottom: 12px; }
+  .legal__body :global(.lg-contact) { display: grid; gap: 4px; color: var(--ink-2); font-size: 1rem; line-height: 1.6; margin-bottom: 10px; }
+  .legal__body :global(.lg-contact b) { color: var(--ink); font-weight: 600; }
+
+  /* shared "at a glance" highlight cards — matches homepage fold card language (Security .seccol / .proof) */
+  :global(.hl-grid) { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  :global(.hl-card) { background: var(--surface); border: 1px solid var(--hair); border-radius: var(--r-l); padding: 20px 22px; box-shadow: var(--shadow-1); display: flex; gap: 13px; align-items: flex-start; }
+  :global(.hl-ck) { width: 26px; height: 26px; border-radius: 50%; background: var(--green); color: var(--green-ink); display: grid; place-items: center; font-size: .74rem; font-weight: 800; flex: none; margin-top: 1px; }
+  :global(.hl-t) { font-weight: 600; font-size: 1rem; letter-spacing: -0.01em; }
+  :global(.hl-d) { margin-top: 4px; color: var(--ink-2); font-size: .9rem; line-height: 1.5; }
+  :global(.hl-cta) { margin-top: 24px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+
+  @media (max-width: 560px) { :global(.hl-grid) { grid-template-columns: 1fr; } }
+</style>

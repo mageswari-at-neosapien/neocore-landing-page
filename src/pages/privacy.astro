@@ -1,0 +1,340 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import LeadForm from '../components/LeadForm.astro';
+import LegalSection from '../components/LegalSection.astro';
+
+const principles = [
+  { t: 'Your Audio is Never Stored', d: 'Your audio is processed for transcription and the raw recording is deleted afterwards — only the resulting transcription is kept. Once transcription is complete, the audio is gone, permanently.' },
+  { t: 'You Control Everything', d: 'Delete any conversation or your entire account — your data is removed from our servers and propagated to our backups. Pause recording any time — while paused, audio is never captured or processed.' },
+  { t: 'Secured Encryption, Throughout', d: 'Every step is encrypted: at rest and in transit, with the highest grade of encryption. If someone intercepted your data or stole our servers, all they’d get is meaningless encrypted gibberish.' },
+  { t: 'No Ads. No Tracking. No Selling.', d: 'You pay us. We provide service. That’s it. We never sell your data to advertisers, train AI models on your conversations without explicit opt-in, or track you across the web.' },
+];
+
+const practice = [
+  { t: 'Private Conversation', d: 'Toggle device to "Sleep" mode — capture stops immediately.' },
+  { t: 'Accidental Recording', d: 'Delete a memory from the app — gone in seconds from servers and backups.' },
+  { t: 'Account Deletion', d: 'Delete account from the app — all your data is deleted with confirmation.' },
+];
+
+const commitments = [
+  { t: 'Transparency First', d: 'Clear notice for any data handling changes requiring your explicit consent. Plain English, no legal jargon.' },
+  { t: 'Breach Honesty', d: 'If something goes wrong, we tell you — clearly, without hiding it, and as required by applicable law.' },
+  { t: 'Default Privacy', d: 'Every feature defaults to maximum privacy — you choose to share more, we never force it.' },
+  { t: 'You’re the Customer', d: 'Your data has value to you, not to advertisers. When you’re paying for the product, you’re not the product.' },
+];
+
+const sections = [
+  {
+    id: 'commitment', title: '1. Our Commitment to Privacy',
+    blocks: [
+      { type: 'p', text: 'We are committed to ensuring your personal information remains private and secure. From the design of our products to the integration of AI services, we prioritize privacy and transparency in how we handle your data.' },
+    ],
+  },
+  {
+    id: 'how-we-ensure', title: '2. How We Ensure Your Privacy',
+    blocks: [
+      { type: 'p', text: 'To maintain your trust, we:' },
+      { type: 'list', items: [
+        'Use encryption technologies to secure your data. Your data is encrypted at rest and in transit.',
+        'Regularly audit and test our systems for vulnerabilities.',
+        'Minimize data collection to only what is necessary for functionality.',
+        'Partner only with trusted third-party providers to process data securely.',
+        'Comply with data protection laws and regulations.',
+      ] },
+    ],
+  },
+  {
+    id: 'what-data', title: '3. What Data We Collect and Why',
+    blocks: [
+      { type: 'h3', text: 'A. Personal Information' },
+      { type: 'list', items: [
+        'Account Details: Name, email, and profile information to create and manage your account.',
+        'Payment Information: Details required for secure transactions, processed via third-party providers.',
+      ] },
+      { type: 'h3', text: 'B. Device and App Usage Data' },
+      { type: 'list', items: [
+        'Transcription Data: Audio is processed for transcription and the raw audio recordings are deleted after processing; only the resulting transcriptions and summaries are retained to deliver accurate insights and emotion analysis.',
+        'Processed Data: Information derived from conversations, such as feedback on meeting performance or emotional tone.',
+        'AI Chat Data: Inputs from users engaging with AI chat services for conversation, queries, or assistance.',
+      ] },
+      { type: 'h3', text: 'C. Location Data' },
+      { type: 'p', text: 'With your explicit consent, we collect your location to enable the app to run in the background and to provide location services.' },
+      { type: 'h3', text: 'D. Technical Data' },
+      { type: 'p', text: 'IP address, browser type, and operating system details to improve performance and troubleshoot issues. This data is used solely for internal performance and reliability — we do not use it to track you across third-party websites or services, and we do not sell it to advertisers.' },
+    ],
+  },
+  {
+    id: 'permissions', title: '4. App Permissions Policy for Neo 1',
+    blocks: [
+      { type: 'p', text: 'Neo 1 requires certain permissions to function optimally while ensuring user privacy. Microphone access is essential for voice profile, allowing the app to recognize only the user’s speech and provide personalized insights — other participants’ voices are not identified or stored. For iOS users, notifications must be enabled to receive alerts on listening modes, memory generation, and other important updates. For Android users, notifications, location services, and disabling battery optimization are required to ensure continuous operation without system restrictions. These permissions allow Neo 1 to function seamlessly while maintaining strict privacy controls. Users can manage permissions anytime in device settings.' },
+      { type: 'p', text: 'For more details, contact support@neosapien.ai' },
+    ],
+  },
+  {
+    id: 'how-we-use', title: '5. How We Use Your Data',
+    blocks: [
+      { type: 'p', text: 'We use your data to:' },
+      { type: 'list', items: [
+        'Deliver personalized services, including transcription, emotion analysis, and feedback.',
+        'Provide real-time insights and accurate transcription services.',
+        'Enable AI chat features, where users can engage with conversational AI for assistance.',
+        'Enhance app features and ensure seamless functionality.',
+        'Conduct research and development to improve our services.',
+        'Communicate updates, alerts, and customer support.',
+        'Comply with legal obligations and enforce our Terms of Service.',
+      ] },
+      { type: 'h3', text: 'What we will not do with your data' },
+      { type: 'list', items: [
+        'We will not sell your data to advertisers or any third party.',
+        'We will not train AI models on your conversations without your explicit opt-in consent.',
+        'We will not use your data for purposes outside those listed above without notifying you and obtaining consent where required by law.',
+      ] },
+    ],
+  },
+  {
+    id: 'third-party', title: '6. Use of Third-Party Services',
+    blocks: [
+      { type: 'p', text: 'To deliver certain features, we use trusted third-party services of cloud infrastructure providers, leading foundational LLM models, speech-to-text service providers, and others to process your data. These services assist with:' },
+      { type: 'list', items: [
+        'AI-driven chat capabilities',
+        'Advanced transcription and summarization',
+        'Emotion and sentiment analysis',
+      ] },
+    ],
+  },
+  {
+    id: 'how-processed', title: '7. How We Process Your Data',
+    blocks: [
+      { type: 'p', text: 'Your data is processed securely using the following measures:' },
+      { type: 'list', items: [
+        'Data Encryption: All data is encrypted in transit and at rest.',
+        'Access Control: Restricted access to authorized personnel only.',
+        'Secure Servers: Cloud-based storage with industry-standard security protocols.',
+        'Data Retention: Data such as chat inputs and transcriptions are stored for providing services unless deleted by you.',
+      ] },
+    ],
+  },
+  {
+    id: 'transfer', title: '8. Policies on Data Transfer and Sharing',
+    blocks: [
+      { type: 'p', text: 'We prioritize the confidentiality and security of your data. Data transfer and sharing are conducted solely to provide the services you expect and enhance your experience.' },
+      { type: 'h3', text: 'International Data Transfers' },
+      { type: 'list', items: [
+        'Your data may be transferred to, processed, and stored on servers located in countries outside your residence.',
+        'We ensure such transfers comply with applicable data protection laws.',
+        'Data transfers are conducted using industry-standard safeguards.',
+      ] },
+      { type: 'h3', text: 'Data Sharing Policies' },
+      { type: 'p', text: 'We share your data with:' },
+      { type: 'list', items: [
+        'Payment Providers: To process orders and payments securely',
+        'Logistics Providers: To deliver your Neo 1 device and related accessories',
+        'AI Partners: For features like transcription, chat services, and emotion analysis',
+        'Cloud Storage Providers: For secure storage of your data',
+      ] },
+    ],
+  },
+  {
+    id: 'choices', title: '9. Your Privacy Choices',
+    blocks: [
+      { type: 'p', text: 'You have full control over your data:' },
+      { type: 'list', items: [
+        'Conversation Deletion: Delete any conversation via the app.',
+        'Data Deletion: Request deletion of your account and associated data — your account data is removed from our servers and propagated to our backups without a holding period.',
+        'Pause / Sleep Mode: Toggle the device into Sleep mode at any time — while paused, no audio is captured or processed.',
+      ] },
+    ],
+  },
+  {
+    id: 'protect', title: '10. How We Protect Your Information',
+    blocks: [
+      { type: 'list', items: [
+        'Encrypting data in transit and at rest for data protection',
+        'Regular system audits and updates',
+        'Multi-layered security protocols',
+      ] },
+    ],
+  },
+  {
+    id: 'children', title: '11. Children’s Privacy',
+    blocks: [
+      { type: 'p', text: 'Neo 1 is not intended for children under the age of 13. We do not knowingly collect their data. If we discover such data has been collected, we will delete it promptly.' },
+    ],
+  },
+  {
+    id: 'third-party-links', title: '12. Third-Party Links',
+    blocks: [
+      { type: 'p', text: 'Our app or website may include links to third-party services. We are not responsible for their privacy practices and encourage you to review their policies.' },
+    ],
+  },
+  {
+    id: 'changes', title: '13. Changes to This Privacy Policy',
+    blocks: [
+      { type: 'p', text: 'We may update this policy periodically. Any significant changes will be communicated through email or app notifications. The latest version will always be available on our website.' },
+    ],
+  },
+  {
+    id: 'contact', title: '14. Business Details & Contact Information',
+    blocks: [
+      { type: 'table', head: ['Field', 'Detail'], rows: [
+        ['Address', 'Ground floor, 1- OAR, HAL Airport Road, Murugeshpalya, Bengaluru, Bengaluru Urban, Karnataka, 560017'],
+        ['CIN', 'U86900KA2024PTC183574'],
+        ['Legal Entity Name', 'ZENITHZEPHYR WELLNESS PRIVATE LIMITED'],
+        ['GST Number', '29AACCZ3323J1Z4'],
+        ['General enquiries', 'support@neosapien.ai · +91 80456 80341'],
+        ['Enterprise enquiries', 'enterprise@neosapien.ai'],
+        ['Support hours', 'Monday–Friday, 10 AM–7 PM · 1st & 3rd Saturday, 10 AM–7 PM · Closed Sundays, 2nd & 4th Saturdays and public holidays'],
+      ] },
+    ],
+  },
+];
+---
+
+<Layout
+  title="Privacy Policy · NeoCore for Enterprise"
+  description="Privacy isn't our policy, it's our product. How NeoSapien collects, uses, protects, and shares your data across NeoCore, the Neo 1 wearable and its associated app."
+>
+  <SiteNav />
+  <main id="main">
+    <article class="pv glowsec">
+      <span class="secglow" aria-hidden="true"></span>
+      <div class="shell pv__hero reveal">
+        <span class="eyebrow pv__eyebrow">Legal</span>
+        <h1 class="display pv__h">Privacy isn’t our policy. <span class="b">It’s our product.</span></h1>
+        <p class="lede pv__lede">Your conversations are yours. Your memories belong to you. Your data stays under your control. Always.</p>
+        <p class="pv__sub">Privacy isn’t what we have to do. It’s what we choose to do.</p>
+      </div>
+
+      <div class="shell pv__block reveal">
+        <div class="pv__blockhead">
+          <span class="tag">Core principles</span>
+          <h2 class="h3 pv__h2">The four things that matter</h2>
+        </div>
+        <div class="pv__grid pv__grid--2">
+          {principles.map((p) => (
+            <div class="pv__card">
+              <span class="pv__ck" aria-hidden="true">✓</span>
+              <div>
+                <p class="pv__ct">{p.t}</p>
+                <p class="pv__cd">{p.d}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="shell pv__block reveal">
+        <div class="pv__blockhead">
+          <span class="tag">In practice</span>
+          <h2 class="h3 pv__h2">Control in your hands</h2>
+        </div>
+        <div class="pv__grid pv__grid--3">
+          {practice.map((p) => (
+            <div class="pv__card">
+              <span class="pv__ck" aria-hidden="true">✓</span>
+              <div>
+                <p class="pv__ct">{p.t}</p>
+                <p class="pv__cd">{p.d}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="shell pv__block reveal">
+        <div class="pv__blockhead">
+          <span class="tag">Our commitments</span>
+          <h2 class="h3 pv__h2">What we promise you</h2>
+        </div>
+        <div class="pv__grid pv__grid--2">
+          {commitments.map((p) => (
+            <div class="pv__card">
+              <span class="pv__ck" aria-hidden="true">✓</span>
+              <div>
+                <p class="pv__ct">{p.t}</p>
+                <p class="pv__cd">{p.d}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div class="pv__cta">
+          <a href="#full-policy" class="ghost pv__ghost">Read the full Privacy Policy <span class="ico" aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+
+      <div class="shell pv__full" id="full-policy">
+        <div class="pv__fullhead">
+          <span class="tag">In full</span>
+          <h2 class="h3 pv__h2">The complete policy</h2>
+          <p class="pv__intro">At NeoSapien, your privacy is our priority. This Privacy Policy explains how we collect, use, protect, and share your data when using the Neo 1 wearable and its associated app, including services like transcription, emotion analysis, feedback, and AI chat services.</p>
+        </div>
+        <div class="pv__fullbody">
+          {sections.map((s) => <LegalSection id={s.id} title={s.title} blocks={s.blocks} cards />)}
+        </div>
+      </div>
+    </article>
+  </main>
+  <SiteFooter />
+  <LeadForm />
+</Layout>
+
+<style>
+  :global(html) { scroll-snap-type: none; }
+  .glowsec { position: relative; overflow: hidden; }
+  .secglow { position: absolute; left: 50%; top: -6%; transform: translateX(-50%); width: 900px; height: 560px; border-radius: 50%; pointer-events: none; z-index: 0;
+    background: radial-gradient(circle, var(--green-glow), transparent 66%); filter: blur(34px); }
+  .glowsec .shell { position: relative; z-index: 1; }
+
+  .pv { padding-block: clamp(120px, 14vh, 168px) clamp(64px, 8vh, 96px); }
+
+  /* centered hero, matching the neosapien.ai/privacy reference — no sticky column beside it */
+  .pv__hero { max-width: 760px; margin-inline: auto; text-align: center; display: grid; justify-items: center; gap: 16px; }
+  .pv__eyebrow { justify-content: center; }
+  .pv__h { font-size: clamp(2.1rem, 4vw, 3.1rem); }
+  .pv__lede { max-width: 54ch; }
+  .pv__sub { color: var(--ink); font-weight: 500; }
+
+  /* heading above, full-width card grid below — same shape as the homepage Security fold, no sticky mismatch */
+  .pv__block { margin-top: clamp(56px, 7vw, 88px); }
+  .pv__blockhead { max-width: 640px; margin-bottom: clamp(24px, 3vw, 32px); }
+  .pv__blockhead .tag { margin-bottom: 8px; }
+  .pv__h2 { margin-top: 4px; }
+  .pv__intro { margin-top: 14px; color: var(--ink-2); font-size: .95rem; line-height: 1.5; }
+
+  .pv__grid { display: grid; gap: 14px; }
+  .pv__grid--2 { grid-template-columns: 1fr 1fr; }
+  .pv__grid--3 { grid-template-columns: repeat(3, 1fr); }
+  .pv__card { background: var(--surface); border: 1px solid var(--hair); border-radius: var(--r-l); padding: 22px 24px; box-shadow: var(--shadow-1); display: flex; gap: 13px; align-items: flex-start; }
+  .pv__ck { width: 26px; height: 26px; border-radius: 50%; background: var(--green); color: var(--green-ink); display: grid; place-items: center; font-size: .74rem; font-weight: 800; flex: none; margin-top: 1px; }
+  .pv__ct { font-weight: 600; font-size: 1.05rem; letter-spacing: -0.01em; }
+  .pv__cd { margin-top: 4px; color: var(--ink-2); font-size: .95rem; line-height: 1.55; }
+
+  .pv__cta { margin-top: 26px; display: grid; justify-items: start; gap: 10px; }
+  .pv__ghost { font-weight: 600; }
+
+  /* plain, centered, comfortable-width reading column for the policy text — clean and simple, no sidebar */
+  .pv__full { margin-top: clamp(56px, 7vw, 88px); border-top: 1px solid var(--hair); padding-top: clamp(40px, 5vw, 56px); }
+  .pv__fullhead { display: grid; gap: 10px; margin-bottom: clamp(32px, 5vw, 48px); max-width: 640px; }
+  .pv__fullbody { min-width: 0; }
+
+  .pv__full :global(.lg-sec) { padding-block: clamp(36px, 5vw, 56px); scroll-margin-top: 110px; }
+  .pv__full :global(.lg-sec:first-of-type) { padding-top: 4px; }
+  .pv__full :global(.lg-h2) { font-size: clamp(1.35rem, 2vw, 1.7rem); font-weight: 500; letter-spacing: -0.015em; margin-bottom: 14px; }
+  .pv__full :global(.lg-h3) { font-size: 1.08rem; font-weight: 600; margin: 20px 0 8px; color: var(--ink); }
+  .pv__full :global(.lg-p) { color: var(--ink-2); font-size: 1rem; line-height: 1.65; margin-bottom: 12px; }
+  .pv__full :global(.lg-p:last-child) { margin-bottom: 0; }
+  .pv__full :global(.lg-list) { list-style: none; display: grid; gap: 9px; margin: 4px 0 14px; padding-left: 0; }
+  .pv__full :global(.lg-list li) { position: relative; padding-left: 22px; color: var(--ink-2); font-size: 1rem; line-height: 1.6; }
+  .pv__full :global(.lg-list li::before) { content: ""; position: absolute; left: 4px; top: 9px; width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+  .pv__full :global(.lg-table-wrap) { overflow-x: auto; margin: 8px 0 16px; border: 1px solid var(--hair); border-radius: var(--r-m); box-shadow: var(--shadow-1); }
+  .pv__full :global(.lg-table) { width: 100%; border-collapse: collapse; font-size: .94rem; }
+  .pv__full :global(.lg-table th) { text-align: left; background: var(--surface-2); color: var(--ink); font-weight: 600; padding: 10px 14px; border-bottom: 1px solid var(--hair); white-space: nowrap; }
+  .pv__full :global(.lg-table td) { padding: 10px 14px; border-bottom: 1px solid var(--hair); color: var(--ink-2); vertical-align: top; }
+  .pv__full :global(.lg-table tr:last-child td) { border-bottom: none; }
+
+  @media (max-width: 820px) {
+    .pv__grid--2, .pv__grid--3 { grid-template-columns: 1fr; }
+  }
+</style>

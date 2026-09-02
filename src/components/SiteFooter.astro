@@ -2,10 +2,10 @@
 import BrandLogo from './BrandLogo.astro';
 const year = 2026;
 const links = [
-  { href: '#why-neocore', label: 'Why NeoCore' },
-  { href: '#security', label: 'Security and Privacy' },
-  { href: '#industries', label: 'Industries' },
-  { href: '#faq', label: 'FAQ' },
+  { href: '/#why-neocore', label: 'Why NeoCore' },
+  { href: '/#security', label: 'Security and Privacy' },
+  { href: '/#industries', label: 'Industries' },
+  { href: '/#faq', label: 'FAQ' },
 ];
 ---
 
@@ -24,7 +24,7 @@ const links = [
 
     <div class="foot__top">
       <div class="foot__brand">
-        <a href="#top" class="brand" aria-label="NeoSapien NeoCore, home">
+        <a href="/#top" class="brand" aria-label="NeoSapien NeoCore, home">
           <BrandLogo />
         </a>
         <p class="foot__tag">Frontline conversation intelligence: pitch adherence, coaching and Voice of Customer, across teams, regions and languages.</p>
@@ -35,8 +35,8 @@ const links = [
       </nav>
       <nav class="foot__col" aria-label="Legal">
         <span class="foot__ct">Legal</span>
-        <a href="#" class="foot__link" data-legal="privacy">Privacy Policy</a>
-        <a href="#" class="foot__link" data-legal="terms">Terms</a>
+        <a href="/privacy" class="foot__link">Privacy Policy</a>
+        <a href="/terms" class="foot__link">Terms</a>
       </nav>
     </div>
 

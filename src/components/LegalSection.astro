@@ -1,0 +1,111 @@
+---
+interface Block {
+  type: 'p' | 'list' | 'table' | 'h3';
+  text?: string;
+  items?: string[];
+  head?: string[];
+  rows?: string[][];
+}
+interface Props {
+  id: string;
+  title: string;
+  blocks: Block[];
+  cards?: boolean;
+}
+const { id, title, blocks, cards = false } = Astro.props;
+
+interface CardGroup { h3?: string; blocks: Block[] }
+const groups: CardGroup[] = [];
+let current: CardGroup = { blocks: [] };
+for (const b of blocks) {
+  if (b.type === 'h3') {
+    if (current.h3 || current.blocks.length) groups.push(current);
+    current = { h3: b.text, blocks: [] };
+  } else {
+    current.blocks.push(b);
+  }
+}
+if (current.h3 || current.blocks.length) groups.push(current);
+const isGrid = cards && groups.length > 1;
+
+// a headingless intro group reads oddly squeezed into a half-width card next to lettered
+// sub-sections, so it always spans the full row; if that leaves an odd one out among the
+// remaining (titled) groups, the last of those spans full width too, instead of leaving a
+// blank cell in the grid.
+const wide = new Set<CardGroup>();
+if (isGrid) {
+  const untitled = groups.filter((g) => !g.h3);
+  const titled = groups.filter((g) => g.h3);
+  untitled.forEach((g) => wide.add(g));
+  if (titled.length % 2 === 1) wide.add(titled[titled.length - 1]);
+}
+
+function splitNum(text: string) {
+  const m = text.match(/^(\d+(?:\.\d+)*\.?)(\s+)([\s\S]*)$/);
+  return m ? { num: m[1], rest: m[3] } : null;
+}
+---
+
+<div class="lg-sec" id={id}>
+  {cards ? (
+    <>
+    <h2 class="lg-h2">{title}</h2>
+    <div class:list={['lg-cards', { 'lg-cards--grid': isGrid }]}>
+      {groups.map((g) => (
+        <div class:list={['lg-card', { 'lg-card--wide': wide.has(g) }]}>
+          {g.h3 && <h3 class="lg-h3">{g.h3}</h3>}
+          {g.blocks.map((b) => {
+            if (b.type === 'p') return <p class="lg-p">{b.text}</p>;
+            if (b.type === 'list') return <ul class="lg-list">{b.items!.map((it) => <li>{it}</li>)}</ul>;
+            if (b.type === 'table') return (
+              <div class="lg-table-wrap">
+                <table class="lg-table">
+                  <thead><tr>{b.head!.map((h) => <th>{h}</th>)}</tr></thead>
+                  <tbody>{b.rows!.map((r) => <tr>{r.map((c) => <td>{c}</td>)}</tr>)}</tbody>
+                </table>
+              </div>
+            );
+            return null;
+          })}
+        </div>
+      ))}
+    </div>
+    </>
+  ) : (
+    <>
+    <h2 class="lg-h2">
+      {(() => { const s = splitNum(title); return s ? <><span class="lg-num lg-num--title">{s.num}</span>{s.rest}</> : title; })()}
+    </h2>
+    {blocks.map((b) => {
+      if (b.type === 'p') {
+        const split = splitNum(b.text!);
+        return split
+          ? <p class="lg-p"><span class="lg-num">{split.num}</span>{split.rest}</p>
+          : <p class="lg-p">{b.text}</p>;
+      }
+      if (b.type === 'h3') return <h3 class="lg-h3">{b.text}</h3>;
+      if (b.type === 'list') return <ul class="lg-list">{b.items!.map((it) => <li>{it}</li>)}</ul>;
+      if (b.type === 'table') return (
+        <div class="lg-table-wrap">
+          <table class="lg-table">
+            <thead><tr>{b.head!.map((h) => <th>{h}</th>)}</tr></thead>
+            <tbody>{b.rows!.map((r) => <tr>{r.map((c) => <td>{c}</td>)}</tr>)}</tbody>
+          </table>
+        </div>
+      );
+      return null;
+    })}
+    </>
+  )}
+</div>
+
+<style>
+  .lg-cards { display: grid; gap: 14px; margin-top: 6px; }
+  .lg-cards--grid { grid-template-columns: repeat(2, 1fr); }
+  .lg-card { background: var(--surface-2); border-radius: var(--r-l); padding: clamp(22px, 2.4vw, 32px); }
+  .lg-card--wide { grid-column: 1 / -1; }
+  .lg-card :global(.lg-h3:first-child) { margin-top: 0; }
+  /* fill the card's own width instead of the document reading-measure cap — the box already bounds the line length */
+  .lg-card :global(.lg-p), .lg-card :global(.lg-list) { max-width: none; }
+  @media (max-width: 640px) { .lg-cards--grid { grid-template-columns: 1fr; } }
+</style>

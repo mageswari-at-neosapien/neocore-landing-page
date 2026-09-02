@@ -1,41 +1,22 @@
 ---
 const links = [
-  { href: '#why-neocore', label: 'Why NeoCore' },
-  { href: '#security', label: 'Security and Privacy' },
-  { href: '#industries', label: 'Industries' },
-  { href: '#faq', label: 'FAQ' },
+  { href: '/#why-neocore', label: 'Why NeoCore' },
+  { href: '/#security', label: 'Security and Privacy' },
+  { href: '/#industries', label: 'Industries' },
+  { href: '/#faq', label: 'FAQ' },
 ];
 import BrandLogo from './BrandLogo.astro';
-// Full theme set stays defined in global.css; only Daylight and Yoyo are exposed in the picker.
-const themes = [
-  { id: 'light', label: 'Daylight', ground: '#ececec', accent: '#00df79' },
-  { id: 'yoyo', label: 'Yoyo', ground: '#010101', accent: '#2dd4bf' },
-];
 ---
 
 <header class="nav">
   <div class="shell nav__row">
-    <a href="#top" class="brand" aria-label="NeoSapien NeoCore, home">
+    <a href="/#top" class="brand" aria-label="NeoSapien NeoCore, home">
       <BrandLogo />
     </a>
     <nav class="nav__links" aria-label="Sections">
       {links.map((l) => <a href={l.href} class="nav__link">{l.label}</a>)}
     </nav>
     <div class="nav__actions">
-      <div class="thm" data-theme-menu>
-        <button type="button" class="tglr" data-theme-btn aria-haspopup="true" aria-expanded="false" aria-label="Choose colour theme">
-          <span class="tglr__sw" data-theme-swatch aria-hidden="true"></span>
-        </button>
-        <div class="thm__pop" data-theme-pop role="menu" aria-label="Colour themes" hidden>
-          {themes.map((t) => (
-            <button type="button" class="thm__opt" role="menuitemradio" aria-checked="false" data-set-theme={t.id}>
-              <span class="thm__sw" style={`--sw-g:${t.ground};--sw-a:${t.accent}`} aria-hidden="true"></span>
-              <span class="thm__lbl">{t.label}</span>
-              <span class="thm__ck" aria-hidden="true">✓</span>
-            </button>
-          ))}
-        </div>
-      </div>
       <a href="#pilot" class="pill nav__cta" data-lead-open data-evt="nav_cta_click" data-evt-source="nav">Book a demo <span class="ico" aria-hidden="true">→</span></a>
       <button type="button" class="nav__toggle" data-nav-toggle aria-expanded="false" aria-controls="nav-drawer" aria-label="Open sections menu">
         <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 5h12M3 9h12M3 13h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -59,23 +40,6 @@ const themes = [
   .nav__link { color: var(--ink-2); text-decoration: none; font-size: 1rem; transition: color .16s var(--ease); }
   .nav__link:hover { color: var(--ink); }
   .nav__actions { display: flex; align-items: center; gap: 10px; }
-  .thm { position: relative; }
-  .tglr { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; color: var(--ink-2); border: 1.5px solid var(--hair); transition: color .16s var(--ease), border-color .16s var(--ease); }
-  .tglr:hover { border-color: var(--green); }
-  .tglr__sw { width: 18px; height: 18px; border-radius: 50%; background: var(--ground); border: 1.5px solid var(--ink-3); position: relative; overflow: hidden; }
-  .tglr__sw::after { content: ""; position: absolute; right: -1px; bottom: -1px; width: 10px; height: 10px; border-radius: 50%; background: var(--green); }
-
-  .thm__pop { position: absolute; top: calc(100% + 10px); right: 0; z-index: 60; width: 190px; padding: 6px; display: grid; gap: 2px;
-    background: var(--surface); border: 1px solid var(--hair); border-radius: var(--r-m); box-shadow: var(--shadow-2);
-    max-height: min(72vh, 460px); overflow-y: auto; }
-  .thm__opt { display: flex; align-items: center; gap: 11px; width: 100%; padding: 10px 11px; border-radius: 12px; color: var(--ink-2); font-size: .95rem; font-weight: 500; text-align: left; transition: background .14s var(--ease), color .14s var(--ease); }
-  .thm__opt:hover { background: var(--surface-2); color: var(--ink); }
-  .thm__sw { width: 20px; height: 20px; border-radius: 50%; flex: none; background: var(--sw-g); border: 1.5px solid color-mix(in srgb, var(--ink-3) 60%, transparent); position: relative; overflow: hidden; }
-  .thm__sw::after { content: ""; position: absolute; right: -2px; bottom: -2px; width: 11px; height: 11px; border-radius: 50%; background: var(--sw-a); }
-  .thm__lbl { flex: 1; }
-  .thm__ck { color: var(--green-text); font-weight: 800; font-size: .8rem; opacity: 0; }
-  .thm__opt[aria-checked="true"] { color: var(--ink); }
-  .thm__opt[aria-checked="true"] .thm__ck { opacity: 1; }
   .nav__toggle { display: none; width: 42px; height: 42px; border-radius: 50%; border: 1.5px solid var(--hair); color: var(--ink-2); place-items: center; }
   .nav__drawer { margin-top: 12px; }
   .nav__drawer-in { background: var(--surface); border: 1px solid var(--hair); border-radius: var(--r-m); padding: 10px; display: grid; gap: 2px; box-shadow: var(--shadow-2); }

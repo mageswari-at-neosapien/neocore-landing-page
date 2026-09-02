@@ -24,14 +24,8 @@ const {
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#ebebeb" />
     <script is:inline>
-      // No-flash theme: explicit user choice (localStorage) → Daylight default
-      (function () {
-        try {
-          var t = localStorage.getItem('neo-theme') || 'light';
-          document.documentElement.setAttribute('data-theme', t);
-        } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
-        document.documentElement.classList.add('js');
-      })();
+      document.documentElement.setAttribute('data-theme', 'light');
+      document.documentElement.classList.add('js');
     </script>
   </head>
   <body>
@@ -68,34 +62,6 @@ const {
       // Lead form submissions (LeadForm.astro) POST to this endpoint — currently a Google
       // Apps Script Web App that appends each lead as a row in a Sheet.
       window.NEO_LEAD_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzqaQJQeVYOHs2Mz6p5SXbhDdjGYr_ji7vCvd8NqUEfOOIiSXCH4-0zaH1S6_4ZEGSraQ/exec';
-      // ---- Theme menu (Daylight / Midnight / Slate / Sand) ----
-      const root = document.documentElement;
-      const themeMenu = document.querySelector<HTMLElement>('[data-theme-menu]');
-      if (themeMenu) {
-        const btn = themeMenu.querySelector<HTMLButtonElement>('[data-theme-btn]')!;
-        const pop = themeMenu.querySelector<HTMLElement>('[data-theme-pop]')!;
-        const opts = Array.from(themeMenu.querySelectorAll<HTMLButtonElement>('[data-set-theme]'));
-
-        const mark = () => {
-          const cur = root.getAttribute('data-theme') || 'light';
-          opts.forEach((o) => o.setAttribute('aria-checked', String(o.dataset.setTheme === cur)));
-        };
-        const setTheme = (t: string) => {
-          root.setAttribute('data-theme', t);
-          try { localStorage.setItem('neo-theme', t); } catch {}
-          mark();
-        };
-        const open = (o: boolean) => { pop.hidden = !o; btn.setAttribute('aria-expanded', String(o)); };
-
-        mark();
-        btn.addEventListener('click', (e) => { e.stopPropagation(); open(pop.hidden); });
-        opts.forEach((o) => o.addEventListener('click', () => { setTheme(o.dataset.setTheme!); open(false); }));
-        document.addEventListener('click', (e) => {
-          if (!pop.hidden && !themeMenu.contains(e.target as Node)) open(false);
-        });
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') open(false); });
-      }
-
       // ---- Analytics (brief §5): data-evt (click) / data-evt-view (first view) ----
       window.dataLayer = window.dataLayer || [];
       window.neoTrack = (event, detail = {}) => window.dataLayer.push({ event, ...detail, ts: Date.now() });
